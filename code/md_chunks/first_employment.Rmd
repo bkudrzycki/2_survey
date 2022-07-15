@@ -1,0 +1,171 @@
+---
+title: "First Employment Experience"
+author: "Bart Kudrzycki"
+date: "3/24/2021"
+output: html_document
+latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+# Package names
+packages <- c("here", "tidyverse", "survey", "ggplot2", "gtsummary")
+
+# Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+# Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+rm(installed_packages, packages)
+
+setwd("~/polybox/Youth Employment/Thesis")
+source(here("R", "calculations", "transition_duration.R"))
+```
+
+```{r stats, echo=FALSE}
+grad_w <- svymean(~graduation_age3, sstrat, na.rm=TRUE)
+first_emp_w <- svymean(~first_employment_age3, sstrat, na.rm=TRUE)
+first_wage_w <- svymean(~first_wage_age3, sstrat, na.rm=TRUE)
+first_self_w <- svymean(~first_self_age3, sstrat, na.rm=TRUE)
+tr_age_w <- svymean(~transition_age3, sstrat, na.rm=TRUE)
+first_act <- ys_panel$first_act2
+first_job <- ys_panel$first_job2
+
+grad_median_w <- svyquantile(~graduation_age3, sstrat, quantiles = 0.5, na.rm=TRUE)
+
+```
+
+*In this chunk we answer the questions: at what age do urban youth in Benin get their first job? How do job characteristics differ between first jobs and youth who have been working for over a year (more formal? more satisfied?)*
+
+### When do youth leave school? (Graduation age)
+The ILO considers the onset of the school-to-work transition to be the school leaving age, as do several studies of the school-to-work transition in OECD countries (Bowers 1998, Quiniti 2014). The weighted mean school leaving age (defined as age in last recorded period of apprenticeship or schooling) for urban youth in Benin is `r round(grad_w, 2)`. The median school-leaving age is `r grad_median_w`: in comparison, \cite{quintini2014} find median school-leaving ages of 21-22 in advanced economies, 17-18 in Brazil, India, Indonesia, Mexico and Turkey, and 19-20 in Argentina, Chile, and South Africa. We thus expect to also observe school-leaving ages of under 20 given Benin's level of development. In other words, the school-leaving age of urban youth in Benin is comparable to that of youth in Canada, France, and the United States of America. The distribution of school-leaving ages is approximately normal (shown below).
+
+```{r age_plot, echo=FALSE, warning = FALSE}
+transitions3 %>% mutate(graduation_age3 = graduation_age3 + 0.5) %>% 
+  ggplot(aes(x = graduation_age3)) + 
+  geom_bar(aes(y = (..count..)/sum(..count..))) +
+  labs(x = "graduation age",
+         y = "frequency")
+```
+
+```{r never_school, include = FALSE}
+df2 <- ys_panel %>% filter(wave == 0) %>% mutate(never_grad = ifelse(YS3_15 == 0, 1, 0))
+sstrat2 <- survey::svydesign(id = ~reg_id + act_id, strata = ~region + activite, prob = ~prob, data = df2, fpc = ~reg_Nh + act_Nh, nest= TRUE)
+```
+
+Very few urban youth have never been in education: only `r round(svymean(~never_grad, sstrat2, na.rm=TRUE)*100, 2)`% of youth report having no education, in contrast to 28.8% of youth aged 15-29 who reported having no education in the SWTS. Again, this points to major differences in school attendance in urban and rural areas (can check SWTS!).
+
+###  At what age do youth get their first employment experience? Do they enter the labor market as wage employees, self-employed, or NEET?
+The first employment age of youth is `r round(first_emp_w, 2)` years. There is no significant difference in the age of transition in either type of employment:  `r round(first_wage_w, 2)` for wage employment vs. `r round(first_self_w, 2)` for self-employment.
+
+```{r paths, include = FALSE}
+x <- transitions3 %>% select(IDYouth, c(act13:act20))
+ever_emp <- x %>% 
+  filter_all(., any_vars(. %in% c("Employed", "Self-Employed"))) %>% nrow()
+ever_self <- x %>% 
+  filter_all(., any_vars(. == "Self-Employed")) %>% nrow()
+ever_wage <- x %>% 
+  filter_all(., any_vars(. == "Employed")) %>% nrow()
+
+only_self <- x %>% 
+  filter_all(., any_vars(. == "Self-Employed")) %>%
+  filter_all(., all_vars(. != "Employed"))
+
+only_wage <- x %>% 
+  filter_all(., any_vars(. == "Employed")) %>%
+  filter_all(., all_vars(!grepl("Self-Employed", .)))
+    
+no_past_work <- nrow(x)- ever_emp
+
+first_job2 = table(transitions2$first_job2)
+first_job3 = table(transitions3$first_job3)
+```
+
+At the time of the baseline, `r no_past_work` youth (`r round(no_past_work/nrow(x)*100, 2)`%) had not had a first employment experience. 
+
+Using method 2, we establish that `r round(first_job2[1]/sum(first_job2)*100,2)`% of `r sum(first_job2)` youth who find employment enter the labor market in wage employment. `r round(first_job2[2]/sum(first_job2)*100, 2)`% of `r sum(first_job2)` enter the labor market as self-employed.
+
+Using the pooled method, `r round(first_job3[1]/sum(first_job3)*100,2)`% of the `r sum(first_job3)` youth who experience employment start with wage employment. `r round(first_job3[2]/sum(first_job3)*100,2)`% of the `r sum(first_job3)` enter the labor market as self-employed.
+
+There are no significant gender differences in whether youth enter the labor market as wage employed, self-employed, or NEET. Significantly fewer youth enter the labor market as self-employed than wage employed, suggesting the need to accumulate capital before being able to set up an own business.
+```{r first_act}
+ys_panel %>% 
+  filter(wave == 0) %>% 
+  tbl_summary(by = sex,
+            include = c(sex, first_act2),
+            missing = "no") %>% 
+  add_overall() %>% 
+  add_p()
+```
+
+```{r first_act_yeduc}
+ys_panel %>% 
+  filter(wave == 0) %>% 
+  tbl_summary(by = yeduc,
+            include = c(yeduc, first_act2),
+            missing = "no") %>% 
+  add_overall() %>% 
+  add_p()
+```
+
+```{r first_act_formapp}
+ys_panel %>% 
+  filter(wave == 0) %>% 
+  tbl_summary(by = formapp,
+            include = c(formapp, first_act2),
+            missing = "no") %>% 
+  add_overall() %>% 
+  add_p()
+```
+
+Only about a quarter of youth who completed an apprenticeship were inactive or unemployed directly after finishing school, compared to 40% of those who had not completed an apprenticeship.
+
+### How do the jobs of labor market entrants differ from established labor market participants?
+
+```{r first_job, include = FALSE}
+# filter out youth who had work experience before baseline
+ys_panel_labels <- ys_panel_labels %>% mutate(past_first_job = ifelse(act13 %in% c(6,7) | act13 %in% c(6,7) | act14 %in% c(6,7) | act15 %in% c(6,7) | act16 %in% c(6,7) | act17 %in% c(6,7) | act18 %in% c(6,7) | act19 %in% c(6,7), 1, 0))
+                                                       
+```
+
+
+```{r first_job_table, echo = F}
+df <- ys_panel_labels %>% filter(wave == "YS") %>% 
+  mutate(days_worked = coalesce(YS8_17, YS8_18)) %>% 
+  mutate_at(c("YS8_15", "days_worked", "YS8_19", "YS8_26", "YS8_28", "YS8_29", "YS8_35"), as.numeric) %>% 
+  mutate_at(c("YS8_4", "YS8_5", "YS8_9", "YS8_10", "YS8_11", "YS8_12", "YS8_24", "YS8_26"), as.character)
+
+sstrat <- survey::svydesign(id = ~reg_id + act_id, strata = ~region + activite, prob = ~prob, data = df, fpc = ~reg_Nh + act_Nh, nest= TRUE)
+
+sstrat %>% 
+  tbl_svysummary(
+    by = past_first_job,
+    include = c(past_first_job, YS8_4, YS8_5, YS8_9, YS8_10, YS8_11, YS8_12, YS8_15, days_worked, YS8_19, YS8_24, YS8_26, YS8_28, YS8_29, YS8_33, YS8_35),
+    type = list(c(YS8_4, YS8_5, YS8_9, YS8_10, YS8_11, YS8_12, YS8_24, YS8_26) ~ "categorical",
+                c(days_worked) ~ "continuous"), 
+    statistic = list(all_categorical() ~ "{n_unweighted} / {N_unweighted} ({p}%)",
+                     all_continuous() ~ "{mean}"),
+    missing = "no") %>% 
+  modify_header(stat_by = "**{level}** N={n_unweighted} ({style_percent(p_unweighted)}%)", label ~ "") %>% 
+  add_overall()
+
+
+    
+```
+
+The majority of wage employed youth had already had past employment experience. First-time entrants were more likely to be in irregular employment and less likely to have a single employer. They were more likely to have no contract (82% to 58%) and much less likely to have a written contract (26%). They are more likely to be working on a limited basis (78% to 52%) and less likely to be on a permanent contract (22% to 48%).
+
+### What paths do youth take to their first jobs?
+
+`r ever_emp`, or `r round(ever_emp/nrow(x)*100, 2)`%, of youth report having ever been employed at some point in the past seven years; `r ever_self`, or `r round(ever_self/nrow(x)*100, 2)` %, of youth report being self-employed at some point in the past seven years; and `r ever_wage`, or `r round(ever_wage/nrow(x)*100, 2)`%, of youth report having wage employment at some point in the past seven years.
+
+`r ever_emp - nrow(only_self)-nrow(only_wage)` youth have gone through phases of both self and wage employment in the past seven years, or `r round((ever_emp-nrow(only_self)-nrow(only_wage)) / ever_emp*100, 2)`% of all youth who have seen any type of employment. `r nrow(only_self)`, or `r round(nrow(only_self) / ever_emp *100, 2)`%, of these youth have been exclusively self-employed, whereas `r nrow(only_wage)`, or `r round(nrow(only_wage) / ever_emp *100, 2)`% have been exclusively wage-employed.
+
+
+
+**FAZIT: First jobs are more likely to be informal, as in Cunningham. Too few observations for first labor market wage jobs to draw conclusions**
+
+
+

@@ -6,7 +6,9 @@ author:
 header-includes:
   - \usepackage{setspace}
 date: \today
-abstract: |
+abstract: | 
+  This paper uses a novel longitudinal dataset of 752 youth living in Cotonou, Benin, collected over 2 years, to characterize the school-to-work transition in a highly informal, urban environment. The baseline survey was conducted face-to-face in Cotonou, followed by three mobile-phone based surveys conducted over the course of the next year. The contribution is three-fold: first, we estimate the duration and age of transition to the labor market using both reported employment and education histories and the panel data. Second, we analyze transition matrices to systematically study the paths youth take between states of schooling, training, inactivity, and formal and informal employment. Finally, we use reported life satisfaction and various other measures of well-being to estimate the effect of transitioning successfully to the labor market and, conversely, the potential psychological costs of unsuccessful transition. We find evidence of queuing for wage jobs: relatively well-educated youth endure long periods of inactivity waiting for wage employment. Even wage jobs are informal and low-paying, and almost none fulfill the ILO formality criteria. Quantifying the transition, we find that the average youth in our sample needs between 5.18 and 18 months to find their first employment after graduation and between 23 and 27 months to find steady employment - among the shortest among sub-Saharan African countries for which data exists. Transition propensities show that casual, but full-time work following a spell of inactivity is the most common path taken to employment; it is more likely to occur directly after graduation for men than from women. Finally, we find that youth who have transitioned to the labor market experience more life satisfaction, though no effect is detected for particular types of transitions.
+  
 thanks: |
   Thanks to Dario for the Markdown template.
 keywords: [Informal labor markets, Dual training, Apprenticeship]
@@ -50,11 +52,309 @@ source("../functions/add_by_n.R")
 ggplot2::theme_set(ggplot2::theme_bw())  ## (sets the ggplot2 theme to theme_bw)
 ```
 
+The transition to the labor market marks a critical point in the productive and social development of young individuals. Delayed entry into formal employment has been shown to depress future earnings in high-income and developing countries alike [@bridges2017], while a semipermanent state of "waithood" is commonly reported among youth (particularly males) in Sub-Saharan Africa, impeding their social integration and reducing the self-worth of those unable to find employment [@mains2011; @honwana2012].
+
+The dynamic process of the school-to-work transition (SWT), including all the activities of young people between full-time schooling and stable employment, is best studied with detailed, longitudinal data; as a result, most studies of the SWT have been conducted in developed countries [@nilsson2019}. In addition to data scarcity, the informality inherent to most youth labor markets in the developing world make traditional data sources insufficient to capture the details of the SWT. While the path from formal education to formal employment is sequential and quantifiable, the path to the informal sector is more complicated, often leading through halting periods of formal education and informal training, stints at the family household enterprise, prolonged school absences or repeated years, and periods of complete economic inactivity. Official labor market data in developing countries is often too infrequent and unreliable to capture such dynamics. 
+
+In this paper, we use novel, longitudinal data from a survey conducted with 752 youth from Cotonou, Benin to quantify various aspects of the school-to-work transition in the type of urban, highly informal economy that is absorbing ever-increasing numbers of youth in SSA. In addition to detailing the lives of both working and unemployed youth, we make three contributions. First, a combination of youth event history and a detailed four-wave panel is used to estimate the age of school-leaving, first employment, and first steady employment. Second, we use the panel data to map out young people's transition between schooling and training, wage employment, self-employment, and inactivity, as well as their propensity to move between more differentiated employment states, such as casual and formal wage employment. Finally, we leverage the panel data to estimate the effect of various transitions on youth well-being, as measured by reported life satisfaction.
+
+The next section reviews the literature on the SWT in developing countries and the hypotheses to be explored in the paper. In section 3, we describe the data and methodology. Section 4 contains analysis and results. Section 5 concludes.
+
+# Literature Review
+
+While there is a growing literature on labor markets in areas with high youth population growth, studies examining the school-to-work transitions using microdata are limited. 
+
+@bridges2017 use the Tanzania Household Urban Panel Survey to study how first experiences in the labor market effects future earnings, and find that school-leavers who immediately find a wage job, particularly in the formal sector, experience a future wage premium. In lieu of earnings data, this paper studies the effects of transition on youth well-being as measured by self-reported life satisfaction. Using the ILO's School-to-Work Transition Surveys, @matsumoto2010 focus on the differences between youth employment outcomes in rural and urban areas, and find rural economies to be characterized by higher rates of family work, agriculture, and labor market participation. Our choice to focus on the urban setting is informed by these findings, which point to major qualitative differences between urban and rural labor markets in developing countries.
+
+Existing work on transitions between employment states has focused on adult workers. @cunningham2011} study panel labor force surveys from Argentina, Brazil, and Mexico and find that short spells in the informal sector are often followed by a move to formal, wage-sector positions for a longer duration, and finally followed by entry into self-employment at a more advanced age.  Looking at different income groups, the authors find that the poor experience a higher rate of entry to work upon leaving school, the same duration in jobs, and equal entry rates to formal wage employment, but are more likely to transition between states. @nordman2014} collect work histories from working-age individuals in Ouagadougou, Burkina Faso to identify a strong effect of family networks on the probability of transition from unemployment to employment and from self-employment to wage employment (but not from wage employment to self-employment). We apply a similar approach focusing on youth only, and emphasizing the determinants of youths' transition from school to first employment and steady employment, rather than adult workers' transitions between different employment states.
+
+Methodologically, both cross-sectional and longitudinal data have been used to quantify the school-to-work transition. Cross-sectional data can be used to estimate the transition duration by subtracting the age at which 50 percent of  the  population  has  left  school  from  the  age  at  which  50  percent  of  the  population  has  found work.  @quintini2007 and @quintini2014 use this approach to report transition duration in advanced economies, along with mean school-leaving and first employment ages. For longitudinal studies,  the  mean  transition  duration,  reported  for  example  in  @quintini2007},  the  non-inclusion of youth still in transition will bias results.  Survival analysis is often used to account for this right-censored nature of the data [@nordman2015; manacorda2017]. @manacorda2017 apply survival analysis to SWTS data from 23 lower-middle and lower income countries and report similar transition times to first employment as @quintini2014, but considerably longer transitions to permanent employment (11 year average for five countries in SSA, including Benin). We complement a similar analysis of retrospective work history data with a unique year-long panel, and focus only on our sample of urban youth.
+
+# Data and Methodology
+
+Youth were selected randomly from a census of 4,905 households representative of the city of Cotonou, Benin's economic center and de facto administrative capital. The census was conducted exclusively for the purposes of this study in August 2019 and covered the communes of Abomey-Calavi, Cotonou, and Sèmè-Kpodji, which together constitute the Cotonou metropolitan area (Figure \ref{fig:litt}).
+
+\begin{figure}[H] \caption{\label{fig:litt} Geographic Coverage of Survey}
+\centering
+\makebox[.8\textwidth][c]{\includegraphics[width=.75\textwidth]{figures/littoral_carte}}
+\end{figure}
+
+A total of 19,032 individuals was covered by the census, with the 3,395 non-apprentices aged 20-29 constituting the sample frame for the survey (Table 1) Because school attendance rates among younger respondents were found to be very high --- more than 70% of the 15- to 19-year-olds covered by the census --- youth aged 20-29 were surveyed, rather than the age range of 15-29 years use by the International Labour Organization (ILO), in order to shift the focus of the study from schooling to labor market outcomes.
+
+\begin{table}[H]\caption{\label{tab:census}Census of 13 zones de dÃ©nombrement}
+\centering \small
+\input{tables/census}
+\footnotesize
+\hspace{-2.5cm} Non-apprentices aged 20-29 (N=3,395) constitute the sample frame for the survey
+\end{table}
+
+A two-stage clustered sampling approach was employed to select the 752 youth interviewed in the face-to-face baseline survey, conducted in August 2019. Zones de denombrement (ZDs), the smallest administrative divisions in Benin, consituted the primary sampling unit (PSU). These were selected with probability proportional to size (PPS) of the total number of ZDs in each of the five regions chosen for the sampling frame, and the sample was then stratified according to youth activity. Activity strata are proportional to the relative frequency of each activity appearing in the census. Sample weights are given by the inverse probability of selection of a youth into the sample (Deaton, 1997), given their reported activity during the census and their ZD of residence. This probability is calculated as follows:
+
+$$\pi_i = \left(\frac{n^{ZD}_i}{N^{ZD}_i}\right) \left(\frac{n^{act}_i}{N^{act}_i}\right),$$
+
+\noindent where $n^{ZD}_i$ is the number of ZDs selected from the arrondissement of youth $i$, $N^{ZD}_i$ is the total number of ZDs in that arrondissement, $n^{act}_i$ is number of youth in the census with the same activity as youth $i$, and $N^{act}_i$ is the total number of youth reporting this activity in the census. Sampling weights are then given by:
+
+$$w_i = (n\pi_i)^{-1}.$$
+
+\noindent These weights are used for the calculation of means unless stated otherwise.
+
+Following the baseline survey in August 2019, three follow-up surveys were conducted by mobile phone in November 2019, April 2020, and September 2020 respectively. An in-person endline was conducted in the summer of 2021. The panel suffers an attrition rate of between 9% and 19% per survey round, with an overall attrition rate of 34% over the course of the first year of the survey (until the third follow-up survey). This is high but in line with remote longitudinal surveys in developing countries [@demombynes2013, ballivian2015}. However, a large proportion of non-respondents were recovered for the endline, resulting in a final attrition of just 24%. The largest drop in response rate, between the first and second follow-up surveys, is likely related to the timing of the second phone-based survey, which took place in the early phases of Benin's response to the global Covid-19 pandemic. To test for biased respondent attrition, we test for equality in time-invariant characteristics across survey waves. Table \ref{tab:attrition} in the Appendix indicates that attrition is neither associated with respondent activity at baseline, nor with their sex, age, or education. Thus, we proceed with the analysis assuming random attrition.
+
+\begingroup
+\setlength{\LTleft}{-20cm plus -1fill}
+\setlength{\LTright}{\LTleft}
+\footnotesize{
+\input{tables/gendergentable}
+}
+\endgroup
+
+\subsection{Descriptive Statistics}
+
+Youth characteristics at baseline are presented in Table 2. Young women take on the responsibilities of parenthood earlier than young men, potentially slowing their transition to the labor market: they are more than twice as likely to have at least one child, and have two times as many children on average. Women are also much more likely to report residing in the home of their (male) partner --- virtually all respondents (99%) who reported "living with their spouse" were women --- and owning physical assets such as smartphones, computers, and motorcycles.
+
+\subsection{Youth in Education or Training}
+Many youth in Cotonou are still in school in their 20s --- representing almost a third of 20-29 year old youth in the census, and 22% of our sample. Even youth who have already left the education system (and thus have both less schooling on average and are less likely to continue accruing it) report having completed a mean of 11.2 years of school --- much higher than the 5.7 years for 20- to 24-year-olds and the 4.4 years for 25- to 29-year-olds in Benin estimated in 2010 by @barro2013}.
+
+Among students, about 20% attend a private university, and 75% have to pay tuition fees. School fees vary: 30% of university students pay negligible fees (less than 30 CHF per year), while nearly 20% report paying over 300,000 FCFA (490 CHF) annually. The overwhelming majority are supported financially by their parents. Few students supplement their studies with external practical training, with only 13% of student having participated in a (generally unpaid) internship at private firm in the year prior to the survey. 
+
+Table \ref{tab:eductable} in the Appendix details the educational attainment of youth by their activity at baseline. The similarity in upper education completion rates for employed and inactive youth are strongly suggestive of a queuing phenomenon, in which qualified youth endure long stints in unemployment while waiting for an offer from a limited pool of wage employers @serneels2007}. Moreover, educated youth are more likely to be inactive than to be self-employed: self-employed youth in our sample have completed primary education at half the rate of the NEET youth, and are 50% less likely to hold a baccalauréate or university diploma. In fact, a greater proportion of NEET youth holds a Bachelor's degree (License) than the employed, exemplary of the preponderance of the so-called "educated unemployed" observed throughout sub-Saharan Africa (see, for example, @matsumoto2010}). 
+
+\subsection{Youth in Employment}
+Benin has a highly informal economy, with an estimated 70% of GDP and 95% of employment generated by the informal sector @benhassine2018}. As is the case in most of SSA, young workers are particularly likely to be employed in informal work. The ILO defines informal workers as all those employed by small, unincorporated firms (under five workers), the self-employed, and any wage worker not covered by social protection through their employer, including non-wage workers contributing to a family business @sumberg2021}. Indeed, of the 289 youth engaged in some income-generating activity at survey baseline (38% of the sample), over 95% would be considered informal workers by the ILO. Even using a less stringent definition of informality ---one that only considers family workers, the self-employed with under five employees, and wage workers with no contract as informal --- 74% of employed youth in our sample work informally. 
+
+Table \ref{tab:eductable} in the Appendix reports work characteristics of employed youth by educational attainment. We find a clear correspondence between education and various alternative indicators of job formality. The informality rate falls with education level and is lowest for those with tertiary education: two thirds of university graduates work informally, compared to 90% of those with no more than primary education. Only 8.3% of those who did not finish primary school report working under a written contract, compared to 38.8% of those who completed tertiary education. The fraction of youth with a single steady employer increases from 5.3% of those with no education to 36.6% of those who have attended university, while the percentage of youth working in white-collar jobs increases from 5.3% to 23.6%. A university education is associated with a higher likelihood of having a steady employer and a written contract, but given the scarcity of such employers, also with a lower probability of finding a job, providing additional support for the queuing hypothesis.
+
+Only a quarter of the self-employed report hiring any employees, supporting the view that self-employed youth support themselves less as established entrepreneurs with growth potential and more as irregular laborers or petty traders. Even firm owners with hired labor operate small, informal businesses: of those who hire at least one worker, only 23% are registered with the Benin Chamber of Commerce and Industry. An even smaller fraction possesses any of the required documentation, including a registration number with the national statistical agency (INSAE) or the professional identification (carte professionelle) required by law. Just 6% are members of a union or trade association; aside from union membership fees, not a single self-employed youth reported making contributions to a social security or employee benefits program. A lack of access to financing and basic infrastructure like electricity and market competition appear to be the primary concerns of the self-employed. Lack of access to finance is reflected in the very low rates of self-employed youth who use credit: only 32 firm owners reported having a bank account, and just five firms out of 143 (3.5%) reported currently possessing any outstanding loans. This corresponds to the norm for Sub-Saharan Africa, where lack of financing constitutes one of the major obstacles to private sector growth (see @aryeetey1998; @abor2006; and @quartey2017]).
+
+\begin{table}[H]
+  \caption{Where do you see yourself in five years?}
+    \small
+    \centering
+    \label{tab:fiveyrs}
+	\input{tables/fiveyrs}
+\end{table}
+
+Table \ref{tab:fiveyrs} tabulates the responses of self-employed, wage employed, and NEET youth to the question, "What do you see yourself doing in five years?" More employed youth envision themselves starting their own business than working for their current or a different employer. Moreover, wage workers reported the lowest levels of satisfaction with their current activity. Thus, despite its common characterization as the "ideal" employment situation, wage employment appears to be neither inherently stable nor particularly satisfactory --- at least in the early stages of a career. On the other hand, over a quarter of the self-employed expect to be working for an employer in five years, suggesting that many youth do not see self-employment as an absorbing state, either, but rather an intermediate step on the way to wage employment. In sum, youth expect to be in substantial flux between self- and wage employment, though a higher fraction of youth expect to be in self-employment in five years than to be employed for a wage.
+
+\subsection{Youth Not in Employment, Education, or Training (NEET)}
+
+As youth in low-income countries spend increasing periods of time in the education system, employment and unemployment rates, which reflect the proportion of the employed and unemployed relative to the whole population, become less informative. For this reason, it is useful to refer to the rate of youth neither in education, employment, nor training (NEET) as an indicator of the most vulnerable individuals. Within NEET, it is possible to differentiate between active job-seekers and the inactive - those youth who have given up on looking for work. Four out of five NEET youth in the sample reported actively looking for a job at the time of the baseline survey; 74 percent of the inactive are young women who have presumably entered traditional home-making and childbearing roles. Over two thirds of youth in this category report never having been employed, and nearly half had been out of work for over six months.
+
+Young job-seekers blame weak labor market demand and their own inadequate skills for their difficulties in securing employment. A shortage of employer demand and their own lack of work experience and training represent the most commonly listed difficulties: at least one of these being mentioned by 148 of 257 youth (58%) in the subsample. 26% said they did not know where to look, while 16% cited unsatisfactory working conditions or unacceptably low wages offered at available jobs. Among those responding "other", many elaborated on the above categories (e.g., "No jobs in political science"), pointed to their lack of means or connections, or were unable to identify any obstacles at all; three women listed maternity.
+
+The sharp increase in education rates among urban African youth has increased the overall pool of human capital and better positioned youth for success on the labor market. However, by driving up reservation wages, increasing educational attainment also has the potential to turn youth from "creators" to "seekers" of jobs [@baah-boateng2013]. We find that reservation wages rise with increasing education. Higher reservation wages can be explained by a combination of sunk costs for education, high potential rewards for "waiting it out" for a public sector job. Moreover, households with the means to put their children through school are also more likely to support them during an extended job search.
+
+When asked where they see themselves in 5 years, NEET youth were decidedly optimistic. Table 5 shows that less than 3 percent expected to still be searching for work and over 90 percent envisaged themselves working either for themselves or an employer. The majority (69.7 percent) of youth in this category saw themselves running their own business. The rate of NEET youth who foresee themselves working in a wage job (21.2%) is almost double the actual wage-employed rate observed in our regional census (11.7%), however - despite this subgroup having completed less schooling than wage-employed youth on average.
+
+\section{Results}
+
+\subsection{Transition age and duration}
+
+Evidence from developed countries suggests that protracted unemployment spells, including extended school-to-work transitions, negatively affect future earnings and employment prospects. Based on youth work histories from a sample of 28 lower- and middle-income countries, @manacorda2017] show that, despite the demographic pressures placed on labor markets by the youth bulge in SSA, transition durations are significantly lower in low-income countries than middle- and high-income countries. The authors point to extreme poverty and a lack of unemployment insurance as two factors likely reducing reservation wages and pushing youth into employment. 
+
+We use two separate sets of longitudinal data investigate the paths youth take from the moment of leaving school to labor market entry and attachment. The first is retrospective data on 667 youth on their primary activities in each of the seven years previous to the survey, i.e. 2013-2019. We refer to this as "event history" data. Each of the nine possible responses is mapped to one of the five activities used for classification in Section 2 (apprenticeship, self-employment, employment, school, or NEET). Second, we use the observations from the baseline and three follow-up survey conducted over approximately one year between August 2019 and September 2020. We refer to this as the "panel data". To characterize the school-to-work transition for our sample of urban Beninese youth, we first calculate five properties of the SWT: the graduation age, first employment age, age at which youth reach "steady" employment (employment states from which there is no reversion to schooling or inactivity in the data), and the transition duration to both first and permanent employment using both datasets.
+
+\begin{table}[H] 
+\caption{Transition statistics} \label{tab:transition_stats}
+\begingroup
+\setlength{\LTleft}{-20cm plus -1fill}
+\setlength{\LTright}{\LTleft}
+\footnotesize{
+\input{tables/transition_age}
+\vspace{-.4cm} \hspace{2.5cm} Statistics reported: weighted mean (N)
+}
+\endgroup
+\end{table}
+
+The ILO's _Work4Youth_ program takes school-leaving age to be the of the onset of the school-to-work transition, as do several studies of the school-to-work transition in OECD countries (e.g. @bowers1998, @quintini2007). We refer to this as the **graduation age**. The top panel of Table \ref{tab:transition_stats} shows that when both retroactive job data and panel data is considered, 568 youth (52.4 percent) of youth finish school or training between 2013 and the final survey, with a mean (weighted) graduation age of 21 years and 9 months. As nearly a third of our sample is still in school or training at baseline, the data is, again, right-censored and the mean age of school-leaving will be downward-biased.
+
+Next, we examine the **first employment age**, defined as the age at which youth first report being employed or self-employed, conditional on being in education in at least one year since 2013 and not returning to school in subsequent periods. Youth who do not report being in education or training in any of the past seven years are excluded to avoid mistaking long-term unemployed as first-time job-seekers. We start by calculating the first employment age for the period up to the start of the survey, i.e. only using the event histories of youth. 298 entries into the labor market are observed, with a weighted mean age of 21.89 years. The same indicator is then recalculated using the panel data, conditioning on youth not having had any employment in their event histories, resulting in 467 reports of a first job experience, at an average age of 22.9 years. Combining the two data sources generates first employment age estimates for 362 youth (48 percent of the sample) with a mean age of 22.21 - a difference of approximately six months between mean school-leaving age and mean age at entry into the labor market.
+
+Finally, we differentiate between the age at first employment ---when youth first report working ---and the **transition age], which is age at which employment can be considered "steady" and labor market attachment complete. For this purpose, we consider a transition to be completed if youth, once employed or self-employed, do not revert to NEET status, education, or apprenticeship in subsequent periods. The data is again right-censored, as we have no knowledge of future activities [@nordman2015, @manacorda2017]. We observe 267 completed transitions to the labor market in the event history data, with a weighted mean age of transition of 22.15 years. Likewise, a total of 324 transitions at a mean age of 24.06 years are recorded in the panel alone (conditioned on no employment history in event history data, i.e. in the past seven years). For the combined measure, 288 "permanent" transitions are recorded, with a mean age of 22.5 years.
+
+Using measures from the combined event history and panel data, we define the **transition duration} as the difference between the age at graduation and the age of both first employment and permanent transition for each individual (last panel, Table \ref{tab:transition_stats}). The weighted average of the transition to first employment is 5.2 months, considerably shorter than the transition to final employment, which lasts, on average, 27 months (2.3 years). According to the combined measure, young women leave school six months earlier than men and take about two months longer to find their first job (6.5 compared to 4.3 months). However, they "catch up" to men after graduation, as men and women enter permanent employment at approximately the same age according to our measure.
+
+As outlined above, the estimates provided in \ref{tab:transition_stats} may be biased due to the fact that only individuals who have completed their transition can be factored into the calculation of transition duration. To overcome this right-censoredness [@nilsson2019}, we apply survival analysis to the retrospective history data, following @nordman2015 and @manacorda2017. Figure \ref{fig:surv_prop} plots the estimated survival probability, i.e. the probability that a youth needs an additional year before "permanently" transitioning to the labor market after completing their schooling. The weighted restricted mean transition duration is 18.8 months to first employment (16.3 months for males and 20.6 for females) and 21.8 months to steady employment (18 months for males, 26.5 for females). Taking the estimates from Table \ref{tab:transition_stats} and Figure \ref{fig:surv_prop} as ranges, we find that the average youth in our sample needs between 5.18 and 18.8 months to find first employment after graduation and between 21.8 and 27 months to find steady employment. These estimate transitions are considerably shorter than the average duration calculated for Sub-Saharan Africa by @manacorda2017}\footnote{Based on SWTS surveys from five countries in SSA: Benin, Madagascar, Tanzania, Togo, Uganda.} 25.7 months to first employment and 129.7 months to steady employment; however, the much larger gap between duration to first and steady employment than our data suggests that our 7-year retrospective data (and sample age limit of 29 years) may simply be too limited to capture the true duration it takes for youth to find steady employment.
+
+\begin{figure}[H] \caption{\label{fig:surv_prop} Transition duration as survival probability}
+\centering
+\makebox[.95\textwidth][c]{\includegraphics[width=.9\textwidth]{figures/survplot_transduration}}
+\end{figure}
+
+We further support these estimates with the reported time that youth spend actively looking for work after leaving school. We ask NEET youth, "How long have you been unemployed, available for work and actively looking for a job?". The majority of NEET youth report searching for work for at least seven months, whether for their first job or with past employment experience. In contrast, in 2005, the median duration of unemployment in a selection of OECD countries was less than three months [@quintini2007}. A third of first-job seekers, and 37.7 percent of youth with job experience, have been out of the workforce for at least one year. In the OECD in 2005, this proportion was closer to 1 in 5. Comparison with the estimated mean transition rates from @manacorda2017}, however, shows Benin to be somewhat of an outlier in SSA as well, with the lowest mean time to a first and to a permanent job among the five countries in SSA for which transition duration can be estimated.
+
+\subsection{Transition matrices}
+
+\begin{table}[H]
+  \caption{Event history transition matrix, 2013-2019} \label{tab:pasttransm}
+   \footnotesize
+    \centering
+	\input{tables/pasttransm}
+	\footnotesize
+	\begin{tabular}{l}
+	Note: (row % in parentheses) \\ \hspace{.85cm} \text{[}column % in brackets\text{]}
+    \end{tabular}
+\end{table}
+
+Transitions between activity states can be depicted for any pair of survey rounds using transition matrices. Transition matrices can be interpreted as flows of youth between activities from the earlier time period (left-hand column) to the later time period (top row). Numbers in [brackets] represent the percent of youth flowing into a column activity from any given activity in the previous period, each with a given row. Numbers in (parentheses) represent the percentage of youth flowing out of a row activity to any given activity in the subsequent period, which corresponds to the column header. For instance, the first row, second column entry of Table \ref{tab:pasttransm} shows 90 reported transitions from school to NEET; 3.85 percent of those in schooling in any year transitioned to NEET the next year, while 21.74 percent of those observed to be NEET in any year had been in school the year before. Entries on the diagonal correspond to no transition.
+
+An examination of the pooled transitions between past activities using the event history data (Table \ref{tab:pasttransm}) shows that schooling was still the predominant activity of youth in the seven years prior to being interviewed, accounting for over half of all observations. In terms of transitions between different activities, we find that the largest absolute flows are from school to wage employment (115), inactivity (90), and self-employment (61). The most frequent transitions in relative terms (accounting for the number of youth starting from a given activity) are from NEET status into wage employment (14.29 percent) and into self-employment (11.17 percent) and from apprenticeship into wage employment (10.50 percent of apprentices) and into self-employment (9.45 percent). While we observe similar rates of transition out of school (14.32 percent each year, on average), self-employment (12.18), and wage employment (15.11), the flow of youth out of school naturally increase over time (as youth approach graduation age), while the rates out of self- and wage employment remain relatively constant over time.
+
+\begin{table}[H]
+  \caption{Activity transition matrix: Panel data, pooled, 2019-2021} \label{tab:transm}
+   \footnotesize
+    \centering
+	\input{tables/transm}
+	\footnotesize
+	\begin{tabular}{l}
+	Note: (row % in parentheses) \\ \hspace{.85cm} \text{[}column % in brackets\text{]}
+    \end{tabular}
+\end{table}
+
+Table 6 depicts the rates of transition between activities pooled across all survey rounds: baseline, three follow-up surveys, and endline. As expected, the rate of graduation (transition out of school) is even higher   than the last period of the event history. On average, 40 percent of youth changed activities between each survey round, a significantly higher rate than the 17.2 percent observed in the event history data, reflecting both the higher instability associated with the transition phase (compared to school-age years) and, potentially, much higher variation in youth activity than can be captured by annual data. Surprisingly, the most stable activity is wage employment, with a 68% retention rate across all survey rounds.
+
+\begin{table}[H]\caption{Transition rates: past and present}\label{tab:matrix_summary}
+\footnotesize{
+\input{tables/matrix_summary} 
+}
+\end{table}
+
+Flows between activity states do not capture transitions between employers. The baseline interview indicates that job turnover is indeed frequent among employed youth. Only about 50 percent of the wage employed had been working for the same employer(s) for more than a year at the time of the interview. Almost three quarters of employed youth claimed that they would like to work more hours, and 65% were actively looking for a new job at the time of the survey. We find that personal networks are central to the job search, with over 60% of working youth in our sample finding employment either through direct prior acquaintance with or family relation to the employer or through a mutual friend. Unlike @nordman2014}, however, we cannot comment on the importance of these networks relative to other job search mechanisms with the data at hand.
+
+Finally, there are many paths a youth may take from schooling to employment, and the richness of the survey data allows us to analyze various types of employment states (beyond self- and wage employment) and the propensity to enter each state based on youth characteristics. For the different employment states, we first differentiate between formal and informal: formal wage workers have a verbal or written contract under a single regular employer, while self-employed youth are considered formal if they hire at least five employees. We use the underemployment threshold of 35 hours per week to determine which (wage or self-employed) youth are underemployed. We consider transitions from NEET status, apprenticeship, and schooling separately, and consider transition propensities by gender and age group.
+
+\begin{table}[H]
+  \caption{Transition propensities, 2019-2021}
+    \small
+    \centering
+    \label{tab:propensities_formality}
+	\input{tables/propensities_formality}
+\end{table}
+
+Table \ref{tab:propensities_formality} shows the results of this exercise. Transitions from NEET to informal work and full-time employment (formal or informal) are the most common in the observed three-year period. We note the sparse transitions to formal work: while @cunningham2011} use data collected every six months and find that between 11 and 32 percent of youth in Argentina, Brazil and Mexico move into the formal sector directly after leaving school, this is only true for .2 percent of youth in urban Benin. Females and older youth are more likely to find informal employment after completing schooling or a spell of inactivity, and young women transition to formal work after inactivity at a higher rate than men as well. However, young men are more likely to find an informal job directly after completing school or training, supporting the finding from the previous section that women experience longer transitions. Transition into full-time employment is generally more common than into underemployment, suggesting that most jobs available to youth are informal, but full-time - regardless of whether youth transition into them directly after completing school or after a period of unemployment.
+
+\begin{table}[H]
+  \caption{Transition propensities II, 2019-2021}
+    \small
+    \centering
+    \label{tab:propensities_wageself}
+	\input{tables/propensities_wageself}
+\end{table}
+
+Table \ref{tab:propensities_wageself} reports transition propensities for transitions to distinctive types of wage and self-employment, respectively. For wage employment, we calculate the transition propensity to casual work - defined as wage work with one or more employers on an irregular basis or with a single employer on an irregular/task-based payment basis - or "regular" work, i.e. a single employer with regular wages. These categories are mutually exclusive. We also differentiate between self-employed who also employ others (at least one wage worker) and those who work independently.
+
+Transitions to casual work are found to be more prevalent than transitions to regular employment, regardless of whether youth are coming from inactivity, apprenticeship, or school. Older, female inactive youth transition to from being NEET to wage employment at a higher rate, whereas younger men have an advantage when transitioning directly from education. However, overall, transitions from inactivity to casual and regular work occur 2.3 and 2.7 times more often, respectively, than from school.
+
+Finally, we find that independent self-employment is much more prevalent than youth hiring others. Females are significantly more likely to transition from inactivity to independent self-employment than men, a statistic driven by relatively high underlying numbers of inactive women.
+
+\subsection{Impact of transition on youth}
+
+\input{tables/reg_table}
+
+In addition to measuring the relationship between past activities and current labor market outcomes, we are interested in the effects that a successful transition may have on youth. To this end, we estimate the impact of transition (in this case, moving from a non-employment state to either self- or wage employment for the remaining periods under observation) on a measure of youth well-being elicited in the interviews. The youth survey captures three candidate psychometric measures: feelings of agency, overall life satisfaction, and optimism about the future. As life satisfaction is both the simplest in interpretation and shows the most interesting variation different types of labor market transitions, we concentrate on this outcome variable.
+
+Table 13 reports the results of a random effects probit regression, with coefficients representing the effect of having transitioned to work (Model 1) and transitioning from a specific state to another in a given period (Models 2-4) on reported life satisfaction. Youth who have transitioned to the labor market in a given period are more satisfied with their lives in general, though no effect is detected for particular types of transitions, whether between self- and wage employment or from inactivity to work. As the transition between work types or even into employment does not appear to explain changes in youth satisfaction from survey to survey, we examine the baseline results to help explain youth satisfaction for employed youth. Failure to secure a high-skilled job despite having a tertiary education can lead to low job satisfaction and high job turnover, even for youth who are paid a wage @ilo2020}; however, we find no significant differences in job satisfaction by education attainment. We do observe a labor demand shortage among the employed, with 73% of youth responding that they would like to work more hours than they currently do. These youth are also significantly more likely to be dissatisfied with their work. About half of the sample was working at least a year for their employer or employers at the time of the interview; 65% of employed youth were actively looking for a new job at the time of the survey. Relatively high turnover supports the view that the issue facing African youth is a massive shortfall in labor demand, as opposed to human capital @fox2020}. 
+
+\subsection{Conclusion}
+This paper studies the dynamics of the school-to-work transition for 752 youth aged 20-29 from urban Cotonou, Benin. A unique panel is created using mobile phone surveys; in each survey round, youth are classified into one of five groups reflecting their primary activity. Only about a quarter of youth is observed to have transitioned to the labor market, despite a mean respondent age of over 24 years. Higher rates of transition are observed for quarterly data than in yearly historical data (39.2 vs. 17.2), suggesting that annual data often used in hazard rate analysis of unemployment risk mask significant movements between activities for youth. Using a combination of retrospective employment history and panel data to calculate average ages of transition, we find that youth in Cotonou graduate at the age of 22 years, four months, and find their first employment opportunity about about 5 months later, on average, but find attachment to the labor market only after about two years on the job search. If this were the true national transition duration, it would rank Benin as a country with one of the shortest transitions to work in the world. However, given the higher availability of non-agricultural informal work in urban areas, one expects the transition speed to be shorter in urban Cotonou than in the rest of the country. We find that young women spend about two years less in the education system than men, but "catch up" after graduation, securing permanent employment at approximately the same age as men.  
+
+We make a unique contribution to the literature by estimating the effects of transition on youth well-being. We find that while youth who have transitioned to steady employment are more satisfied with their lives, none of the specific transitions examined, e.g. the transition from wage to self-employment, appear to have an effect on youth satisfaction. Finally, we show that mobile phone data collection are promising for tracking labor market performance, despite moderate attrition; however, we observed higher response to the in-person baseline and endline waves, despite these being more time-consuming than the follow-up surveys. Thus, while urban youth are an ideal subject for phone-based surveys due to their high literacy and relatively high phone ownership and high network coverage in cities, incentives for increasing response and reducing survey fatique in longitudinal remote studies remains an important topic of research. On the balance, however, we agree that "the cost savings of a phone survey are substantial, as long as the questions of interest call for high frequency panel data" (Dillon 2012).
+
+\newpage
+
+
+
 
 # References {.unnumbered}
 \noindent
 
 <div id="refs"></div>
 
-# Appendix {.unnumbered}
+# (APPENDIX) Appendix {-} 
 
+# Appendix A
+
+## Attrition
+
+\begin{table}[H] 
+\caption{Sample composition and attrition} \label{tab:attrition}
+\centering
+\footnotesize{
+\include{tables/attrition}
+}
+\end{table}
+
+\begin{table}[H]
+  \caption{Educational attainment by activity at baseline} 
+  \label{tab:eductable} 
+    \centering
+  \footnotesize{
+\makebox[\textwidth]{\begin{tabular}{lllllll}
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+\input{tables/eductable}
+\hline \hline
+\end{tabular}
+}
+}
+\end{table} 
+
+\subsection{}\label{app:transm}
+
+
+\begin{table}[H]
+  \caption{Activity transition matrix: Baseline survey and follow-up wave 1}
+    \footnotesize
+    \centering
+	\input{tables/transm01}
+	\footnotesize
+	\begin{tabular}{l}
+	\textit{Note: (row \% in parentheses)} \\ \hspace{.85cm} \text{[}\textit{column \% in brackets}\text{]}
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \caption{Activity transition matrix: Follow-up wave 1 and follow-up wave 2}
+   \footnotesize
+    \centering
+	\input{tables/transm12}
+	\footnotesize
+	\begin{tabular}{l}
+        \textit{Note: (row \% in parentheses)} \\ \hspace{.85cm} \text{[}\textit{column \% in brackets}\text{]}
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \caption{Activity transition matrix: Follow-up wave 2 and follow-up wave 3}
+   \footnotesize
+    \centering
+	\input{tables/transm23}
+	\footnotesize
+	\begin{tabular}{l}
+	\textit{Note: (row \% in parentheses)} \\ \hspace{.85cm} \text{[}\textit{column \% in brackets}\text{]}
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \caption{Activity transition matrix: Follow-up wave 3 and endline}
+   \footnotesize
+    \centering
+	\input{tables/transm34}
+	\footnotesize
+	\begin{tabular}{l}
+	\textit{Note: (row \% in parentheses)} \\ \hspace{.85cm} \text{[}\textit{column \% in brackets}\text{]}
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \caption{Activity transition matrix: Baseline and endline}
+   \footnotesize
+    \centering
+	\input{tables/transm04}
+	\footnotesize
+	\begin{tabular}{l}
+	\textit{Note: (row \% in parentheses)} \\ \hspace{.85cm} \text{[}\textit{column \% in brackets}\text{]}
+    \end{tabular}
+\end{table}
+
+# Appendix B

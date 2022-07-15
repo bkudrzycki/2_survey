@@ -1,0 +1,126 @@
+---
+title: "Transitions"
+author: "Bart Kudrzycki"
+date: "3/25/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Package names
+packages <- c("here", "tidyverse", "survey", "ggplot2", "gtsummary")
+
+# Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+# Packages loading
+invisible(lapply(packages, library, character.only = TRUE))
+rm(installed_packages, packages)
+
+setwd("~/polybox/Youth Employment/Thesis")
+source(here("R", "calculations", "transition_duration.R"))
+```
+
+*In this chunk we answer the questions: how long are youth transitions? Are they longer when the first job is self- or wage employment? How does the duration of the school to work transition differ by gender, education, and parents' education?*
+
+```{r stats, echo=FALSE}
+tr_dur_w1 <- svymean(~transition_duration, sstrat, na.rm=TRUE)
+tr_dur_w2 <- svymean(~transition_duration2, sstrat, na.rm=TRUE)
+tr_dur_w3 <- svymean(~transition_duration3, sstrat, na.rm=TRUE)
+grad_median_w <- svyquantile(~transition_duration3, sstrat, quantiles = 0.5, na.rm=TRUE)
+
+df2 <- ys_panel %>% filter(wave == 0) %>% 
+  mutate(tr_to_first = ifelse(first_employment_age3-graduation_age3 > 0, (first_employment_age3-graduation_age3)*12, 0),
+         tr_to_first_wage = ifelse(first_wage_age3-graduation_age3 > 0, (first_wage_age3-graduation_age3)*12, 0),
+         tr_to_first_self = ifelse(first_self_age3-graduation_age3 > 0, (first_self_age3-graduation_age3)*12, 0))
+
+         
+```
+
+```{r new_durs, echo=FALSE}
+sstrat2 <- survey::svydesign(id = ~reg_id + act_id, strata = ~region + activite, prob = ~prob, data = df2, fpc = ~reg_Nh + act_Nh, nest= TRUE)
+
+tr_first_emp_w <- svymean(~tr_to_first, sstrat2, na.rm=TRUE)
+tr_first_wage_w <- svymean(~tr_to_first_wage, sstrat2, na.rm=TRUE)
+tr_first_self_w <- svymean(~tr_to_first_self, sstrat2, na.rm=TRUE)
+```
+
+
+The mean weighted transition duration **to permanent employment** in months is (`r round(tr_dur_w1-12,2)`, `r round(tr_dur_w1,2)`), (`r round(tr_dur_w2-12,2)`, `r round(tr_dur_w2, 2)`) (`r round(tr_dur_w3-12, 2)`, `r round(tr_dur_w3, 2)`). The median is 1 year (12 months) for all three. 
+
+It takes youth (`r round(tr_first_emp_w-12, 2)`, `r  round(tr_first_emp_w, 2)`) months to transition to their first employment (rather than to permanent employment). For those whose first job is a wage job, it takes them (`r round(tr_first_wage_w-12, 2)`, `r round(tr_first_emp_w, 2)`) months to transition, whereas for those who enter the labor market self-employed, it takes them (`r round(tr_first_self_w-12, 2)`, `r  round(tr_first_self_w, 2)`) months.
+
+``` {r trans_bar}
+```{r age_plot, echo=FALSE, warning = FALSE}
+transitions3 %>% mutate(transition_duration3 = transition_duration3/12 + 0.5) %>% 
+  ggplot(aes(x = transition_duration3)) + 
+  geom_bar(aes(y = (..count..)/sum(..count..))) +
+  labs(x = "transition duration",
+         y = "frequency")
+```
+
+The majority -- 77.5% -- of youth transition to work within the first year of school leaving.
+
+```{r trans_dur_sex, echo = F}
+sstrat2 %>% 
+  tbl_svysummary(by = sex,
+            include = c(sex, transition_duration3, tr_to_first, tr_to_first_wage, tr_to_first_self),
+            type = list(c(transition_duration3, tr_to_first, tr_to_first_wage, tr_to_first_self) ~ "continuous"),
+            statistic = all_continuous() ~ "{mean}",
+            digits = all_continuous() ~ 2,
+            missing = "no") %>% 
+  modify_header(list(stat_1 ~ "**Female**, N={n_unweighted}",
+                     stat_2 ~ "**Male**, N={n_unweighted}",
+                     label ~ "**Measure**")) %>% 
+  add_overall()
+```
+
+```{r trans_dur_sex_unw, echo = F}
+df2 %>% 
+  tbl_summary(by = sex,
+            include = c(sex, transition_duration3, tr_to_first, tr_to_first_wage, tr_to_first_self),
+            type = list(c(transition_duration3, tr_to_first, tr_to_first_wage, tr_to_first_self) ~ "continuous"),
+            statistic = all_continuous() ~ "{mean}",
+            digits = all_continuous() ~ 2,
+            missing = "no") %>% 
+  modify_header(list(stat_1 ~ "**Female**, N={n}",
+                     stat_2 ~ "**Male**, N={n}",
+                     label ~ "**Measure**")) %>% 
+  add_overall() %>% 
+    add_p(
+    test = everything() ~ "t.test",
+    test.args = all_tests("t.test") ~ list(var.equal = TRUE)
+  )
+```
+
+We find that young women take about 2.6 months longer, on average, to find permanent employment and about 1.5 months longer to find their first job. However, there are no significant differnces in transition duration when wage and self-employment are considered separately.
+
+```{r first_act_yeduc, echo = F}
+sstrat2 %>% 
+  tbl_svysummary(by = yeduc,
+            include = c(yeduc, transition_duration3, tr_to_first, tr_to_first_wage, tr_to_first_self),
+            type = list(c(transition_duration3, tr_to_first, tr_to_first_wage, tr_to_first_self) ~ "continuous"),
+            statistic = all_continuous() ~ "{mean}",
+            digits = all_continuous() ~ 2,
+            missing = "no") %>% 
+  add_overall()
+```
+
+```{r first_act_formapp, echo = F}
+sstrat2 %>% 
+  tbl_svysummary(by = formapp,
+            include = c(formapp, transition_duration3, tr_to_first, tr_to_first_wage, tr_to_first_self),
+            type = list(c(transition_duration3, tr_to_first, tr_to_first_wage, tr_to_first_self) ~ "continuous"),
+            statistic = all_continuous() ~ "{mean}",
+            digits = all_continuous() ~ 2,
+            missing = "no") %>% 
+  modify_header(list(stat_1 ~ "**Not Former Apprentice**, N={n_unweighted}",
+                     stat_2 ~ "**Former Apprentice**, N={n}",
+                     label ~ "**Measure**")) %>% 
+  add_overall()
+```
+
+
+How does this compare to the literature?
