@@ -79,14 +79,9 @@ Youth were selected randomly from a census of 4,905 households representative of
 \makebox[.8\textwidth][c]{\includegraphics[width=.75\textwidth]{figures/littoral_carte}}
 \end{figure}
 
-A total of 19,032 individuals was covered by the census, with the 3,395 non-apprentices aged 20-29 constituting the sample frame for the survey (Table 1) Because school attendance rates among younger respondents were found to be very high --- more than 70% of the 15- to 19-year-olds covered by the census --- youth aged 20-29 were surveyed, rather than the age range of 15-29 years use by the International Labour Organization (ILO), in order to shift the focus of the study from schooling to labor market outcomes.
+Table \@ref(tab:tbl-census) shows that total of 19,032 individuals was covered by the census, with the 3,395 non-apprentices aged 20-29 constituting the sample frame for the survey. Because school attendance rates among younger respondents were found to be very high --- more than 70% of the 15- to 19-year-olds covered by the census --- youth aged 20-29 were surveyed, rather than the age range of 15-29 years use by the International Labour Organization (ILO), in order to shift the focus of the study from schooling to labor market outcomes.
 
-\begin{table}[H]\caption{\label{tab:census}Census of 13 zones de dÃ©nombrement}
-\centering \small
-\input{tables/census}
-\footnotesize
-\hspace{-2.5cm} Non-apprentices aged 20-29 (N=3,395) constitute the sample frame for the survey
-\end{table}
+\input{tables/replication/census}
 
 A two-stage clustered sampling approach was employed to select the 752 youth interviewed in the face-to-face baseline survey, conducted in August 2019. Zones de denombrement (ZDs), the smallest administrative divisions in Benin, consituted the primary sampling unit (PSU). These were selected with probability proportional to size (PPS) of the total number of ZDs in each of the five regions chosen for the sampling frame, and the sample was then stratified according to youth activity. Activity strata are proportional to the relative frequency of each activity appearing in the census. Sample weights are given by the inverse probability of selection of a youth into the sample (Deaton, 1997), given their reported activity during the census and their ZD of residence. This probability is calculated as follows:
 
