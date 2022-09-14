@@ -23,33 +23,61 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+packages <- c("haven", "tinytex", "survey", "bookdown", "gtsummary", "janitor", "labelled", "kableExtra", "stargazer", "tidyverse")
+
+options(repos = c(CRAN = "http://cran.rstudio.com"))
+
+# install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages], silent = TRUE)
+}
+
+# load packages
+invisible(lapply(packages, library, character.only = TRUE))
+
+rm(packages, installed_packages)
+
+# load data
+# source("../code/master.R") # to rerun all code periodically
+load("../data/ys_panel.rda")
+load("../data/ys_panel_labels.rda")
+ys_baseline <- ys_panel %>% filter(wave == 0)
+
+# load functions
+source("../functions/add_by_n.R")
+source("../functions/paste_matrix.R")
+
+# load code chunks
+knitr::read_chunk('../code/survey_tbls_body.R')
+knitr::read_chunk('../code/survey_tbls_appendix.R')
+
+# set R options
+ggplot2::theme_set(ggplot2::theme_bw())
+options(scipen=2, digits=2)
+
+# set knitr options
 knitr::opts_chunk$set(message=FALSE,
                       warning=FALSE,
                       echo = FALSE,
                       cache = TRUE,
                       fig.path='figures/',
                       out.extra = "",
-                      floatfoot.envs = c("figure", "table", "longtabu")) 
-
-options(scipen=2, digits=2)
-```
-
-```{r loadlibraries, include=FALSE, cache = FALSE}
-suppressMessages(library(stargazer))
-library(bookdown)
-library(gtsummary)
-suppressMessages(library(tidyverse))
+                      floatfoot.envs = c("figure", "table", "longtabu"))
 
 ```
 
-```{r loaddata, include=FALSE}
-# rerun all code periodically
-# source("../code/master.R")
-#load("../data/df.rda")
-#selected <- df %>% filter(SELECTED == 1)
-# load functions
-source("../functions/add_by_n.R")
-ggplot2::theme_set(ggplot2::theme_bw())  ## (sets the ggplot2 theme to theme_bw)
+```{r, test, echo=FALSE}
+df <- ys_panel %>% select(IDYouth, wave, status) %>% zap_labels() %>% 
+  pivot_wider(id_cols = IDYouth, names_from = wave, names_prefix = "wave_", values_from = status) %>% 
+  rename("Baseline" = wave_0, "Follow-up 1" = wave_1)
+
+paste_matrix(df, "Baseline", "Follow-up 1") %>% as_kable_extra(caption = "Transition Matrix example",
+                        booktabs = T,
+                        linesep = "",
+                        position = "H",
+                        escape = F) %>% 
+  kableExtra::kable_styling(latex_options="scale_down")
 ```
 
 The transition to the labor market marks a critical point in the productive and social development of young individuals. Delayed entry into formal employment has been shown to depress future earnings in high-income and developing countries alike [@bridges2017], while a semipermanent state of "waithood" is commonly reported among youth (particularly males) in Sub-Saharan Africa, impeding their social integration and reducing the self-worth of those unable to find employment [@mains2011; @honwana2012].
@@ -95,13 +123,8 @@ $$w_i = (n\pi_i)^{-1}.$$
 
 Following the baseline survey in August 2019, three follow-up surveys were conducted by mobile phone in November 2019, April 2020, and September 2020 respectively. An in-person endline was conducted in the summer of 2021. The panel suffers an attrition rate of between 9% and 19% per survey round, with an overall attrition rate of 34% over the course of the first year of the survey (until the third follow-up survey). This is high but in line with remote longitudinal surveys in developing countries [@demombynes2013, ballivian2015}. However, a large proportion of non-respondents were recovered for the endline, resulting in a final attrition of just 24%. The largest drop in response rate, between the first and second follow-up surveys, is likely related to the timing of the second phone-based survey, which took place in the early phases of Benin's response to the global Covid-19 pandemic. To test for biased respondent attrition, we test for equality in time-invariant characteristics across survey waves. Table \ref{tab:attrition} in the Appendix indicates that attrition is neither associated with respondent activity at baseline, nor with their sex, age, or education. Thus, we proceed with the analysis assuming random attrition.
 
-\begingroup
-\setlength{\LTleft}{-20cm plus -1fill}
-\setlength{\LTright}{\LTleft}
-\footnotesize{
-\input{tables/gendergentable}
-}
-\endgroup
+```{r, tbl-surveydesc, echo=FALSE}
+```
 
 \subsection{Descriptive Statistics}
 
@@ -279,20 +302,8 @@ We make a unique contribution to the literature by estimating the effects of tra
 }
 \end{table}
 
-\begin{table}[H]
-  \caption{Educational attainment by activity at baseline} 
-  \label{tab:eductable} 
-    \centering
-  \footnotesize{
-\makebox[\textwidth]{\begin{tabular}{lllllll}
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-\input{tables/eductable}
-\hline \hline
-\end{tabular}
-}
-}
-\end{table} 
+```{r, tbl-eductable, echo=FALSE}
+```
 
 \subsection{}\label{app:transm}
 
