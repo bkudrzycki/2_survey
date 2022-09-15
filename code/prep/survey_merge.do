@@ -168,50 +168,6 @@ drop _merge
 merge 1:1 IDYouth using endline, force
 drop _merge
 
-***********************************************************************
-************************  Generate status  ****************************
-***********************************************************************
-
-*** generate activity status for each survey wave ***
-gen YSstatus = 1 if YS7_1 == 1 //education
-replace YSstatus = 3 if YS8_4 == 4 //self-employed
-*replace status = 4 if (YS8_1 == 1 | YS8_2 == 1) & YS8_4 != 4 //working
-replace YSstatus = 4 if YS8_4 == 1 | YS8_4  == 2| YS8_4  == 3 | YS8_4  == 5 | YS8_4  == 6 | YS8_4  == 8 //working
-replace YSstatus = 5 if YS1_2 == 1 | YS4_1 == 1 //app
-replace YSstatus = 2 if missing(YSstatus)
-
-gen F1Ustatus = 1 if F1U6_1 == 1 //education
-replace F1Ustatus = 3 if F1U4_1 == 4 &! (F1U1_14 == 0 & F1U1_15 == 0) //self-employed
-replace F1Ustatus = 4 if (F1U4_1 == 1 | F1U4_1 == 2 | F1U4_1 == 3 | F1U4_1 == 5 |F1U4_1 == 6 | F1U4_1 == 8) &! (F1U1_14 == 0 & F1U1_15 == 0) //working
-replace F1Ustatus = 5 if F1U2_1 == 1 //app
-replace F1Ustatus = 2 if !missing(F1U1_1) & missing(F1Ustatus) // NEET
-
-gen F2Ustatus = 1 if F2U6_1 == 1 //education
-replace F2Ustatus = 3 if F2U4_1 == 4 &! (F2U1_14 == 0 & F2U1_15 == 0) //self-employed
-replace F2Ustatus = 4 if (F2U4_1 == 1 | F2U4_1 == 2 | F2U4_1 == 3 | F2U4_1 == 5 | F2U4_1 == 8) &! (F2U1_14 == 0 & F2U1_15 == 0) //working
-replace F2Ustatus = 5 if F2U2_1 == 1 //app
-replace F2Ustatus = 2 if !missing(F2U1_1) & missing(F2Ustatus) // NEET
-
-gen F3Ustatus = 1 if F3U6_1 == 1 //education
-replace F3Ustatus = 3 if F3U4_1 == 4 &! (F3U1_14 == 0 & F3U1_15 == 0) //self-employed
-replace F3Ustatus = 4 if (F3U4_1 == 1 | F3U4_1 == 2 | F3U4_1 == 3 | F3U4_1 == 5 | F3U4_1 == 8) &! (F3U1_14 == 0 & F3U1_15 == 0) //working
-replace F3Ustatus = 5 if F3U2_1a == 1 //app
-replace F3Ustatus = 2 if !missing(F3U1_1) & missing(F3Ustatus) // NEET
-
-gen F4Ustatus = 1 if YE9_1 == 1 //education
-replace F4Ustatus = 3 if YE7_1 == 4 &! (YE2_8 == 0 & YE2_9 == 0) //self-employed
-replace F4Ustatus = 4 if (YE7_1 == 1 | YE7_1 == 2 | YE7_1 == 3 | YE7_1 == 5 | YE7_1 == 8) &! (YE7_1 == 0 & YE2_9 == 0) //working
-replace F4Ustatus = 5 if YE3_7 == 1 //app
-replace F4Ustatus = 2 if !missing(YE1_1) & missing(F4Ustatus) // NEET
-
-*** label status ***
-label define statuslabs 1 "School" 2 "NEET" 3 "Self-Employed" 4 "Wage Employed" 5 "Apprentice"
-label values YSstatus statuslabs
-label values F1Ustatus statuslabs
-label values F2Ustatus statuslabs
-label values F3Ustatus statuslabs
-label values F4Ustatus statuslabs
-
 ***************************   Clean up  *******************************
 
 order IDYouth IDPatron YS_ResponseId YS_duration YS_LocationLatitude YS_LocationLongitude YS* FS_ResponseId FS_StartDate FS_EndDate FS_RecordedDate FS_duration FS_LocationLatitude FS_LocationLongitude FS1* FS2* FS3* FS4* FS5* FS6* FS8* A* FS_2* FS_3* FS_4* FS_5* FS_6* FS_7* FS_11* F1U_ResponseId F1U_StartDate F1U_EndDate F1U_RecordedDate F1U_duration F1U_LocationLatitude F1U_LocationLongitude F1U* F2U_ResponseId F2U_StartDate F2U_EndDate F2U_RecordedDate F2U_duration F2U_LocationLatitude F2U_LocationLongitude F2U* F3U_ResponseId F3U_StartDate F3U_EndDate F3U_RecordedDate F3U_duration F3U_LocationLatitude F3U_LocationLongitude F3U*

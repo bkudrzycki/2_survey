@@ -28,16 +28,17 @@ ys_panel <- read_sav("data/youth_survey_reshaped.sav", user_na = TRUE)
 
 # filter by age and code status
 ys_panel <- ys_panel %>% 
-  mutate(status2 = ifelse(YS4_1 == 1 | (YS1_2 == 1 & wave == 0), "Apprentice", 
-                         ifelse(YS8_4 %in% c(1,2,3,5,6,8), "Employed",
-                                ifelse(YS8_4 == 4, "Self-Employed", NA)))) %>% 
-  mutate(status2 = ifelse(is.na(status2) & YS7_1 == 1, "In School", status2)) %>%
-  mutate(status2 = ifelse(is.na(status2) & F3U2_0a == 1 & YS8_4 %in% c(1,2,3,5,6,8), "Employed", status2)) %>% 
-  mutate(status2 = ifelse(is.na(status2) & YE3_5 == 1 & YS8_4 %in% c(1,2,3,5,6,8), "Employed", status2)) %>% 
-  mutate(status2 = ifelse(is.na(status2) & YE3_5 == 1 & YS8_4 == 4, "Self-Employed", status2)) %>% 
-  mutate(status2 = ifelse(is.na(status2), "NEET", status2))
+  mutate(status = ifelse(YS4_1 == 1 | (YS1_2 == 1 & wave == 0), 5, 
+                         ifelse(YS8_4 %in% c(1,2,3,5,6,8), 4,
+                                ifelse(YS8_4 == 4, 3, NA)))) %>% 
+  mutate(status = ifelse(is.na(status) & YS7_1 == 1, 1, status)) %>%
+  mutate(status = ifelse(is.na(status) & F3U2_0a == 1 & YS8_4 %in% c(1,2,3,5,6,8), 4, status)) %>% 
+  mutate(status = ifelse(is.na(status) & YE3_5 == 1 & YS8_4 %in% c(1,2,3,5,6,8), 4, status)) %>% 
+  mutate(status = ifelse(is.na(status) & YE3_5 == 1 & YS8_4 == 4, 3, status)) %>% 
+  mutate(status = ifelse(is.na(status), 2, status))
 
-ys_panel$status2 <- factor(ys_panel$status2, levels=c("Apprentice", "In School", "Employed", "Self-Employed", "NEET"))
+#ys_panel$status <- factor(ys_panel$status, levels = c(1:5), labels=c("In School", "NEET", "Self-Employed", "Employed", "Apprentice"))
+
 
 ys_panel$baseline_activity <- factor(ys_panel$baseline_activity, levels = c(1,2,3,4,5), labels = c("In School", "NEET", "Self-Employed", "Employed", "Apprentice"))
 

@@ -35,3 +35,43 @@ eststo m3
 esttab m1 m2 m3 using census.tex, cell((b(fmt(g)) pct(fmt(2) par))) booktabs collabels(none) mtitle("Aged 15-19" "Aged 20-29" "Aged 30 and above") addnote("\textit{Note:} Percentage of age group in parentheses.") title("Census of 13 zones de denombrement \label{tab:tbl-census}") alignment(ll) unstack noobs nonumber eqlabels(, lhs("Activity")) replace
 
 
+**** Transition propensity tables ****
+clear all
+use "$WorkingData/youth_survey_merged.dta"
+
+preserve
+drop if cqp
+
+estpost tabulate status f1ustatus
+esttab using transm01.tex, cell(b(fmt(g)) rowpct(fmt(2) par) colpct(fmt(2)  par([ ]))) mtitle("Follow-Up 1") collabels(none) wide unstack noobs nonumber eqlabels(, lhs("Baseline")) replace
+
+estpost tabulate f1ustatus f2ustatus
+esttab using transm12.tex, cell(b(fmt(g)) rowpct(fmt(2) par) colpct(fmt(2)  par([ ]))) mtitle("Follow-up 2") collabels(none) wide unstack noobs nonumber eqlabels(, lhs("Follow-up 1")) replace
+
+estpost tabulate f2ustatus f3ustatus
+esttab using transm23.tex, cell(b(fmt(g)) rowpct(fmt(2) par) colpct(fmt(2)  par([ ]))) mtitle("Follow-up 3") collabels(none) wide unstack noobs nonumber eqlabels(, lhs("Follow-up 2")) replace
+
+estpost tabulate f3ustatus f4ustatus
+esttab using transm34.tex, cell(b(fmt(g)) rowpct(fmt(2) par) colpct(fmt(2)  par([ ]))) mtitle("Endline") collabels(none) wide unstack noobs nonumber eqlabels(, lhs("Follow-up 3")) replace
+
+estpost tabulate status f2ustatus
+esttab using transm02.tex, cell(b(fmt(g)) rowpct(fmt(2) par) colpct(fmt(2)  par([ ]))) mtitle("Endline") collabels(none) wide unstack noobs nonumber eqlabels(, lhs("Baseline")) replace
+
+estpost tabulate status f3ustatus
+esttab using transm03.tex, cell(b(fmt(g)) rowpct(fmt(2) par) colpct(fmt(2)  par([ ]))) mtitle("Endline") collabels(none) wide unstack noobs nonumber eqlabels(, lhs("Baseline")) replace
+
+estpost tabulate status f4ustatus
+esttab using transm04.tex, cell(b(fmt(g)) rowpct(fmt(2) par) colpct(fmt(2)  par([ ]))) mtitle("Endline") collabels(none) wide unstack noobs nonumber eqlabels(, lhs("Baseline")) replace
+
+estpost tabulate f1ustatus f3ustatus
+esttab using transm13.tex, cell(b(fmt(g)) rowpct(fmt(2) par) colpct(fmt(2)  par([ ]))) mtitle("Endline") collabels(none) wide unstack noobs nonumber eqlabels(, lhs("Baseline")) replace
+
+estpost tabulate f1ustatus f4ustatus
+esttab using transm14.tex, cell(b(fmt(g)) rowpct(fmt(2) par) colpct(fmt(2)  par([ ]))) mtitle("Endline") collabels(none) wide unstack noobs nonumber eqlabels(, lhs("Baseline")) replace
+
+estpost tabulate f2ustatus f4ustatus
+esttab using transm24.tex, cell(b(fmt(g)) rowpct(fmt(2) par) colpct(fmt(2)  par([ ]))) mtitle("Endline") collabels(none) wide unstack noobs nonumber eqlabels(, lhs("Baseline")) replace
+
+restore
+
+
