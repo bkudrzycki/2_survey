@@ -1,3 +1,37 @@
+## ---- tbl-attrition --------
+
+df <- ys_panel_labels %>% 
+  mutate(yos = ifelse(as.numeric(YS3_15) < 50, as.numeric(YS3_15), NA))
+
+df$baseline_activity <- factor(ys_panel_labels$baseline_activity, levels=c("Apprentice", "In School", "Employed", "Self-Employed", "NEET"))
+
+df$wave <- factor(ys_panel_labels$wave, labels=c("Baseline", "Remote 1", "Remote 2", "Remote 3", "Endline"))
+
+df %>% 
+  select(wave, status, baseline_activity, sex, baseline_age, yos) %>% 
+  tbl_summary(by = wave,
+              missing = "no",
+              label = list(status ~ "Activity",
+                           baseline_activity ~ "Baseline activity",
+                           sex ~ "Male",
+                           baseline_age ~ "Age",
+                           yos ~ "Years of Schooling"),
+              statistic = list(sex ~ "{p}%",
+                               baseline_age ~ "{mean}",
+                               all_continuous() ~ "{mean} ({sd})")) %>% 
+  modify_header(update = all_stat_cols() ~  "**{level}**\nN={n}") %>% 
+  add_p(list(status ~ NULL,
+             baseline_activity ~ "kruskal.test",
+             sex ~ "chisq.test",
+             baseline_age ~ "kruskal.test",
+             yos ~ "kruskal.test"),
+        pvalue_fun = ~style_pvalue(.x, digits = 2)) %>% 
+  as_kable_extra(caption = "Sample Composition and Attrition",
+                 booktabs = T,
+                 linesep = "",
+                 position = "H") %>%
+  kableExtra::kable_styling(latex_options="scale_down")
+
 ## ---- tbl-eductable --------
 
 df <- ys_baseline %>% zap_labels()
@@ -53,3 +87,102 @@ sstrat %>%
            fixed_small_size = T,
            general_title = "") %>% 
   kableExtra::kable_styling(latex_options="scale_down")
+
+## ---- tbl-transm01 --------
+
+df <- ys_panel_labels %>% select(IDYouth, wave, status) %>% pivot_wider(id_cols = IDYouth, names_from = wave, values_from = status, names_prefix = "wave_")
+
+x <- tabyl(df, wave_YS, wave_F1U, show_na = FALSE) %>% adorn_percentages("row") %>% adorn_totals(where = c("row", "col")) %>% adorn_pct_formatting(digits = 2)
+
+y <- tabyl(df, wave_YS, wave_F1U, show_na = FALSE) %>% adorn_percentages("col") %>% adorn_totals(where = c("row", "col")) %>% adorn_pct_formatting(digits = 2)
+
+x[-1] <- paste0(as.matrix(x[-1]), "\n(", as.matrix(y[-1]), ")")
+
+names(x)[names(x) == 'wave_YS'] <- 'Baseline'
+x[6,7] <- ''
+
+flextable(x) %>% add_header_row(values = c('','Follow-up 1'),
+                                colwidths = c(6,1)) %>%
+  hline_top(border = fp_border_default(width = 0), part = "header") %>% 
+  set_caption("Activity transition matrix: Baseline and follow-up wave 1") %>% 
+  add_footer_lines("Row % (column %)") %>% 
+  fontsize(size = 9, part = 'all')
+
+## ---- tbl-transm12 --------
+
+x <- tabyl(df, wave_F1U, wave_F2U, show_na = FALSE) %>% adorn_percentages("row") %>% adorn_totals(where = c("row", "col")) %>% adorn_pct_formatting(digits = 2)
+
+y <- tabyl(df, wave_F1U, wave_F2U, show_na = FALSE) %>% adorn_percentages("col") %>% adorn_totals(where = c("row", "col")) %>% adorn_pct_formatting(digits = 2)
+
+x[-1] <- paste0(as.matrix(x[-1]), "\n(", as.matrix(y[-1]), ")")
+
+names(x)[names(x) == 'wave_F1U'] <- 'Follow-up 1'
+x[6,7] <- ''
+
+flextable(x) %>% add_header_row(values = c('','Follow-up 2'),
+                                colwidths = c(6,1)) %>%
+  hline_top(border = fp_border_default(width = 0), part = "header") %>% 
+  set_caption("Activity transition matrix: Follow-up wave 1 and follow-up wave 2") %>% 
+  add_footer_lines("Row % (column %)") %>% 
+  fontsize(size = 9, part = 'all')
+
+
+## ---- tbl-transm23 --------
+
+x <- tabyl(df, wave_F2U, wave_F3U, show_na = FALSE) %>% adorn_percentages("row") %>% adorn_totals(where = c("row", "col")) %>% adorn_pct_formatting(digits = 2)
+
+y <- tabyl(df, wave_F2U, wave_F3U, show_na = FALSE) %>% adorn_percentages("col") %>% adorn_totals(where = c("row", "col")) %>% adorn_pct_formatting(digits = 2)
+
+x[-1] <- paste0(as.matrix(x[-1]), "\n(", as.matrix(y[-1]), ")")
+
+names(x)[names(x) == 'wave_F2U'] <- 'Follow-up 2'
+x[6,7] <- ''
+
+flextable(x) %>% add_header_row(values = c('','Follow-up 3'),
+                                colwidths = c(6,1)) %>%
+  hline_top(border = fp_border_default(width = 0), part = "header") %>% 
+  set_caption("Activity transition matrix: Follow-up wave 2 and follow-up wave 3") %>% 
+  add_footer_lines("Row % (column %)") %>% 
+  fontsize(size = 9, part = 'all')
+
+
+## ---- tbl-transm34 --------
+
+x <- tabyl(df, wave_F3U, wave_F4U, show_na = FALSE) %>% adorn_percentages("row") %>% adorn_totals(where = c("row", "col")) %>% adorn_pct_formatting(digits = 2)
+
+y <- tabyl(df, wave_F3U, wave_F4U, show_na = FALSE) %>% adorn_percentages("col") %>% adorn_totals(where = c("row", "col")) %>% adorn_pct_formatting(digits = 2)
+
+x[-1] <- paste0(as.matrix(x[-1]), "\n(", as.matrix(y[-1]), ")")
+
+names(x)[names(x) == 'wave_F3U'] <- 'Follow-up\n3'
+x[6,7] <- ''
+
+flextable(x) %>% add_header_row(values = c('','Endline'),
+                                colwidths = c(6,1)) %>%
+  hline_top(border = fp_border_default(width = 0), part = "header") %>% 
+  set_caption("Activity transition matrix: Follow-up wave 3 and endline") %>% 
+  add_footer_lines("Row % (column %)") %>% 
+  fontsize(size = 9, part = 'all')
+
+
+## ---- tbl-transm04 --------
+
+x <- tabyl(df, wave_YS, wave_F4U, show_na = FALSE) %>% adorn_percentages("row") %>% adorn_totals(where = c("row", "col")) %>% adorn_pct_formatting(digits = 2)
+
+y <- tabyl(df, wave_YS, wave_F4U, show_na = FALSE) %>% adorn_percentages("col") %>% adorn_totals(where = c("row", "col")) %>% adorn_pct_formatting(digits = 2)
+
+x[-1] <- paste0(as.matrix(x[-1]), "\n(", as.matrix(y[-1]), ")")
+
+names(x)[names(x) == 'wave_YS'] <- 'Baseline'
+x[6,7] <- ''
+
+flextable(x) %>% add_header_row(values = c('','Endline'),
+                                colwidths = c(6,1)) %>%
+  hline_top(border = fp_border_default(width = 0), part = "header") %>% 
+  set_caption("Activity transition matrix: Baseline and endline") %>% 
+  add_footer_lines("Row % (column %)") %>% 
+  fontsize(size = 9, part = 'all')
+
+
+
+

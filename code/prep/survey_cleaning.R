@@ -16,13 +16,6 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 rm(packages, installed_packages)
 
-# Set working directory
-if(!exists("path")){
-  setwd("~/polybox/Youth Employment/1a Youth Survey/Markdown")
-}else{
-  setwd(path)
-}
-
 ## Data
 ys_panel <- read_sav("data/youth_survey_reshaped.sav", user_na = TRUE)
 
@@ -36,9 +29,6 @@ ys_panel <- ys_panel %>%
   mutate(status = ifelse(is.na(status) & YE3_5 == 1 & YS8_4 %in% c(1,2,3,5,6,8), 4, status)) %>% 
   mutate(status = ifelse(is.na(status) & YE3_5 == 1 & YS8_4 == 4, 3, status)) %>% 
   mutate(status = ifelse(is.na(status), 2, status))
-
-#ys_panel$status <- factor(ys_panel$status, levels = c(1:5), labels=c("In School", "NEET", "Self-Employed", "Employed", "Apprentice"))
-
 
 ys_panel$baseline_activity <- factor(ys_panel$baseline_activity, levels = c(1,2,3,4,5), labels = c("In School", "NEET", "Self-Employed", "Employed", "Apprentice"))
 
@@ -173,6 +163,8 @@ rm(i,j,k,new,x,y,z,df)
 
 # create labelled version of ys_panel
 ys_panel_labels <- haven::as_factor(ys_panel)
+
+ys_panel_labels$status <- factor(ys_panel_labels$status, levels = c(1:5), labels=c("In School", "NEET", "Self-Employed", "Employed", "Apprentice"))
 
 # save as .rda
 save(ys_panel, file = "data/ys_panel.rda")

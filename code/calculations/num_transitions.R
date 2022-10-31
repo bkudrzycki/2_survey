@@ -1,5 +1,5 @@
 # Package names
-packages <- c("here", "tidyverse", "survey", "ggplot2", "gtsummary")
+packages <- c("tidyverse", "survey", "ggplot2", "gtsummary")
 
 # Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -12,8 +12,8 @@ invisible(lapply(packages, library, character.only = TRUE))
 rm(installed_packages, packages)
 
 ## ---- load_panel data
-setwd("~/polybox/Youth Employment/Thesis")
-source(here("Youth Employment", "Thesis", "R", "source", "load_panel.R"))
+setwd("/Users/Shared/Bart/Youth Employment/1_survey")
+load("data/ys_panel.rda")
 
 dflist <- ys_panel %>% 
   dplyr::select(sort(starts_with("act1"), decreasing = TRUE)) %>% 

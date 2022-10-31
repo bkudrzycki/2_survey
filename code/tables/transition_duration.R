@@ -12,8 +12,8 @@ invisible(suppressPackageStartupMessages(lapply(packages, require, character.onl
 rm(installed_packages, packages)
 
 ## ---- load_panel data
-setwd("~/polybox/Youth Employment/Thesis")
-load("data/youth_survey/ys_panel.rda")
+setwd("/Users/Shared/Bart/Youth Employment/1_survey/")
+load("data/ys_panel.rda")
 
 df <- ys_panel %>% 
   dplyr::select(IDYouth, wave, status, age) %>% 

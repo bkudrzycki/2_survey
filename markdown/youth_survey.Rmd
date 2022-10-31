@@ -23,7 +23,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-packages <- c("haven", "tinytex", "survey", "bookdown", "gtsummary", "janitor", "labelled", "kableExtra", "stargazer", "tidyverse")
+packages <- c("haven", "tinytex", "survey", "bookdown", "gtsummary", "janitor", "labelled", "flextable", "kableExtra", "stargazer", "tidyverse")
 
 options(repos = c(CRAN = "http://cran.rstudio.com"))
 
@@ -56,6 +56,9 @@ knitr::read_chunk('../code/survey_tbls_appendix.R')
 ggplot2::theme_set(ggplot2::theme_bw())
 options(scipen=2, digits=2)
 
+# set R flextable
+set_flextable_defaults(font.family = 'Palatino')
+
 # set knitr options
 knitr::opts_chunk$set(message=FALSE,
                       warning=FALSE,
@@ -67,20 +70,7 @@ knitr::opts_chunk$set(message=FALSE,
 
 ```
 
-```{r, test, echo=FALSE}
-df <- ys_panel %>% select(IDYouth, wave, status) %>% zap_labels() %>% 
-  pivot_wider(id_cols = IDYouth, names_from = wave, names_prefix = "wave_", values_from = status) %>% 
-  rename("Baseline" = wave_0, "Follow-up 1" = wave_1)
-
-paste_matrix(df, "Baseline", "Follow-up 1") %>% as_kable_extra(caption = "Transition Matrix example",
-                        booktabs = T,
-                        linesep = "",
-                        position = "H",
-                        escape = F) %>% 
-  kableExtra::kable_styling(latex_options="scale_down")
-```
-
-The transition to the labor market marks a critical point in the productive and social development of young individuals. Delayed entry into formal employment has been shown to depress future earnings in high-income and developing countries alike [@bridges2017], while a semipermanent state of "waithood" is commonly reported among youth (particularly males) in Sub-Saharan Africa, impeding their social integration and reducing the self-worth of those unable to find employment [@mains2011; @honwana2012].
+The transition to the labor market marks a critical point in the productive and social development of young individuals. Delayed entry into formal employment has been shown to depress future earnings in high-income and developing countries alike [@bridges2017], while a semipermanen3t state of "waithood" is commonly reported among youth (particularly males) in Sub-Saharan Africa, impeding their social integration and reducing the self-worth of those unable to find employment [@mains2011; @honwana2012].
 
 The dynamic process of the school-to-work transition (SWT), including all the activities of young people between full-time schooling and stable employment, is best studied with detailed, longitudinal data; as a result, most studies of the SWT have been conducted in developed countries [@nilsson2019}. In addition to data scarcity, the informality inherent to most youth labor markets in the developing world make traditional data sources insufficient to capture the details of the SWT. While the path from formal education to formal employment is sequential and quantifiable, the path to the informal sector is more complicated, often leading through halting periods of formal education and informal training, stints at the family household enterprise, prolonged school absences or repeated years, and periods of complete economic inactivity. Official labor market data in developing countries is often too infrequent and unreliable to capture such dynamics. 
 
@@ -142,7 +132,7 @@ Benin has a highly informal economy, with an estimated 70% of GDP and 95% of emp
 
 Table \ref{tab:eductable} in the Appendix reports work characteristics of employed youth by educational attainment. We find a clear correspondence between education and various alternative indicators of job formality. The informality rate falls with education level and is lowest for those with tertiary education: two thirds of university graduates work informally, compared to 90% of those with no more than primary education. Only 8.3% of those who did not finish primary school report working under a written contract, compared to 38.8% of those who completed tertiary education. The fraction of youth with a single steady employer increases from 5.3% of those with no education to 36.6% of those who have attended university, while the percentage of youth working in white-collar jobs increases from 5.3% to 23.6%. A university education is associated with a higher likelihood of having a steady employer and a written contract, but given the scarcity of such employers, also with a lower probability of finding a job, providing additional support for the queuing hypothesis.
 
-Only a quarter of the self-employed report hiring any employees, supporting the view that self-employed youth support themselves less as established entrepreneurs with growth potential and more as irregular laborers or petty traders. Even firm owners with hired labor operate small, informal businesses: of those who hire at least one worker, only 23% are registered with the Benin Chamber of Commerce and Industry. An even smaller fraction possesses any of the required documentation, including a registration number with the national statistical agency (INSAE) or the professional identification (carte professionelle) required by law. Just 6% are members of a union or trade association; aside from union membership fees, not a single self-employed youth reported making contributions to a social security or employee benefits program. A lack of access to financing and basic infrastructure like electricity and market competition appear to be the primary concerns of the self-employed. Lack of access to finance is reflected in the very low rates of self-employed youth who use credit: only 32 firm owners reported having a bank account, and just five firms out of 143 (3.5%) reported currently possessing any outstanding loans. This corresponds to the norm for Sub-Saharan Africa, where lack of financing constitutes one of the major obstacles to private sector growth (see @aryeetey1998; @abor2006; and @quartey2017]).
+Only a quarter of the self-employed report hiring any employees, supporting the view that self-employed youth support themselves less as established entrepreneurs with growth potential and more as irregular laborers or petty traders. Even firm owners with hired labor operate small, informal businesses: of those who hire at least one worker, only 23% are registered with the Benin Chamber of Commerce and Industry. An even smaller fraction possesses any of the required documentation, including a registration number with the national statistical agency (INSAE) or the professional identification (carte professionelle) required by law. Just 6% are members of a union or trade association; aside from union membership fees, not a single self-employed youth reported making contributions to a social security or employee benefits program. A lack of access to financing and basic infrastructure like electricity and market competition appear to be the primary concerns of the self-employed. Lack of access to finance is reflected in the very low rates of self-employed youth who use credit: only 32 firm owners reported having a bank account, and just five firms out of 143 (3.5%) reported currently possessing any outstanding loans. This corresponds to the norm for Sub-Saharan Africa, where lack of financing constitutes one of the major obstacles to private sector growth (see @aryeetey1998; @abor2006; and @quartey2017]). 
 
 ```{r, tbl-aspirations, echo=FALSE}
 ```
@@ -275,9 +265,6 @@ We make a unique contribution to the literature by estimating the effects of tra
 
 \newpage
 
-
-
-
 # References {.unnumbered}
 \noindent
 
@@ -287,75 +274,38 @@ We make a unique contribution to the literature by estimating the effects of tra
 
 # Appendix A
 
+
 ## Attrition
 
-\begin{table}[H] 
-\caption{Sample composition and attrition} \label{tab:attrition}
-\centering
-\footnotesize{
-\include{tables/attrition}
-}
-\end{table}
+```{r, tbl-attrition, echo=FALSE}
+```
 
 ```{r, tbl-eductable, echo=FALSE}
 ```
 
 \subsection{}\label{app:transm}
 
+```{r, tbl-transm01, echo=FALSE}
+```
 
-\begin{table}[H]
-  \caption{Activity transition matrix: Baseline survey and follow-up wave 1}
-    \footnotesize
-    \centering
-	\input{tables/transm01}
-	\footnotesize
-	\begin{tabular}{l}
-	\textit{Note: (row \% in parentheses)} \\ \hspace{.85cm} \text{[}\textit{column \% in brackets}\text{]}
-    \end{tabular}
-\end{table}
+\newpage
 
-\begin{table}[H]
-  \caption{Activity transition matrix: Follow-up wave 1 and follow-up wave 2}
-   \footnotesize
-    \centering
-	\input{tables/transm12}
-	\footnotesize
-	\begin{tabular}{l}
-        \textit{Note: (row \% in parentheses)} \\ \hspace{.85cm} \text{[}\textit{column \% in brackets}\text{]}
-    \end{tabular}
-\end{table}
+```{r, tbl-transm12, echo=FALSE}
+```
 
-\begin{table}[H]
-  \caption{Activity transition matrix: Follow-up wave 2 and follow-up wave 3}
-   \footnotesize
-    \centering
-	\input{tables/transm23}
-	\footnotesize
-	\begin{tabular}{l}
-	\textit{Note: (row \% in parentheses)} \\ \hspace{.85cm} \text{[}\textit{column \% in brackets}\text{]}
-    \end{tabular}
-\end{table}
+\newpage
 
-\begin{table}[H]
-  \caption{Activity transition matrix: Follow-up wave 3 and endline}
-   \footnotesize
-    \centering
-	\input{tables/transm34}
-	\footnotesize
-	\begin{tabular}{l}
-	\textit{Note: (row \% in parentheses)} \\ \hspace{.85cm} \text{[}\textit{column \% in brackets}\text{]}
-    \end{tabular}
-\end{table}
+```{r, tbl-transm23, echo=FALSE}
+```
 
-\begin{table}[H]
-  \caption{Activity transition matrix: Baseline and endline}
-   \footnotesize
-    \centering
-	\input{tables/transm04}
-	\footnotesize
-	\begin{tabular}{l}
-	\textit{Note: (row \% in parentheses)} \\ \hspace{.85cm} \text{[}\textit{column \% in brackets}\text{]}
-    \end{tabular}
-\end{table}
+\newpage
+
+```{r, tbl-transm34, echo=FALSE}
+```
+
+\newpage
+
+```{r, tbl-transm04, echo=FALSE}
+```
 
 # Appendix B
