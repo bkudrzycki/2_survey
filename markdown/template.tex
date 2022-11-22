@@ -21,7 +21,6 @@ $endfor$
 
 % Set up fonts
 
-\usepackage{fontspec}
 \usepackage{amssymb,amsmath} % Need to load before unicode-math
 
 \usepackage{unicode-math}
@@ -134,7 +133,7 @@ $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
 $if(tables)$
-\usepackage{longtable,booktabs,dcolumn,threeparttable}
+\usepackage{longtable,booktabs,dcolumn}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -229,7 +228,7 @@ $if(csl-refs)$
   \ifnum #2 > 0
   \setlength{\parskip}{#2\baselineskip}
   \fi
- }%
+ }%!TEX encoding = UTF-8 Unicode
  {}
 \usepackage{calc}
 \newcommand{\CSLBlock}[1]{#1\hfill\break}
@@ -285,6 +284,11 @@ $if(abstract)$
 \restoregeometry
 $endif$
 $endif$
+
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
 
 $for(include-before)$
 $include-before$

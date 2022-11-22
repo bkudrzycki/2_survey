@@ -7,11 +7,13 @@ bookdown
 gtsummary
 janitor
 labelled
+ggplot2
+ggpubr
+survminer
 flextable
 kableExtra
 stargazer
 tidyverse
-ggplot2
 tibble
 tidyr
 readr

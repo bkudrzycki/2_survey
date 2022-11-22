@@ -3,7 +3,7 @@
 ####################
 
 # Package names
-packages <- c("haven", "tidyverse", "labelled", "readxl")
+packages <- c("haven", "tidyverse", "labelled")
 
 # Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -112,6 +112,8 @@ ys_panel <- ys_panel %>%
     YS3_12 == 9 ~ "Tertiary",
     YS3_12 == 10 ~ "Other"))
 
+## PAST ACTIVITIES
+
 # for each youth, we calculate the past activities by year (actxx) and age (occxx) 
 
 df <- ys_panel %>% 
@@ -161,10 +163,100 @@ ys_panel <- left_join(ys_panel, df, by = "IDYouth")
 
 rm(i,j,k,new,x,y,z,df)
 
+## GRADUATION AGE; FIRST EMPLOYMENT AGE; TRANSITION AGE; TRANSITION READY (dummy for having completed education or training)
+
+ys_panel$transition_ready <- 0
+ys_panel$graduation_age <- NA #last recorded year of schooling
+ys_panel$transition_age <- NA  #age at which youth entered the final observed employment stint
+ys_panel$first_employment_age <- NA
+ys_panel$right_censored <- NA #whether transition duration is right censored
+
+dflist <- ys_panel %>% 
+  dplyr::select(starts_with("occ")) %>% 
+  names()
+
+for (k in 1:3021){
+  for (i in 1:15){
+    x <- dflist[i+1]
+    y <- dflist[i]
+    if (ys_panel[[y]][[k]] %in% c(1:5)) {
+      ys_panel[["graduation_age"]][[k]] <- i+12
+      ys_panel[["transition_ready"]][[k]] <- 1
+    }
+    if (ys_panel[[x]][[k]] %in% c(1:5)) {
+      ys_panel[["first_employment_age"]][[k]] <- NA # if youth goes back to school, any first employment experience is nullified
+    }
+    if (ys_panel[[x]][[k]] %in% c(6:7) && ys_panel[[y]][[k]] %in% c(0,1:5,8) && ys_panel[["transition_ready"]][[k]] == 1) {
+      ys_panel[["transition_age"]][[k]] <- i+13
+    }
+    if (ys_panel[[x]][[k]] %in% c(6:7) && ys_panel[[y]][[k]] %in% c(0,1:5,8) && ys_panel[["transition_ready"]][[k]] == 1 && is.na(ys_panel[["first_employment_age"]][[k]])) {
+      ys_panel[["first_employment_age"]][[k]] <- i+13
+    }
+    if (ys_panel[[x]][[k]] %in% c(0,1:5,8)) {
+      ys_panel[["transition_age"]][[k]] <- NA # if youth goes back to school or stops working, any first employment experience is nullified
+    }
+  }
+  if(ys_panel[["act19"]][[k]] %in% c(1:5)) {
+    ys_panel[["graduation_age"]][[k]] <- NA
+  }
+  if(!is.na(ys_panel[["graduation_age"]][[k]]) && is.na(ys_panel[["transition_age"]][[k]])) { #if school leaving age yes, steady employment no
+    ys_panel[["right_censored"]][[k]] <- 1
+  }
+}
+
+ys_panel <- ys_panel %>% dplyr::mutate(transition_duration = if_else(!is.na(transition_age), transition_age-graduation_age,
+                                                                     if_else(!is.na(graduation_age), baseline_age-graduation_age-1, NULL)),
+                                       first_transition_duration = if_else(!is.na(first_employment_age), first_employment_age-graduation_age,
+                                                                           if_else(!is.na(graduation_age), baseline_age-graduation_age-1, NULL)),
+                                       right_censored = ifelse(!is.na(right_censored), 1, 0))
+
+ys_panel$status <- factor(ys_panel$status, levels = c(1:5), labels=c("In School", "NEET", "Self-Employed", "Employed", "Apprentice"))
+
+## EMPLOYMENT TYPES
+
+# "informal" -> wage employed with no contract, self-employed with less than 4 employees (firms < 5 workers), family workers
+# "formal" -> wage employed on a regular basis with any contract (written or verbal), self-employed with more than 5 workers
+
+ys_panel <- ys_panel %>% 
+  mutate(formal = ifelse(YS8_4 == 9, NA, # no job at the moment -> NA
+                         ifelse((YS8_4 == 1 & YS8_10 != 3) | (YS8_4 == 4 & YS9_15 > 4), 1, # single employer regular basis AND any contract OR self-employed w 5+ workers 
+                                ifelse(!is.na(YS8_4), 0, NA))))
+
+ys_panel <- ys_panel %>% mutate(informal = ifelse(formal == 0, 1, NA),
+                                formal = ifelse(formal == 0, NA, formal))
+
+# "underemp" -> wage- or self-employed who worked less than 35 hours in past week (Benin threshold) (90% of these wanted to work more hours in first two waves)
+
+ys_panel <- ys_panel %>% 
+  mutate(wagedays = coalesce(YS8_17, YS8_18),
+         wagehours = wagedays*YS8_19,
+         selfhours = ifelse(YS9_13<99, YS9_13*YS9_14, NA),
+         hours = ifelse(status == "Employed" | status == "Self-Employed", coalesce(wagehours, selfhours), NA),
+         underemp = ifelse(hours < 35, 1, 0)) %>% 
+  select(-wagehours, -selfhours)
+
+ys_panel <- ys_panel %>% mutate(fulltime = ifelse(underemp == 0, 1, NA),
+                                underemp = ifelse(underemp == 0, NA, underemp))
+
+# "casual" -> one or more employers on *irregular* basis or single employer with irregular/task-based payment
+# "regular work" -> single employer with regular wages
+
+ys_panel <- ys_panel %>%
+  mutate(casual = ifelse(YS8_4 %in% c(2,3) | (YS8_4 == 1 & YS8_14 %in% c(4:7)), 1, 
+                         ifelse(YS8_4 == 1 & YS8_14 %in% c(1:3), 0, NA)))
+
+ys_panel <- ys_panel %>% mutate(regular = ifelse(casual == 0, 1, NA),
+                                casual = ifelse(casual == 0, NA, casual))
+
+# "employer" -> self-employed with employees/apprentices
+# "independent" -> self-employed, no employees or apprentices
+
+ys_panel <- ys_panel %>%
+  mutate(employer = ifelse(YS9_15 > 1 & status == "Self-Employed", 1, 0),
+         independent = ifelse(YS9_15 == 1 & status == "Self-Employed", 1, 0))
+
 # create labelled version of ys_panel
 ys_panel_labels <- haven::as_factor(ys_panel)
-
-ys_panel_labels$status <- factor(ys_panel_labels$status, levels = c(1:5), labels=c("In School", "NEET", "Self-Employed", "Employed", "Apprentice"))
 
 # save as .rda
 save(ys_panel, file = "data/ys_panel.rda")

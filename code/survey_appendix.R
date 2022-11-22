@@ -145,6 +145,25 @@ sstrat %>%
            general_title = "") %>% 
   kableExtra::kable_styling(latex_options="scale_down")
 
+## ---- fig-survival --------
+
+df <- ys_panel %>% 
+  filter(wave == 0) %>% 
+  mutate(id = row_number(), 
+         weights = 1/prob,
+         right_censored = 1-right_censored) %>%  #by convention, 0 = alive (i.e. censored) and 1 = dead (not censored)
+  select(id, sex, baseline_age, starts_with("occ"), graduation_age, first_employment_age, transition_age, transition_duration, first_transition_duration, right_censored, prob) %>% 
+  mutate(sex = recode(sex, `1` = "Male", `0` = "Female"))
+
+df <- df %>% mutate(weights = 1/prob)
+
+surv_object <- Surv(time = df$transition_duration, event = df$right_censored)
+
+fit1 <- survfit(surv_object ~ sex, data = df)
+#fit2 <- survfit(surv_object ~ sex, data = df, weights = weights)
+
+ggsurvplot(fit1, data = df, pval = FALSE, risk.table ="percentage", palette = "aaas", fontsize = 4, conf.int = TRUE, risk.table.height = .3, risk.table.title = "Percentage at risk", ggtheme = theme_survminer(base_size = 10, base_family = "Palatino"), tables.theme = theme_survminer(base_size = 10, base_family = "Palatino", font.main = 14), legend.labs=c("Female" ,"Male")) + guides(colour = "none", fill = "none") + labs(x = "Duration in Years")
+
 ## ---- tbl-transm01 --------
 
 df <- ys_panel_labels %>% select(IDYouth, wave, status) %>% pivot_wider(id_cols = IDYouth, names_from = wave, values_from = status, names_prefix = "wave_")
