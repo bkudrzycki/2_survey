@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.15)  22 NOV 2022 11:38
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.15)  26 NOV 2022 10:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1072,6 +1072,8 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen270
 \c@nlinenum=\count340
 \TeXr@lab=\toks36
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/tools/hhline.sty
+Package: hhline 2020/01/04 v2.04 Table rule package (DPC)
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2021/10/28 v1.9b multicolumn formatting (FMi)
 \c@tracingmulticols=\count341
@@ -1140,8 +1142,6 @@ Package: multicol 2021/10/28 v1.9b multicolumn formatting (FMi)
 \mult@nat@firstbox=\box119
 \colbreak@box=\box120
 \mc@col@check@num=\count350
-) (/usr/local/texlive/2022/texmf-dist/tex/latex/tools/hhline.sty
-Package: hhline 2020/01/04 v2.04 Table rule package (DPC)
 )
 \cslhangindent=\skip84
 \csllabelwidth=\skip85
@@ -1409,50 +1409,62 @@ LaTeX Warning: Reference `tab:attrition' on page 6 undefined on input line 228.
 LaTeX Warning: Reference `tab:eductable' on page 7 undefined on input line 249.
 
 
-(./tables/transition_age.tex) [7] [8]
-
-LaTeX Warning: Reference `fig:surv_prop' on page 9 undefined on input line 271.
-
-
-
-LaTeX Warning: Reference `fig:surv_prop' on page 9 undefined on input line 271.
-
+(./tables/transition_age.tex) [7]
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
+(Font)              scaled to size 7.00075pt on input line 267.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
+(Font)              scaled to size 6.99925pt on input line 267.
+[8]
+Overfull \vbox (51.37564pt too high) has occurred while \output is active []
 
 [9]
 
-LaTeX Warning: Reference `tab:eductable' on page 10 undefined on input line 278
+LaTeX Warning: Reference `fig:surv_prop' on page 10 undefined on input line 334
 .
 
-[10] (./tables/pasttransm.tex) [11] [12] [13]
 
-LaTeX Warning: Reference `tab:propensities_formality' on page 14 undefined on i
-nput line 555.
+LaTeX Warning: Reference `fig:surv_prop' on page 10 undefined on input line 334
+.
 
-[14]
+[10]
 
-LaTeX Warning: Reference `tab:propensities_wageself' on page 15 undefined on in
-put line 557.
+LaTeX Warning: Reference `tab:eductable' on page 11 undefined on input line 341
+.
 
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.00075pt on input line 581.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.99925pt on input line 581.
-[15] (./tables/reg_table.tex) [16] [17] [18]
-Overfull \hbox (0.35632pt too wide) in paragraph at lines 611--612
+[11] [12]
+
+LaTeX Warning: Reference `tab:pasttransm' on page 13 undefined on input line 41
+3.
+
+
+LaTeX Warning: Reference `tab:pasttransm' on page 13 undefined on input line 41
+5.
+
+[13] (./tables/matrix_summary.tex) [14] [15]
+
+LaTeX Warning: Reference `tab:propensities_formality' on page 16 undefined on i
+nput line 613.
+
+
+LaTeX Warning: Reference `tab:propensities_wageself' on page 16 undefined on in
+put line 615.
+
+[16] [17] [18] [19] [20]
+Overfull \hbox (0.35632pt too wide) in paragraph at lines 702--703
 \TU/texgyrepagella(0)/m/n/10.95 We find that reservation wages rise with increa
 sing education. Higher reservation wages
  []
 
-[19] [20] [21] [22] (./tables/replication/census.tex) [23]
+[21] [22] [23] [24] (./tables/census.tex) [25]
 File: figures/littoral_carte.png Graphic file (type bmp)
 <figures/littoral_carte.png>
-[24] [25]
+[26] [27]
 Overfull \vbox (231.29007pt too high) has occurred while \output is active []
 
-[26]
+[28]
 File: figures/fig-survival-1.pdf Graphic file (type pdf)
 <use figures/fig-survival-1.pdf>
-[27] [28] [29] [30] [31] [32] [33] (./youth_survey.aux)
+[29] [30] [31] [32] [33] [34] [35] (./youth_survey.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1461,12 +1473,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 22963 strings out of 476179
- 430120 string characters out of 5809544
- 937943 words of memory out of 5000000
- 43276 multiletter control sequences out of 15000+600000
- 479877 words of font info for 149 fonts, out of 8000000 for 9000
+ 22967 strings out of 476179
+ 430419 string characters out of 5809544
+ 938012 words of memory out of 5000000
+ 43281 multiletter control sequences out of 15000+600000
+ 479901 words of font info for 152 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,21n,123p,2756b,657s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on youth_survey.pdf (33 pages).
+Output written on youth_survey.pdf (35 pages).

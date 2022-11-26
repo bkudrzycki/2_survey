@@ -91,7 +91,29 @@ sstrat %>%
 
 ## ---- tbl-eductable --------
 
-df <- ys_baseline %>% zap_labels()
+df <- ys_baseline %>% zap_labels() %>% 
+  mutate(yos = ifelse(YS3_15 != 99, YS3_15, 0),
+         app = YS3_13,
+         cep = YS3_17_2,
+         bepc = YS3_17_4,
+         bac = YS3_17_6,
+         cap = YS3_17_8,
+         licence = YS3_17_11,
+         master = YS3_17_12,
+         fathapp = YS3_9,
+         fath_primary = ifelse(YS3_10 > 2, 1, 0),
+         fsecplus = ifelse(YS3_10 > 4 & YS3_10 != 10, 1, 0),
+         mothapp = YS3_11,
+         moth_primary = ifelse(YS3_12 > 2, 1, 0),
+         msecplus = ifelse(YS3_12 > 4 & YS3_12 != 10, 1, 0),
+         married = ifelse(YS3_6 == 1, 1, 0),
+         beninese = YS3_1,
+         fon = ifelse(!is.na(YS3_4_4), 1, 0),
+         christian = ifelse(!is.na(YS3_5_1) | !is.na(YS3_5_2) | !is.na(YS3_5_3) | !is.na(YS3_5_4), 1, 0),
+         city = ifelse(YS3_3 == 4, 1, 0),
+         total = 1) %>% 
+  mutate(status = recode(status, "Self-Employed" = "Self-**\n**Employed"))
+
 
 sstrat <- survey::svydesign(id = ~reg_id + act_id, strata = ~region + activite, prob = ~prob, data = df, fpc = ~reg_Nh + act_Nh, nest= TRUE)
 
@@ -101,49 +123,69 @@ sstrat %>%
   tbl_svysummary(
     by=status, 
     # summarize a subset of the columns
-    include = c(sex, baseline_age, yeduc, YS3_15, YS3_17_6, YS3_13, YS3_8, YS6_6, YS6_2, YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8,status),
+    include = c(total, sex, baseline_age, beninese, fon, christian, city, yos, app, cep, bepc, bac, cap, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married,  YS3_8, YS6_6, YS6_2,  YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8,status),
     missing = "no",
     # adding labels to table
-    label = list(sex = "Male",
+    label = list(total = "N",
+                 sex = "Male (=1)",
+                 yos = "Years of Schooling",
+                 app = "Completed apprenticeship (=1)",
+                 cep = "Primary diploma: CEP (=1)",
+                 bepc = "Junior high diploma: BEPC (=1)",
+                 bac = "Baccalauréat: BAC (=1)",
+                 cap = "Vocational certificate: CAP (=1)",
+                 licence = "2nd cycle university: Licence (=1)",
+                 master = "3rd cycle university: Maîtrise (=1)",
+                 fathapp = "Father was apprentice (=1)",
+                 fath_primary = "Father completed primary (=1)",
+                 fsecplus = "Father completed secondary (=1)",
+                 mothapp = "Mother was apprentice (=1)",
+                 moth_primary = "Mother completed primary (=1)",
+                 msecplus = "Mother completed secondary (=1)",
+                 married = "Married (=1)",
                  YS3_8 = "No. of children",
                  YS6_6  = "People in household",
-                 YS6_2 = "Home electrified",
-                 YS6_11_1 = "Cell Phone",
-                 YS6_11_2 = "Smartphone",
-                 YS6_11_5 = "Motorcycle",
-                 YS6_11_8 = "Television",
-                 YS3_15 = "Years of school",
-                 yeduc = "Highest educ. level",
-                 YS3_17_6 = "Baccalauréate",
-                 YS3_13 = "Past apprenticeship"),
+                 beninese = "Nationality: Beninese (=1)",
+                 fon = "Ethnicity: Fon (=1)",
+                 christian = "Religion: Christian (=1)",
+                 city = "Grew up in a city (=1)",
+                 YS6_2 = "Home electrified (=1)",
+                 YS6_11_1 = "Cell Phone (=1)",
+                 YS6_11_2 = "Smartphone (=1)",
+                 YS6_11_5 = "Motorcycle (=1)",
+                 YS6_11_8 = "Television (=1)"),
     type = list(c(YS3_8, YS6_6) ~ "continuous",
-                c(YS3_17_6, YS3_13) ~ "dichotomous"),
+                c(app, cep, bepc, bac, cap, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary) ~ "dichotomous"),
     statistic = list(all_categorical() ~ "{p}%",
-                     all_continuous() ~ "{mean}")
+                     all_continuous() ~ "{mean}",
+                     total ~ "{N_unweighted}")
   ) %>% 
-  modify_header(update = all_stat_cols() ~  "**{level}**\nN={n_unweighted}\n({round(p_unweighted*100,0)}%)") %>% 
-  modify_spanning_header(c("stat_1", "stat_2", "stat_3", "stat_4", "stat_5") ~ "**Occupation**") %>% 
-  add_overall(col_label = "**Overall**\nN={N_unweighted}") %>% 
+  modify_header(update = all_stat_cols() ~  "**{level}**\n({round(p_unweighted, 2)*100}%)") %>% 
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3", "stat_4", "stat_5") ~ "**Baseline Activity**") %>% 
+  add_overall(col_label = "**Overall**") %>% 
   modify_footnote(update = everything() ~ NA) %>% 
   as_kable_extra(caption = "Descriptive statistics by baseline activity",
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  kableExtra::group_rows(start_row = 3,
-                         end_row = 12,
+  kableExtra::group_rows(start_row = 7,
+                         end_row = 14,
                          group_label = "Education") %>% 
-  kableExtra::group_rows(start_row = 13,
-                         end_row = 15,
+  kableExtra::group_rows(start_row = 15,
+                         end_row = 20,
+                         group_label = "Parents' Education") %>% 
+  kableExtra::group_rows(start_row = 21,
+                         end_row = 24,
                          group_label = "Household") %>% 
-  kableExtra::group_rows(start_row = 16,
-                         end_row = 19,
+  kableExtra::group_rows(start_row = 25,
+                         end_row = 29,
                          group_label = "Assets") %>% 
-  footnote(general = "Mean; \\\\%. Calculated using responses from baseline survey. Sample weighting applied as described in the text.",
+  footnote(general = "Mean; \\\\%. Calculated using responses from baseline survey. Sample weighting applied.",
            threeparttable = T,
            escape = F,
            fixed_small_size = T,
            general_title = "") %>% 
-  kableExtra::kable_styling(latex_options="scale_down")
+  kableExtra::kable_styling(font_size = 7)
 
 ## ---- fig-survival --------
 
@@ -152,12 +194,12 @@ df <- ys_panel %>%
   mutate(id = row_number(), 
          weights = 1/prob,
          right_censored = 1-right_censored) %>%  #by convention, 0 = alive (i.e. censored) and 1 = dead (not censored)
-  select(id, sex, baseline_age, starts_with("occ"), graduation_age, first_employment_age, transition_age, transition_duration, first_transition_duration, right_censored, prob) %>% 
+  select(id, sex, baseline_age, starts_with("occ"), graduation_age, first_employment_age, first_employment_duration, right_censored, prob) %>% 
   mutate(sex = recode(sex, `1` = "Male", `0` = "Female"))
 
 df <- df %>% mutate(weights = 1/prob)
 
-surv_object <- Surv(time = df$transition_duration, event = df$right_censored)
+surv_object <- Surv(time = df$first_employment_duration, event = df$right_censored)
 
 fit1 <- survfit(surv_object ~ sex, data = df)
 #fit2 <- survfit(surv_object ~ sex, data = df, weights = weights)

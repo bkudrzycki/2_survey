@@ -10,6 +10,11 @@ labelled
 ggplot2
 ggpubr
 survminer
+plm
+miscTools
+maxLik
+pglm
+texreg
 flextable
 kableExtra
 stargazer

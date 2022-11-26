@@ -23,7 +23,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-packages <- c("haven", "tinytex", "survey", "bookdown", "gtsummary", "janitor", "labelled", "survival", "survminer", "flextable", "kableExtra", "stargazer", "tidyverse")
+packages <- c("haven", "tinytex", "survey", "bookdown", "gtsummary", "janitor", "labelled", "survival", "survminer", "plm", "pglm", "texreg", "flextable", "kableExtra", "stargazer", "tidyverse")
 
 options(repos = c(CRAN = "http://cran.rstudio.com"))
 
@@ -36,6 +36,8 @@ if (any(installed_packages == FALSE)) {
 # load packages
 invisible(lapply(packages, library, character.only = TRUE))
 
+flextable:::usepackage_latex("hhline")
+
 rm(packages, installed_packages)
 
 # load data
@@ -45,7 +47,6 @@ load("../data/ys_panel_labels.rda")
 ys_baseline <- ys_panel %>% filter(wave == 0)
 
 # load functions
-source("../functions/add_by_n.R")
 source("../functions/paste_matrix.R")
 
 # load code chunks
@@ -133,11 +134,9 @@ Among students, about 20% attend a private university, and 75% have to pay tuiti
 
 ## Transition age and duration {#duration}
 
-
-
 Table \ref{tab:eductable} in the Appendix details the educational attainment of youth in our survey by their activity at baseline. The similarity in upper education completion rates for employed and inactive youth are strongly suggestive of a queuing phenomenon, in which qualified youth endure long stints in unemployment while waiting for an offer from a limited pool of wage employers @serneels2007. Moreover, educated youth are more likely to be inactive than to be self-employed: self-employed youth in our sample have completed primary education at half the rate of the NEET youth, and are 50% less likely to hold a baccalauréate or university diploma. In fact, a greater proportion of NEET youth holds a Bachelor's degree (License) than the employed, exemplary of the preponderance of the so-called "educated unemployed" observed throughout sub-Saharan Africa (see, for example, @matsumoto2010). 
 
-\begin{table}[H] 
+\begin{table}[H]
 \caption{Transition statistics} \label{tab:transition_stats}
 \begingroup
 \setlength{\LTleft}{-20cm plus -1fill}
@@ -148,6 +147,9 @@ Table \ref{tab:eductable} in the Appendix details the educational attainment of 
 }
 \endgroup
 \end{table}
+
+```{r, tbl-firstempreg, results = 'asis', fig.align = 'center'}
+```
 
 The ILO's _Work4Youth_ program takes school-leaving age to be the of the onset of the school-to-work transition, as do several studies of the school-to-work transition in OECD countries (e.g. @bowers1998, @quintini2007). We refer to this as the **graduation age**. The top panel of Table \ref{tab:transition_stats} shows that when both retroactive job data and panel data is considered, 568 youth (52.4 percent) of youth finish school or training between 2013 and the final survey, with a mean (weighted) graduation age of 21 years and 9 months. As nearly a third of our sample is still in school or training at baseline, the data is, again, right-censored and the mean age of school-leaving will be downward-biased.
 
@@ -179,11 +181,11 @@ An examination of the pooled transitions (six total transitions) between past ac
 
 Table 6 depicts the rates of transition between activities pooled across all survey rounds: baseline, the three follow-up surveys, and endline (for a total of 4 transitions). As expected, the rate of graduation (transition out of school) is even higher   than the last period of the event history. On average, 40 percent of youth changed activities between each survey round, a significantly higher rate than the 17.2 percent observed in the event history data, reflecting both the higher instability associated with the transition phase (compared to school-age years) and, potentially, much higher variation in youth activity than can be captured by annual data. Surprisingly, the most stable activity is wage employment, with a 68% retention rate across all survey rounds.
 
-<!-- \begin{table}[H]\caption{Transition rates: past and present}\label{tab:matrix_summary} -->
-<!-- \footnotesize{ -->
-<!-- \input{tables/matrix_summary}  -->
-<!-- } -->
-<!-- \end{table} -->
+\begin{table}[H]\caption{Transition rates: past and present}\label{tab:matrix_summary}
+\footnotesize{
+\input{tables/matrix_summary}
+}
+\end{table}
 
 Flows between activity states do not capture transitions between employers. The baseline interview indicates that job turnover is indeed frequent among employed youth. Only about 50 percent of the wage employed had been working for the same employer(s) for more than a year at the time of the interview. Almost three quarters of employed youth claimed that they would like to work more hours, and 65% were actively looking for a new job at the time of the survey. We find that personal networks are central to the job search, with over 60% of working youth in our sample finding employment either through direct prior acquaintance with or family relation to the employer or through a mutual friend. Unlike @nordman2014, however, we cannot comment on the importance of these networks relative to other job search mechanisms with the data at hand.
 
@@ -209,7 +211,9 @@ When asked where they see themselves in 5 years, NEET youth were decidedly optim
 
 ## Job Quality and Life Satisfaction {#satisfaction}
 
-\input{tables/reg_table}
+```{r, tbl-transreg, results = 'asis', echo = FALSE}
+```
+
 
 Benin has a highly informal economy, with an estimated 70% of GDP and 95% of employment generated by the informal sector [@benhassine2018]. As is the case in most of SSA, young workers are particularly likely to be employed in informal work. The ILO defines informal workers as all those employed by small, unincorporated firms (under five workers), the self-employed, and any wage worker not covered by social protection through their employer, including non-wage workers contributing to a family business @sumberg2021. Indeed, of the 289 youth engaged in some income-generating activity at survey baseline (38% of the sample), over 95% would be considered informal workers by the ILO. Even using a less stringent definition of informality ---one that only considers family workers, the self-employed with under five employees, and wage workers with no contract as informal --- 74% of employed youth in our sample work informally.
 
@@ -251,7 +255,7 @@ We make a unique contribution to the literature by estimating the effects of tra
 \setcounter{section}{1}
 \renewcommand{\thesection}{A\arabic{table}}
 
-\input{tables/replication/census}
+\input{tables/census}
 
 # Weighting {#weighting}
 
@@ -276,7 +280,7 @@ $$w_i = (n\pi_i)^{-1}.$$
 ```{r, tbl-surveydesc, echo=FALSE}
 ```
 
-```{r, fig-survival, fig.cap="Percent at risk of needing another year before transitioning", echo=FALSE}
+```{r, fig-survival, fig.cap="Survival analysis: duration of transition to first employment", echo=FALSE}
 ```
 
 ```{r, tbl-eductable, echo=FALSE}
