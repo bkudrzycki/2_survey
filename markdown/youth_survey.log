@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.15)  26 NOV 2022 10:37
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.15)  20 JAN 2023 11:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -22,7 +22,48 @@ File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
-) (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/amssymb.sty
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/fontspec/fontspec.sty (/usr/loc
+al/texlive/2022/texmf-dist/tex/latex/l3packages/xparse/xparse.sty (/usr/local/t
+exlive/2022/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2022-02-24 L3 programming layer (loader) 
+(/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
+File: l3backend-xetex.def 2022-02-07 L3 backend support: XeTeX
+(|extractbb --version)
+\c__kernel_sys_dvipdfmx_version_int=\count189
+\l__color_backend_stack_int=\count190
+\g__color_backend_stack_int=\count191
+\g__graphics_track_int=\count192
+\l__pdf_internal_box=\box50
+\g__pdf_backend_object_int=\count193
+\g__pdf_backend_annotation_int=\count194
+\g__pdf_backend_link_int=\count195
+))
+Package: xparse 2022-01-12 L3 Experimental document command parser
+)
+Package: fontspec 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTeX
+(/usr/local/texlive/2022/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+Package: fontspec-xetex 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTe
+X
+\l__fontspec_script_int=\count196
+\l__fontspec_language_int=\count197
+\l__fontspec_strnum_int=\count198
+\l__fontspec_tmp_int=\count199
+\l__fontspec_tmpa_int=\count266
+\l__fontspec_tmpb_int=\count267
+\l__fontspec_tmpc_int=\count268
+\l__fontspec_em_int=\count269
+\l__fontspec_emdef_int=\count270
+\l__fontspec_strong_int=\count271
+\l__fontspec_strongdef_int=\count272
+\l__fontspec_tmpa_dim=\dimen139
+\l__fontspec_tmpb_dim=\dimen140
+\l__fontspec_tmpc_dim=\dimen141
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/fontspec/fontspec.cfg))) (/usr/
+local/texlive/2022/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
@@ -41,99 +82,60 @@ Package: amstext 2021/08/26 v2.01 AMS text
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks17
-\ex@=\dimen139
+\ex@=\dimen142
 )) (/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen140
+\pmbraise@=\dimen143
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2021/08/26 v2.02 operator names
 )
-\inf@bad=\count189
+\inf@bad=\count273
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count190
-\leftroot@=\count191
+\uproot@=\count274
+\leftroot@=\count275
 LaTeX Info: Redefining \overline on input line 399.
-\classnum@=\count192
-\DOTSCASE@=\count193
+\classnum@=\count276
+\DOTSCASE@=\count277
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
-\Mathstrutbox@=\box50
-\strutbox@=\box51
-\big@size=\dimen141
+\Mathstrutbox@=\box51
+\strutbox@=\box52
+\big@size=\dimen144
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count194
-\c@MaxMatrixCols=\count195
+\macc@depth=\count278
+\c@MaxMatrixCols=\count279
 \dotsspace@=\muskip16
-\c@parentequation=\count196
-\dspbrk@lvl=\count197
+\c@parentequation=\count280
+\dspbrk@lvl=\count281
 \tag@help=\toks18
-\row@=\count198
-\column@=\count199
-\maxfields@=\count266
+\row@=\count282
+\column@=\count283
+\maxfields@=\count284
 \andhelp@=\toks19
-\eqnshift@=\dimen142
-\alignsep@=\dimen143
-\tagshift@=\dimen144
-\tagwidth@=\dimen145
-\totwidth@=\dimen146
-\lineht@=\dimen147
+\eqnshift@=\dimen145
+\alignsep@=\dimen146
+\tagshift@=\dimen147
+\tagwidth@=\dimen148
+\totwidth@=\dimen149
+\lineht@=\dimen150
 \@envbody=\toks20
 \multlinegap=\skip50
 \multlinetaggap=\skip51
 \mathdisplay@stack=\toks21
 LaTeX Info: Redefining \[ on input line 2938.
 LaTeX Info: Redefining \] on input line 2939.
-) (/usr/local/texlive/2022/texmf-dist/tex/latex/unicode-math/unicode-math.sty (
-/usr/local/texlive/2022/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2022-02-24 L3 programming layer (loader) 
-(/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
-File: l3backend-xetex.def 2022-02-07 L3 backend support: XeTeX
-(|extractbb --version)
-\c__kernel_sys_dvipdfmx_version_int=\count267
-\l__color_backend_stack_int=\count268
-\g__color_backend_stack_int=\count269
-\g__graphics_track_int=\count270
-\l__pdf_internal_box=\box52
-\g__pdf_backend_object_int=\count271
-\g__pdf_backend_annotation_int=\count272
-\g__pdf_backend_link_int=\count273
-))
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/unicode-math/unicode-math.sty
 Package: unicode-math 2020/01/31 v0.8q Unicode maths in XeLaTeX and LuaLaTeX
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/unicode-math/unicode-math-xetex.s
 ty
 Package: unicode-math-xetex 2020/01/31 v0.8q Unicode maths in XeLaTeX and LuaLa
 TeX
-(/usr/local/texlive/2022/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-Package: xparse 2022-01-12 L3 Experimental document command parser
-) (/usr/local/texlive/2022/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.st
-y
+(/usr/local/texlive/2022/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
 Package: l3keys2e 2022-01-12 LaTeX2e option processing using LaTeX3 keys
-) (/usr/local/texlive/2022/texmf-dist/tex/latex/fontspec/fontspec.sty
-Package: fontspec 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTeX
-(/usr/local/texlive/2022/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
-Package: fontspec-xetex 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTe
-X
-\l__fontspec_script_int=\count274
-\l__fontspec_language_int=\count275
-\l__fontspec_strnum_int=\count276
-\l__fontspec_tmp_int=\count277
-\l__fontspec_tmpa_int=\count278
-\l__fontspec_tmpb_int=\count279
-\l__fontspec_tmpc_int=\count280
-\l__fontspec_em_int=\count281
-\l__fontspec_emdef_int=\count282
-\l__fontspec_strong_int=\count283
-\l__fontspec_strongdef_int=\count284
-\l__fontspec_tmpa_dim=\dimen148
-\l__fontspec_tmpb_dim=\dimen149
-\l__fontspec_tmpc_dim=\dimen150
-(/usr/local/texlive/2022/texmf-dist/tex/latex/base/fontenc.sty
-Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
-) (/usr/local/texlive/2022/texmf-dist/tex/latex/fontspec/fontspec.cfg))) (/usr/
-local/texlive/2022/texmf-dist/tex/latex/base/fix-cm.sty
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/base/fix-cm.sty
 Package: fix-cm 2020/11/24 v1.1t fixes to LaTeX
 (/usr/local/texlive/2022/texmf-dist/tex/latex/base/ts1enc.def
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
@@ -220,13 +222,13 @@ age=dflt;+onum;+pnum;+smcp;mapping=tex-text;"
 
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
 (Font)                  OT1/cmr/m/n --> TU/texgyrepagella(1)/m/n on input line 
-26.
+29.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
 (Font)                  OT1/cmr/m/it --> TU/texgyrepagella(1)/m/it on input lin
-e 26.
+e 29.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
 (Font)                  OT1/cmr/bx/n --> TU/texgyrepagella(1)/b/n on input line
- 26.
+ 29.
 
 Package fontspec Info: Font family 'texgyrepagella-math.otf(0)' created for
 (fontspec)             font 'texgyrepagella-math.otf' with options
@@ -260,15 +262,15 @@ tf]/OT:script=math;language=dflt;+ssty=1;mapping=tex-text;"
 (fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 29.
+(Font)              `operators' in the math version `normal' on input line 32.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> TU/texgyrepagella-math.otf(1)/m/n on in
-put line 29.
+put line 32.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 29.
+(Font)              `operators' in the math version `bold' on input line 32.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/cmr/bx/n --> TU/texgyrepagella-math.otf(1)/b/n on i
-nput line 29.
+nput line 32.
 
 Package fontspec Info: texgyrepagella-math scale = 1.0001.
 
@@ -322,15 +324,15 @@ tex-text;"
 (fontspec)             =0pt\relax \fontdimen 21\font =0pt\relax 
 
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `normal' on input line 29.
+(Font)              `symbols' in the math version `normal' on input line 32.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
 (Font)                  OMS/cmsy/m/n --> TU/texgyrepagella-math.otf(2)/m/n on i
-nput line 29.
+nput line 32.
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `bold' on input line 29.
+(Font)              `symbols' in the math version `bold' on input line 32.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
 (Font)                  OMS/cmsy/b/n --> TU/texgyrepagella-math.otf(2)/b/n on i
-nput line 29.
+nput line 32.
 
 Package fontspec Info: texgyrepagella-math scale = 0.9999.
 
@@ -372,17 +374,17 @@ tex-text;"
 (fontspec)             =5.1246pt\relax \fontdimen 13\font =0pt\relax 
 
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
-(Font)              `largesymbols' in the math version `normal' on input line 2
-9.
+(Font)              `largesymbols' in the math version `normal' on input line 3
+2.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
 (Font)                  OMX/cmex/m/n --> TU/texgyrepagella-math.otf(3)/m/n on i
-nput line 29.
+nput line 32.
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
-(Font)              `largesymbols' in the math version `bold' on input line 29.
+(Font)              `largesymbols' in the math version `bold' on input line 32.
 
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/cmex/m/n --> TU/texgyrepagella-math.otf(3)/b/n on i
-nput line 29.
+nput line 32.
 
 Package fontspec Info: FiraMono-Regular scale = 0.8899403996975034.
 
@@ -482,9 +484,9 @@ atn;language=dflt;+tnum;mapping=tex-text;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/FiraMono(1)/m/n on input line 39.
+(Font)                  OT1/cmtt/m/n --> TU/FiraMono(1)/m/n on input line 42.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/FiraMono(1)/b/n on input line 39.
+(Font)                  OT1/cmtt/m/n --> TU/FiraMono(1)/b/n on input line 42.
 
 Package fontspec Info: FiraSans-Regular scale = 0.8899403996975034.
 
@@ -612,9 +614,9 @@ ript=latn;language=dflt;+lnum;+tnum;mapping=tex-text;"
 ript=latn;language=dflt;+lnum;+tnum;+smcp;mapping=tex-text;"
 
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/FiraSans(1)/m/n on input line 53.
+(Font)                  OT1/cmss/m/n --> TU/FiraSans(1)/m/n on input line 56.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/FiraSans(1)/b/n on input line 53.
+(Font)                  OT1/cmss/bx/n --> TU/FiraSans(1)/b/n on input line 56.
 
 Package fontspec Info: Font family 'texgyrepagella(2)' created for font
 (fontspec)             'texgyrepagella' with options
@@ -879,7 +881,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 File: bkm-dvipdfm.def 2020-11-06 v1.29 bookmark driver for dvipdfm (HO)
 \BKM@id=\count312
 ))
-Package hyperref Info: Option `colorlinks' set `true' on input line 91.
+Package hyperref Info: Option `colorlinks' set `true' on input line 94.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 (/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/ifvtex.sty
@@ -979,8 +981,6 @@ Package graphics Info: Driver file: xetex.def on input line 107.
 Package: subcaption 2022/01/07 v1.5 Sub-captions (AR)
 \c@subfigure=\count328
 \c@subtable=\count329
-) (/usr/local/texlive/2022/texmf-dist/tex/latex/setspace/setspace.sty
-Package: setspace 2011/12/19 v6.7a set line spacing
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/base/flafter.sty
 Package: flafter 2021/07/31 v1.4e Standard LaTeX floats after reference (FMi)
 Applying: [2015/01/01] float order in 2-column on input line 49.
@@ -1152,26 +1152,26 @@ LaTeX Warning: Label `tab:tbl-historymatrix' multiply defined.
 )
 \openout1 = `youth_survey.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 167.
-LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 169.
+LaTeX Font Info:    ... okay on input line 169.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
@@ -1189,13 +1189,11 @@ Package: fr-longtable 2007/11/28 v0.1b (beta) floatrow: additions for longtable
 \flrow@LT@prelastfoot=\box122
 \c@FBLTpage=\count351
 )
-LaTeX Info: Redefining \microtypecontext on input line 167.
-Package microtype Info: Applying patch `item' on input line 167.
-Package microtype Info: Applying patch `toc' on input line 167.
-Package microtype Info: Applying patch `eqnum' on input line 167.
-
-Package microtype Warning: Unable to apply patch `footnote' on input line 167.
-
+LaTeX Info: Redefining \microtypecontext on input line 169.
+Package microtype Info: Applying patch `item' on input line 169.
+Package microtype Info: Applying patch `toc' on input line 169.
+Package microtype Info: Applying patch `eqnum' on input line 169.
+Package microtype Info: Applying patch `footnote' on input line 169.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: No adjustment of tracking.
@@ -1205,7 +1203,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `texgyrepagella' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-Package hyperref Info: Link coloring ON on input line 167.
+Package hyperref Info: Link coloring ON on input line 169.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (/usr/local/texlive/2022/texmf-dist/tex/latex/refcount/refcount.sty
@@ -1217,9 +1215,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count352
 )
-LaTeX Info: Redefining \ref on input line 167.
-LaTeX Info: Redefining \pageref on input line 167.
-LaTeX Info: Redefining \nameref on input line 167.
+LaTeX Info: Redefining \ref on input line 169.
+LaTeX Info: Redefining \pageref on input line 169.
+LaTeX Info: Redefining \nameref on input line 169.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1287,25 +1285,25 @@ LaTeX Info: Redefining \nameref on input line 167.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 17.28183pt on input line 174.
+(Font)              scaled to size 17.28183pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.00128pt on input line 174.
+(Font)              scaled to size 12.00128pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.00107pt on input line 174.
+(Font)              scaled to size 10.00107pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 17.27815pt on input line 174.
+(Font)              scaled to size 17.27815pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 174.
+(Font)              scaled to size 11.99872pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 9.99893pt on input line 174.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 174
+(Font)              scaled to size 9.99893pt on input line 176.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 176
 .
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 174
+LaTeX Font Info:    Trying to load font information for U+msb on input line 176
 .
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1313,29 +1311,29 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00085pt on input line 174.
+(Font)              scaled to size 8.00085pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00064pt on input line 174.
+(Font)              scaled to size 6.00064pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 174.
+(Font)              scaled to size 7.99915pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 174.
+(Font)              scaled to size 5.99936pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 9.00096pt on input line 174.
+(Font)              scaled to size 9.00096pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00053pt on input line 174.
+(Font)              scaled to size 5.00053pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.99904pt on input line 174.
+(Font)              scaled to size 8.99904pt on input line 176.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 174.
+(Font)              scaled to size 4.99947pt on input line 176.
 
-Underfull \hbox (badness 1931) in paragraph at lines 176--177
+Underfull \hbox (badness 1931) in paragraph at lines 178--179
 \TU/texgyrepagella(0)/m/n/10 queuing for wage jobs: relatively well-educated yo
 uth endure long periods
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--177
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
 
  []
 
@@ -1344,17 +1342,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 176--177
 
 ] (./youth_survey.toc
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.95116pt on input line 3.
+(Font)              scaled to size 10.95116pt on input line 4.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.10385pt on input line 3.
+(Font)              scaled to size 8.10385pt on input line 4.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.02315pt on input line 3.
+(Font)              scaled to size 6.02315pt on input line 4.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.94882pt on input line 3.
+(Font)              scaled to size 10.94882pt on input line 4.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.10213pt on input line 3.
+(Font)              scaled to size 8.10213pt on input line 4.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.02185pt on input line 3.
+(Font)              scaled to size 6.02185pt on input line 4.
 )
 \tf@toc=\write3
 \openout3 = `youth_survey.toc'.
@@ -1393,92 +1391,77 @@ lar fonts (LBD)
 \tf@lot=\write5
 \openout5 = `youth_survey.lot'.
 
-[3]
-Underfull \hbox (badness 1527) in paragraph at lines 204--205
+[3] [4] [5]
+Underfull \hbox (badness 1527) in paragraph at lines 222--223
 []\TU/texgyrepagella(0)/m/n/10.95 Evidence from high-income countries suggests 
 that protracted unemployment
  []
 
-[4] [5]
-
-LaTeX Warning: Reference `tab:attrition' on page 6 undefined on input line 228.
-
-
-[6]
-
-LaTeX Warning: Reference `tab:eductable' on page 7 undefined on input line 249.
-
-
-(./tables/transition_age.tex) [7]
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.00075pt on input line 267.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.99925pt on input line 267.
-[8]
-Overfull \vbox (51.37564pt too high) has occurred while \output is active []
-
-[9]
-
-LaTeX Warning: Reference `fig:surv_prop' on page 10 undefined on input line 334
-.
-
-
-LaTeX Warning: Reference `fig:surv_prop' on page 10 undefined on input line 334
-.
-
-[10]
-
-LaTeX Warning: Reference `tab:eductable' on page 11 undefined on input line 341
-.
-
-[11] [12]
-
-LaTeX Warning: Reference `tab:pasttransm' on page 13 undefined on input line 41
-3.
-
-
-LaTeX Warning: Reference `tab:pasttransm' on page 13 undefined on input line 41
-5.
-
-[13] (./tables/matrix_summary.tex) [14] [15]
-
-LaTeX Warning: Reference `tab:propensities_formality' on page 16 undefined on i
-nput line 613.
-
-
-LaTeX Warning: Reference `tab:propensities_wageself' on page 16 undefined on in
-put line 615.
-
-[16] [17] [18] [19] [20]
-Overfull \hbox (0.35632pt too wide) in paragraph at lines 702--703
-\TU/texgyrepagella(0)/m/n/10.95 We find that reservation wages rise with increa
-sing education. Higher reservation wages
+[6] [7] [8]
+Underfull \hbox (badness 2042) in paragraph at lines 243--244
+\TU/texgyrepagella(0)/m/n/10.95 ducted in Oudgadougou, Nordman and Pasquier-Dou
+mer (2015) show network
  []
 
-[21] [22] [23] [24] (./tables/census.tex) [25]
+[9] [10] [11] [12]
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
+(Font)              scaled to size 7.00075pt on input line 325.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
+(Font)              scaled to size 6.99925pt on input line 325.
+
+Overfull \hbox (1.1pt too wide) in paragraph at lines 325--325
+ []|\TU/texgyrepagella(2)/b/n/10 Apprentice  
+ []
+
+
+Overfull \hbox (175.86635pt too wide) in paragraph at lines 276--331
+ [] 
+ []
+
+[13] [14] [15] [16] [17] [18]
+Overfull \hbox (11.981pt too wide) in paragraph at lines 424--461
+ [][] 
+ []
+
+[19] [20] [21]
+File: figures/fig-ageplot-1.pdf Graphic file (type pdf)
+<use figures/fig-ageplot-1.pdf>
+[22] [23] [24] [25] [26] [27] [28] [29] [30]
+Overfull \vbox (19.17262pt too high) has occurred while \output is active []
+
+[31] [32] [33] [34]
+Missing character: There is no ⁴ (U+2074) in font [texgyrepagella-regular.otf]/
+OT:script=latn;language=dflt;+lnum;+tnum;mapping=tex-text;!
+Missing character: There is no ⁵ (U+2075) in font [texgyrepagella-regular.otf]/
+OT:script=latn;language=dflt;+lnum;+tnum;mapping=tex-text;!
+Missing character: There is no ⁶ (U+2076) in font [texgyrepagella-regular.otf]/
+OT:script=latn;language=dflt;+lnum;+tnum;mapping=tex-text;!
+[35]
+Overfull \vbox (112.25087pt too high) has occurred while \output is active []
+
+[36] [37] [38] [39] [40] [41] [42]
 File: figures/littoral_carte.png Graphic file (type bmp)
 <figures/littoral_carte.png>
-[26] [27]
-Overfull \vbox (231.29007pt too high) has occurred while \output is active []
+(./tables/census.tex) [43] [44] [45]
+Overfull \vbox (74.53795pt too high) has occurred while \output is active []
 
-[28]
+[46]
+File: figures/fig-clusters-1.pdf Graphic file (type pdf)
+<use figures/fig-clusters-1.pdf>
 File: figures/fig-survival-1.pdf Graphic file (type pdf)
 <use figures/fig-survival-1.pdf>
-[29] [30] [31] [32] [33] [34] [35] (./youth_survey.aux)
-
-LaTeX Warning: There were undefined references.
-
+[47] [48] [49] [50] [51] [52] [53] [54] [55] [56] (./youth_survey.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 22967 strings out of 476179
- 430419 string characters out of 5809544
- 938012 words of memory out of 5000000
- 43281 multiletter control sequences out of 15000+600000
- 479901 words of font info for 152 fonts, out of 8000000 for 9000
+ 22990 strings out of 476179
+ 431359 string characters out of 5809544
+ 957594 words of memory out of 5000000
+ 43301 multiletter control sequences out of 15000+600000
+ 479957 words of font info for 159 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 86i,21n,123p,2756b,657s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,18n,123p,2756b,658s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on youth_survey.pdf (35 pages).
+Output written on youth_survey.pdf (56 pages).

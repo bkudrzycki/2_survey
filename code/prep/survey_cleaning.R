@@ -20,6 +20,9 @@ rm(packages, installed_packages)
 ys_panel <- read_sav("data/youth_survey_reshaped.sav", user_na = TRUE)
 
 # filter by age and code status
+ys_panel <- ys_panel %>% filter(baseline_age >=20 & baseline_age <= 29,
+                                !is.na(YS1_1))
+
 ys_panel <- ys_panel %>% 
   mutate(status = ifelse(YS4_1 == 1 | (YS1_2 == 1 & wave == 0), 5, 
                          ifelse(YS8_4 %in% c(1,2,3,5,6,8), 4,
@@ -32,8 +35,24 @@ ys_panel <- ys_panel %>%
 
 ys_panel$baseline_activity <- factor(ys_panel$baseline_activity, levels = c(1,2,3,4,5), labels = c("In School", "NEET", "Self-Employed", "Employed", "Apprentice"))
 
-ys_panel <- ys_panel %>% filter(baseline_age >=20 & baseline_age <= 29,
-       !is.na(YS1_1))
+# label status and generate lagged status
+
+ys_panel$status <- factor(ys_panel$status, levels = c(1:5), labels=c("In School", "NEET", "Self-Employed", "Employed", "Apprentice"))
+
+df <- ys_panel %>% select(IDYouth, status, wave)
+
+df = expand.grid(
+  IDYouth = sort(unique(df$IDYouth)),
+  wave   = seq(from = min(df$wave), to = max(df$wave))
+) %>% 
+  left_join(df, by = c("IDYouth", "wave")) %>% 
+  arrange(IDYouth, wave) %>% 
+  group_by(IDYouth) %>% 
+  mutate(lagged_status = lag(status)) %>% 
+  ungroup() %>% 
+  select(-status)
+
+ys_panel <- left_join(ys_panel, df, by = c("IDYouth", "wave"))
 
 # filter out CQP apprentices
 ys_panel <- ys_panel %>% 
@@ -110,7 +129,29 @@ ys_panel <- ys_panel %>%
     YS3_12 == 7 ~ "Lycée",
     YS3_12 == 8 ~ "Tertiary",
     YS3_12 == 9 ~ "Tertiary",
-    YS3_12 == 10 ~ "Other"))
+    YS3_12 == 10 ~ "Other")) %>% 
+  mutate(yos = ifelse(YS3_15 != 99, YS3_15, 0),
+         secplus = ifelse(YS3_16 > 4 & YS3_16 != 10, 1, 0),
+         app = YS3_13,
+         cep = YS3_17_2,
+         bepc = YS3_17_4,
+         bac = YS3_17_6,
+         cap = YS3_17_8,
+         licence = YS3_17_11,
+         master = YS3_17_12,
+         fathapp = YS3_9,
+         fath_primary = ifelse(YS3_10 > 2, 1, 0),
+         fsecplus = ifelse(YS3_10 > 4 & YS3_10 != 10, 1, 0),
+         mothapp = YS3_11,
+         moth_primary = ifelse(YS3_12 > 2, 1, 0),
+         msecplus = ifelse(YS3_12 > 4 & YS3_12 != 10, 1, 0),
+         married = ifelse(YS3_6 == 1, 1, 0),
+         siblings = as.numeric(YS3_7),
+         beninese = YS3_1,
+         fon = ifelse(!is.na(YS3_4_4), 1, 0),
+         christian = ifelse(!is.na(YS3_5_1) | !is.na(YS3_5_2) | !is.na(YS3_5_3) | !is.na(YS3_5_4), 1, 0),
+         city = ifelse(YS3_3 == 4, 1, 0)
+         )
 
 ## PAST ACTIVITIES
 
@@ -161,60 +202,6 @@ df <- df %>% select(-baseline_age)
 
 ys_panel <- left_join(ys_panel, df, by = "IDYouth")
 
-rm(i,j,k,new,x,y,z,df)
-
-## GRADUATION AGE; FIRST EMPLOYMENT AGE; TRANSITION AGE; TRANSITION READY (dummy for having completed education or training)
-
-# ys_panel$transition_ready <- 0
-# ys_panel$graduation_age <- NA #last recorded year of schooling
-# ys_panel$transition_age <- NA  #age at which youth entered the final observed employment stint
-# ys_panel$first_employment_age <- NA
-# ys_panel$right_censored <- NA #whether transition duration is right censored
-# 
-# dflist <- ys_panel %>% 
-#   dplyr::select(starts_with("occ")) %>% 
-#   names()
-# 
-# for (k in 1:3021){
-#   for (i in 1:15){
-#     x <- dflist[i+1]
-#     y <- dflist[i]
-#     if (ys_panel[[y]][[k]] %in% c(1:5)) {
-#       ys_panel[["graduation_age"]][[k]] <- i+12
-#       ys_panel[["transition_ready"]][[k]] <- 1
-#     }
-#     if (ys_panel[[x]][[k]] %in% c(1:5)) {
-#       ys_panel[["first_employment_age"]][[k]] <- NA # if youth goes back to school, any first employment experience is nullified
-#     }
-#     if (ys_panel[[x]][[k]] %in% c(6:7) && ys_panel[[y]][[k]] %in% c(0,1:5,8) && ys_panel[["transition_ready"]][[k]] == 1) {
-#       ys_panel[["transition_age"]][[k]] <- i+13
-#     }
-#     if (ys_panel[[x]][[k]] %in% c(6:7) && ys_panel[[y]][[k]] %in% c(0,1:5,8) && ys_panel[["transition_ready"]][[k]] == 1 && is.na(ys_panel[["first_employment_age"]][[k]])) {
-#       ys_panel[["first_employment_age"]][[k]] <- i+13
-#     }
-#     if (ys_panel[[x]][[k]] %in% c(0,1:5,8)) {
-#       ys_panel[["transition_age"]][[k]] <- NA # if youth goes back to school or stops working, any first employment experience is nullified
-#     }
-#   }
-#   if(ys_panel[["act19"]][[k]] %in% c(1:5)) {
-#     ys_panel[["graduation_age"]][[k]] <- NA
-#   }
-#   if(!is.na(ys_panel[["graduation_age"]][[k]]) && is.na(ys_panel[["transition_age"]][[k]])) { #if school leaving age yes, steady employment no
-#     ys_panel[["right_censored"]][[k]] <- 1
-#   }
-# }
-# 
-# ys_panel <- ys_panel %>% 
-#   dplyr::mutate(transition_duration = 
-#                   if_else(!is.na(transition_age), transition_age-graduation_age,
-#                           if_else(!is.na(graduation_age), baseline_age-graduation_age-1, NULL)),
-#                 first_transition_duration =
-#                   if_else(!is.na(first_employment_age), first_employment_age-graduation_age,
-#                           if_else(!is.na(graduation_age), baseline_age-graduation_age-1, NULL)),
-#                 right_censored = ifelse(!is.na(right_censored), 1, 0))
-
-ys_panel$status <- factor(ys_panel$status, levels = c(1:5), labels=c("In School", "NEET", "Self-Employed", "Employed", "Apprentice"))
-
 ys_baseline <- ys_panel %>% filter(wave == 0)
 
 ys_baseline <- ys_baseline %>% 
@@ -247,12 +234,22 @@ df <- ys_panel %>%
          age21 = age_4) %>% 
   select(-contains("age_"), -contains("status"))
 
+
+## AGE AT FIRST EMPLOYMENT; DURATION BETWEEN GRADUATION AND FIRST EMPLOYMENT
+
 ys_baseline <- left_join(ys_baseline, df, by = c("IDYouth"))
 
 df <- ys_baseline %>% 
   select(IDYouth, contains("age2"), contains("age1"), contains("act1"), contains("act2"))
 
 df <- df[ , order(names(df))]
+
+df$graduation_age <- NA
+df$first_employment_age <- NA
+df$first_wage_age <- NA
+df$first_self_age <- NA
+df$right_censored <- 0
+df$entry <- NA
 
 actlist <- df %>% 
   dplyr::select(starts_with("act")) %>% 
@@ -266,12 +263,6 @@ agelist <- df %>%
 
 agelist <- sort(agelist)
 
-df$graduation_age <- NA
-df$first_employment_age <- NA
-df$first_wage_age <- NA
-df$first_self_age <- NA
-df$right_censored <- 0
-
 # graduation age: only includes observed period (2013 and after)
 # first employment age: erased if youth goes back to apprenticeship/schooling
 
@@ -281,17 +272,18 @@ for (k in 1:752){
     y <- actlist[i+1]
     z <- agelist[i]
     w <- agelist[i+1]
-    if (df[[x]][[k]] %in% c("In School", "Apprentice")) {
+    if (df[[x]][[k]] %in% c("In School", "Apprentice")) { # reset if return to schooling
       df[["first_employment_age"]][[k]] <- NA
       df[["graduation_age"]][[k]] <- NA
     }
     if (df[[x]][[k]] %in% c("In School", "Apprentice") && df[[y]][[k]] %in% c("NEET", "Self-Employed", "Employed")) {
       df[["graduation_age"]][[k]] <- df[[z]][[k]]
-      df[["right_censored"]][[k]] <- 1
     }
     if (df[[y]][[k]] %in% c("Self-Employed", "Employed") && is.na(df[["first_employment_age"]][[k]]) && !(is.na(df[["graduation_age"]][[k]]))) {
       df[["first_employment_age"]][[k]] <- df[[w]][[k]]
-      df[["right_censored"]][[k]] <- 0
+    }
+    if (df[[y]][[k]] %in% c("Self-Employed", "Employed", "NEET") && is.na(df[["entry"]][[k]]) && !(is.na(df[["graduation_age"]][[k]]))) {
+      df[["entry"]][[k]] <- as.character(df[[y]][[k]])
     }
     if (df[[x]][[k]] %in% "Employed" && is.na(df[["first_wage_age"]][[k]]) && !(is.na(df[["graduation_age"]][[k]]))) {
       df[["first_wage_age"]][[k]] <- df[[z]][[k]]
@@ -299,7 +291,10 @@ for (k in 1:752){
     if (df[[x]][[k]] %in% "Self-Employed" && is.na(df[["first_self_age"]][[k]]) && !(is.na(df[["graduation_age"]][[k]]))) {
       df[["first_self_age"]][[k]] <- df[[z]][[k]]
     }
-    if (!is.na(df[["graduation_age"]][[k]]) && df[[y]][[k]] %in% c("Self-Employed", "Employed")) {
+    if (df[[y]][[k]] %in% c("In School", "Apprentice")) {
+      df[["right_censored"]][[k]] <- 1
+    }
+    if (df[[y]][[k]] %in% c("Self-Employed", "Employed") && !(is.na(df[["graduation_age"]][[k]]))) {
       df[["right_censored"]][[k]] <- 0
     }
   }
@@ -307,8 +302,29 @@ for (k in 1:752){
 
 df$first_employment_duration <- df$first_employment_age - df$graduation_age
 
-ys_panel <- left_join(ys_panel, (df %>% select(IDYouth, first_employment_duration, first_employment_age, graduation_age, right_censored)))
+ys_panel <- left_join(ys_panel, (df %>% select(IDYouth, first_employment_duration, first_employment_age, graduation_age, right_censored, entry, act19.2, act19.3, contains(c("act2", "age1", "age2")))), by = "IDYouth")
 
+# Transitioned/graduated in past seven years: for transition regression
+
+ys_panel$transition_ready <- 0
+ys_panel$transitioned <- 0
+
+dflist <- ys_panel %>% 
+  dplyr::select(starts_with("act1")) %>% 
+  names()
+
+#only those who have been in school can transition; only those who haven't transitioned will be taken into account
+for (k in 1:3021){
+  for (i in 1:7){
+    y <- dflist[i]
+    if(ys_panel[[y]][[k]] %in% c(1:5)) {
+      ys_panel[["transition_ready"]][[k]] <- 1
+    }
+    if(ys_panel[[y]][[k]] %in% c(6:7)) {
+      ys_panel[["transitioned"]][[k]] <- 1
+    }
+  }
+}
 
 ## EMPLOYMENT TYPES
 
@@ -355,6 +371,8 @@ ys_panel <- ys_panel %>%
 
 # create labelled version of ys_panel
 ys_panel_labels <- haven::as_factor(ys_panel)
+
+rm(i,j,k,new,w, x,y,z,df, actlist, agelist, dflist, ys_baseline, surv_object)
 
 # save as .rda
 save(ys_panel, file = "data/ys_panel.rda")
