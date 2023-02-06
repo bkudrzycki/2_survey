@@ -91,7 +91,7 @@ x <- ys_panel %>% filter(wave == 0) %>%
 
 ys_panel <- left_join(ys_panel, x, by = "IDYouth")
 
-rm(x)
+# recode values
 
 ys_panel <- ys_panel %>%
   mutate(yeduc = case_when(
@@ -150,8 +150,58 @@ ys_panel <- ys_panel %>%
          beninese = YS3_1,
          fon = ifelse(!is.na(YS3_4_4), 1, 0),
          christian = ifelse(!is.na(YS3_5_1) | !is.na(YS3_5_2) | !is.na(YS3_5_3) | !is.na(YS3_5_4), 1, 0),
-         city = ifelse(YS3_3 == 4, 1, 0)
-         )
+         city = ifelse(YS3_3 == 4, 1, 0), 
+         age_cat2 = case_when(age %in% c(16:18) ~ "16-18",
+                              age %in% c(19:21) ~ "19-21",
+                              age %in% c(22:24) ~ "22-24",
+                              age %in% c(25:27) ~ "25-27",
+                              age %in% c(28:30) ~ "28-30"))
+
+## WEALTH INDEX
+
+x <- ys_panel %>% filter(wave == 0) %>% 
+  mutate(housing = ifelse(YS6_1 %in% c(1,2,6,7), 1, 0),
+         water = case_when(YS6_4_0 == 1 ~ 0,
+                           YS6_4_1 == 1 ~ 0,
+                           YS6_4_2 == 1 ~ 0,
+                           YS6_4_3 == 1 ~ 1,
+                           YS6_4_4 == 1 ~ 0),
+         walls = case_when(YS6_7_1 == 1 ~ 0, # improved wall materials
+                           YS6_7_2 == 1 ~ 0,
+                           YS6_7_3 == 1 ~ 0,
+                           YS6_7_4 == 1 ~ 0,
+                           YS6_7_5 == 1 ~ 1,
+                           YS6_7_6 == 1 ~ 1,
+                           YS6_7_7 == 1 ~ 1),
+         floor = case_when(YS6_8_1 == 1 ~ 0, # improved floor materials
+                           YS6_8_2 == 1 ~ 0,
+                           YS6_8_3 == 1 ~ 0,
+                           YS6_8_4 == 1 ~ 0,
+                           YS6_8_5 == 1 ~ 0,
+                           YS6_8_6 == 1 ~ 1,
+                           YS6_8_7 == 1 ~ 1,
+                           YS6_8_8 == 1 ~ 0,
+                           YS6_8_9 == 1 ~ 1,
+                           YS6_8_11 == 1 ~ 1),
+         roof = case_when(YS6_9_1 == 1 ~ 0, # improved floor materials
+                          YS6_9_2 == 1 ~ 0,
+                          YS6_9_3 == 1 ~ 0,
+                          YS6_9_5 == 1 ~ 0,
+                          YS6_9_6 == 1 ~ 0,
+                          YS6_9_7 == 1 ~ 1,
+                          YS6_9_8 == 1 ~ 1,
+                          YS6_9_9 == 1 ~ 1)
+  ) %>% 
+  select(IDYouth, YS6_2, YS6_3, YS6_5, housing, water, walls, floor, roof, contains("YS6_11"))
+
+prn<-psych::principal(x[2:length(x)], rotate="varimax", nfactors=3,covar=T, scores=TRUE)
+index<-prn$scores[,1]
+nlab<-c(1,2,3,4,5)
+x <- cbind(x, index) %>% 
+  mutate(wealth_quintile = as.numeric(as.factor(cut(index, breaks = 5, labels = nlab)))) %>% 
+  select(IDYouth, index, wealth_quintile)
+
+ys_panel <- left_join(ys_panel, x, by = "IDYouth")
 
 ## PAST ACTIVITIES
 
@@ -339,18 +389,20 @@ ys_panel <- ys_panel %>%
 ys_panel <- ys_panel %>% mutate(informal = ifelse(formal == 0, 1, NA),
                                 formal = ifelse(formal == 0, NA, formal))
 
-# "underemp" -> wage- or self-employed who worked less than 35 hours in past week (Benin threshold) (90% of these wanted to work more hours in first two waves)
+# "underemp" -> wage- or self-employed who worked less than 35 hours in past week (Benin threshold) or did not work in the past week due to work shortages (strikes, lockouts, temporary layoffs, shortages, low demand, off-season)
+
+# "full-time" -> wage- or self-employed who worked 35 hours or more in the past week, based on multiplying hours worked on last day of work times number of days worked in past 7
 
 ys_panel <- ys_panel %>% 
   mutate(wagedays = coalesce(YS8_17, YS8_18),
          wagehours = wagedays*YS8_19,
          selfhours = ifelse(YS9_13<99, YS9_13*YS9_14, NA),
          hours = ifelse(status == "Employed" | status == "Self-Employed", coalesce(wagehours, selfhours), NA),
-         underemp = ifelse(hours < 35, 1, 0)) %>% 
+         underemp = case_when(hours < 35 ~ 1,
+                              YS8_3 > 6 ~ 1,
+                              hours >= 35 ~ 0),
+         fulltime = ifelse(hours >= 35, 1, 0 )) %>% 
   select(-wagehours, -selfhours)
-
-ys_panel <- ys_panel %>% mutate(fulltime = ifelse(underemp == 0, 1, NA),
-                                underemp = ifelse(underemp == 0, NA, underemp))
 
 # "casual" -> one or more employers on *irregular* basis or single employer with irregular/task-based payment
 # "regular work" -> single employer with regular wages
@@ -372,7 +424,7 @@ ys_panel <- ys_panel %>%
 # create labelled version of ys_panel
 ys_panel_labels <- haven::as_factor(ys_panel)
 
-rm(i,j,k,new,w, x,y,z,df, actlist, agelist, dflist, ys_baseline, surv_object)
+rm(i,j,k,new,w, x,y,z,df, actlist, agelist, dflist, ys_baseline)
 
 # save as .rda
 save(ys_panel, file = "data/ys_panel.rda")

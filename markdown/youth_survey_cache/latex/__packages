@@ -12,6 +12,8 @@ cluster
 ggplot2
 ggpubr
 survminer
+psych
+nnet
 plm
 miscTools
 maxLik

@@ -21,7 +21,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-packages <- c("haven", "tinytex", "survey", "bookdown", "gtsummary", "janitor", "labelled", "TraMineR", "cluster", "survival", "survminer", "plm", "pglm", "texreg", "flextable", "kableExtra", "stargazer", "ggpubr", "tidyverse")
+packages <- c("haven", "tinytex", "survey", "bookdown", "gtsummary", "janitor", "labelled", "TraMineR", "cluster", "survival", "survminer", "psych", "nnet", "plm", "pglm", "texreg", "flextable", "kableExtra", "stargazer", "ggpubr", "tidyverse")
 
 options(repos = c(CRAN = "http://cran.rstudio.com"))
 
@@ -73,57 +73,68 @@ knitr::opts_chunk$set(message=FALSE,
 
 # Introduction {#intro}
 
-An analysis of transitions from school to work is central to any analysis of the performance of youth in the labour market. 
-
-The youth population in Sub-Saharan Africa is rapidly growing and is expected to continue to do so for the foreseeable future. This presents both challenges and opportunities for the region. Despite recent increases in educational levels in sub-Saharan Africa, which have increased young people's potential to become gainfully employed, youth continue to be less likely to find jobs and more likely to remain unemployed than adults.
-
-Understanding the factors that influence the transition of young people into the labor market can help policymakers and other stakeholders to identify and implement interventions that can improve economic outcomes for young people and help to support sustainable economic growth in the region. Additionally, studying youth labor market transitions can provide insight into the broader socio-economic dynamics of the region and can help to inform policy decisions in other areas, such as education and training.
-
-Youth constitute a significant portion of the population in the region and their ability to gain employment and enter the labor market has significant implications for economic growth and development. Understanding the factors that affect the transition from education to employment can inform policy interventions aimed at improving the employment prospects of young people. Finally, the study of youth labor market transitions can provide insights into the broader economic and social challenges facing the region, such as poverty, inequality, and gender discrimination.
-
-The transition to the labor market marks a critical point in the productive and social development of young individuals. Delayed entry into formal employment has been shown to depress future earnings in high-income and developing countries alike [@bridges2017], while a semipermanent state of "waithood" is commonly reported among youth (particularly males) in Sub-Saharan Africa, impeding their social integration and reducing the self-worth of those unable to find employment [@mains2011; @honwana2012].
+The youth population in Sub-Saharan Africa is rapidly growing, and is expected to continue to do so for the foreseeable future. This presents both challenges and opportunities for the region. Beninese youth, like many youth of the sub-Saharan Africa, face many challenges when leaving school and seeking work. Despite recent increases in educational levels in sub-Saharan Africa, which have increased young people's potential to become gainfully employed, youth continue to be less likely to find jobs and more likely to remain unemployed than adults. The transition to the labor market marks a critical point in the productive and social development of young individuals. Delayed entry into formal employment has been shown to depress future earnings in high-income and developing countries alike [@bridges2017], while a semi-permanent state of "waithood" is commonly reported among youth (particularly males) in Sub-Saharan Africa, impeding their social integration and reducing the self-worth of those unable to find employment [@mains2011; @honwana2012].
+ 
+Understanding the factors that influence the transition of young people into the labor market can help policymakers and other stakeholders to identify and implement interventions that can improve economic outcomes for young people in adulthood, which, in the best case, can support sustainable economic growth in the region. Youth constitute a significant portion of the population in the region and their ability to gain employment and enter the labor market has significant implications for economic growth and development. Understanding the factors that affect the transition from education to employment can inform policy interventions aimed at improving the employment prospects of young people. Finally, the study of youth labor market transitions can provide insights into the broader economic and social challenges facing the region, such as poverty, inequality, and gender discrimination. Additionally, studying youth labor market transitions can provide insight into the broader socio-economic dynamics of the region and can help to inform policy decisions in other areas, such as education and training.
 
 The dynamic process of the school-to-work transition (SWT), including all the activities of young people between full-time schooling and stable employment, is best studied with detailed, longitudinal data; as a result, most studies of the SWT have been conducted in high-income countries [@nilsson2019]. In addition to data scarcity, the informality inherent to most youth labor markets in the low- and middle-income countries render traditional data sources insufficient to capture all the details of the SWT. While the path from formal education to formal employment is sequential and quantifiable, the path to the  is more complicated, often leading through halting periods of formal education and informal training, stints at the family household enterprise, prolonged school absences or repeated years, and periods of complete economic inactivity. Official labor market data in developing countries is often too infrequent and unreliable to capture such dynamics.
 
-In this paper, we use a novel, longitudinal data from a survey conducted with 752 youth from Cotonou, Benin in five waves over three years to quantify various aspects of the school-to-work transition in the type of urban, highly informal economy that is common across SSA and is absorbing ever-increasing numbers of youth.
+In this paper, we use a novel, longitudinal dataset from a survey conducted with 752 youth from Cotonou, Benin in five waves over three years to map the school-to-work transition in an urban, highly informal economy. In order to better understand the dynamics of the SWT, we use panel data to track young people's movements between school and work as well as between different employment states. This includes where young people go after graduating from education or apprenticeship training, how long they stay in each state, and where they go after leaving different employment states. The analysis makes a distinction between adolescents (14–18 years old), young adults (19-24 years old), and working-age individuals (25-30 years old)
 
-We use a combination of methods to estimate the determinants of transition age and duration in an informal, urban, and low-income setting. We also develop a typology of transitions observable in our data using optimal matching analysis (OMA), a method originally used for DNA sequencing and now applied to variety of contexts.
+We find that...
 
-We first estimate the transition duration and age of transition into the labor market. Since our data is limited to three years of survey data and 7 years of recall data, a proportion of our sample did not transition within the observed time period. We use survival analysis to account for this, though the results are not affected much by whether right-censoredness of the data is accounted for or not. 
+The next section describes existing work on youth SWT across the world, including transition age and duration and work on characterizing different SWT typologies. Section \@ref(datamethods) presents the data and methodology. Section 3 contains analysis and results. Section 4 concludes.
 
-Regression analysis is used to identify factors associated with longer transition durations or later transitions.
+# Background {#background}
 
-Second, we 
 
-[ask the question]
-
-We first use a combination of youth event history and a detailed four-wave panel to estimate the age of school-leaving, first employment, and first steady employment. Second, we use the panel data to map out young people's transition between schooling and training, wage employment, self-employment, and inactivity, as well as their propensity to move between more differentiated employment states, such as casual and formal wage employment. Optimal matching analysis (OMA), a technique used to identify groups of similar states of sequences, is used to identify clusters of youth that follow similar trajectories over the observed period. Finally, we leverage the panel data to estimate the effect of various transitions on youth well-being, as measured by reported life satisfaction.
-
-Evidence from high-income countries suggests that protracted unemployment spells, including extended school-to-work transitions, negatively affect future earnings and employment prospects. Based on youth work histories from a sample of 28 lower- and middle-income countries, @manacorda2017 show that, despite the demographic pressures placed on labor markets by the youth bulge in SSA, transition durations are significantly lower in low-income countries than middle- and high-income countries. The authors point to extreme poverty and a lack of unemployment insurance as two potential factors that reduce reservation wages and push youth into earlier employment. 
-
-There is limited evidence on the SWT for youth in low-income countries. @bridges2017 use the Tanzania Household Urban Panel Survey to study how first experiences in the labor market effects future earnings, and find that school-leavers who immediately find a wage job, particularly in the formal sector, experience a future wage premium. In lieu of earnings data, this paper studies the effects of transition on youth well-being as measured by self-reported life satisfaction. Using the ILO's School-to-Work Transition Surveys, @matsumoto2010 focus on the differences between youth employment outcomes in rural and urban areas, and find rural economies to be characterized by higher rates of family work, agriculture, and labor market participation. 
-
-<!-- Our choice to focus on the urban setting is informed by these findings, which point to major qualitative differences between urban and rural labor markets in developing countries.
+<!-- 
+Theory:
+The Diamond-Mortensen-Pissarides search and matching framework @mortensen1999 with extension to dual labor markets is common, with the common implication that more productive workers have higher opportunity costs of working in the informal sector and will thus wait longer to find a formal sector job. If education and productivity are correlated, this rationalizes the queuing hypothesis [@nilsson2019].
 -->
 
-The school-to-work transition (SWT) in LICs is quicker in Asia, slower in MENA, and heterogeneous but comparable to industrialized countries on average in LAC and SSA. In SSA, two counteracting factors likely influencing transition speed: poverty and lack of unemployment insurance forces youth into working sooner, while increasing education and decreasing number of public sector jobs has driven up expectations without matching wage job growth.
+Both the age of graduation and the speed of transition to the labor market upon graduation are of interest to policy makers. As education attainment has risen in SSA, so has the typical graduation rate. However, due to the low demand for highly educated workers in the private sector in emerging economies, later graduation has not translated uniformly to faster transition. Several studies have reported a "queuing" phenomenon, in which highly educated youth endure long periods of unemployment as they wait for the opportunity for wage employment in the public or private sector. Moreover, educational attainment is often positively correlated with SES and thus the family's ability to pay for longer spells of unemployment. Over- and undereducation are endemic in youth labor markets in SSA. @bandara2019, using eight SWTS surveys from SSA, including Benin, report that about 47 and 28 percent of employed youth in their sample are overqualified and underqualified for their jobs, respectively. Evidence from urban labor markets such as Ougoadougou in Burkina Faso suggests that labor market entry occurs at a more advanced age for youth with higher educational attainment [calves2013]. Youth in advanced economies generally stay in education longer than youth living in LICs. 
 
-From a methodological standpoint, three approaches might suit our data in the literature: 1) look at flows (transition matrices), look for heterogeneous effects and spells in each state [@cunningham2011], 2) survival analysis to estimate transition duration and probability of labor market exit, plus subgroup analysis, and 3) regression of outcomes on earlier labor market experience, e.g. first job experience. I go into more detail below, with the help of a nice summary of the SWT literature for developing countries by @nilsson2019.
+@quintini2014 report that the median school-leaving age in a sample of advanced economies was between 21 and 22 years, compared to 17-18 in LMICs such as Brazil, India, Indonesia, Mexico and Turkey and 19-20 in selected Latin American countries (Argentina, Chile and South Africa).
 
-The Diamond-Mortensen-Pissarides search and matching framework @mortensen1999 with extension to dual labor markets is common, with the common implication that more productive workers have higher opportunity costs of working in the informal sector and will thus wait longer to find a formal sector job. If education and productivity are correlated, this rationalizes the queuing hypothesis [@nilsson2019].
+Evidence from high-income countries suggests that protracted unemployment spells, including extended school-to-work transitions, negatively affect future earnings and employment prospects [@nordstromskans2011; @moller2015; @petreski2016; @schmillen2017; @emmenegger2017]. Based on youth work histories from a sample of 28 lower- and middle-income countries, @manacorda2017 show that, despite the demographic pressures placed on labor markets by the youth bulge in SSA, transition durations are significantly lower in low-income countries than middle- and high-income countries. The authors point to extreme poverty and a lack of unemployment insurance as two potential factors that reduce reservation wages and push youth into earlier employment. 
 
-Both cross-sectional and longitudinal data have been used to quantify the SWT. Cross-sectional data can be used to estimate the transition duration by subtracting the age at which 50 percent of the population has left school from the age at which 50 percent of the population has found work. @quintini2007 and @quintini2014 use this approach to report transition durations, along with mean school-leaving and first employment ages (see Table 1). For longitudinal studies, the mean transition duration, reported for example in @quintini2007, the non- inclusion of youth still in transition will bias results.  Survival analysis is often used to account for this right-censored nature of the data (@nordman2015; @manacorda2017, and several other studies in developing countries, albeit of lower quality). @manacorda2017 does this with 23 SWTS countries and reports similar transition times to the first job as Quintini, but much longer waits until permanent employment (11 year average for five countries in SSA, including Benin).
+@calves2013 also find that the SWT duration in urban Burkina Faso is long (4.4 years on average), especially for youth going through the public schooling system. @matsumoto2010 also find a strictly decreasing relationship between educational attainment and SWT duration in Egypt and Mongolia. Other factors that may accelerate the transition in emerging countries are working while studying [@dedehouanou2019]. School-to-work transitions are longer in LICs. Chile, Turkey and South Africa have the longest time needed for 50 percent of a cohort to find work, at 5.9, 7.6 and 8.3 years, respectively (shortest times are Australia, Canada, and France at 1.0, 1.7, and 1.8). Spain and Italy have worryingly long transitions by this measure - on par with Chile. The average duration of completed transitions is also generally longer in emerging economies, though the contrast is not as stark - 2.7 for South Africa, and around 1 for most LMICs, compared to 0.3-1.0 for HICs (except Spain and Italy).
 
-A third empirical approach to transition is to study transition matrices. @cunningham2011 do this for panel labor force surveys from Argentina, Brazil, and Mexico and find a common pattern: a short time spent in the informal sector, followed by a move to a formal position for longer spells, and finally entry into self-employment at advanced age. Formal and poor workers less likely to return to school, and females have less turnover. Looking at different income groups, the authors find that the poor experience a higher rate of entry to work upon leaving school, the same duration in jobs, and equal entry rates to formal wage employment, but are more likely to transition between states.
+The first labor market experience has also been emphasized as an important component in a successful SWT in the literature. @bridges2017 use the Tanzania Household Urban Panel Survey to study how first experiences in the labor market effects future earnings, and find that school-leavers who immediately find a wage job, experience a future wage premium -- particularly in the formal sector. Youth who attend private schooling in Ougadouogou were shown to be 9 percentage point more likely to find wage work as first employment [@calves2013]. "Average duration in Ougadougou is 4.4 years [calves2013]. 
 
-In addition to education, the importance of networks\footnote{@nordman2015 identify the importance of network strength on reducing labor market
-volatility, but do not focus on youth.}, search costs, and search intensity have been emphasized in a mostly experimental literature. A matching process in Jordan in 2015 proved ineffective, transport and job application workshops were more efficient than job fairs in Ethiopia in 2016, and information about job opportunities reduced women’s fertility and marriage rates and increased labor market participation and schooling in India in 2012. While not directly related to transition speed, @bridges2017 use the Tanzania Household Urban Panel Survey to study how first experiences in the labor market effects future earnings, and find that school-leavers who immediately find a wage job, particularly in the formal sector, experience a future wage premium.
+According to the official definition, the SWT ends with the first labor market experience. However, youth have been shown to experience particular turbulence on the labor market compared to working-age adults. @cunningham2011 study panel labor force surveys from Argentina, Brazil, and Mexico and find that short spells in the  are often followed by a move to formal, wage-sector positions for a longer duration, and finally followed by entry into self-employment at a more advanced age. Looking at different income groups, the authors find that the poor experience a higher rate of entry to work upon leaving school, the same duration in jobs, and equal entry rates to formal wage employment, but are more likely to transition between states. 
+
+@nordman2014 collect work histories from working-age individuals in Ouagadougou, Burkina Faso to identify a strong effect of family networks on the probability of transition from unemployment to employment and from self-employment to wage employment (but not from wage employment to self-employment). @cunningham2011 show that what is deemed a successful SWT may involve different employment states depending on age. Youth in Argentina, Brazil, and Mexico tend to enter the labor market through the informal sector, for instance, before finding a formal job; as they age, however, they leave formal wage employment to pursue a self-employed career. @egel2010 find frequent transitions between formal and informal sector in Iran, independent of the level of education. @nordman2015 find that family networks increase the probability of transition from  unemployment to self- or wage employment, self- to wage employment, and wage to self-employment in Ougoudougou. However, the authors report that this may reflect an increasing prevalence of short-term positions in the public sector, particularly for labor market entrants.
+
+Women generally experience longer transition durations and are more likely to exit the labor market before completing the transition. For instance, @manacorda2017 find that women need twice the time to find a first job, on average. Marriage is often cited as an alternative to labor market participation or ”solution to” failed transition, but in certain countries (such as India) high educational and occupation status may be desirable for the marriage market.
+
+In general, existing work points to the school-to-work transition (SWT) in emerging economies to be shorter in Asia, considerably prolonged in MENA, and heterogeneous but comparable in duration to industrialized countries on average in LAC and SSA. In SSA, two counteracting factors likely influencing transition speed: poverty and lack of unemployment insurance forces youth into working sooner, while increasing education and decreasing number of public sector jobs has driven up expectations without matching wage job growth. A comparison of 8 high-income and 8 emerging countries by @quintini2014 shows that youth in emerging countries experience longer transitions and leave education earlier, while also having higher rates of inactivity. However, the emerging countries used are located in MENA and Central Asia (plus China) and thus qualitatively different from a low-income country like Benin. The OECD literature suggests that there is frequent job turnover among younger workers who engage in a search process of “shopping around” temporary jobs until they find a career path, whereas the informal sector may play a similar, transitory role in developing countries, rather than being a dead-end career path. @manacorda2017 find that the school-to-work transition (SWT) in LICs is quicker in Asia, slower in MENA, and heterogeneous but comparable to industrialized countries on average in LAC and SSA. In SSA, two counteracting factors likely influence transition speed: poverty and lack of unemployment insurance forces youth into working sooner, while increasing education and decreasing number of public sector jobs has driven up expectations without matching wage job growth.
+
+<!-- Large youth cohorts lead to increases in the unemployment rate of youths in advanced economies over the 1970s, 1980s and early 1990s [@korenman1997].
+
+Out-of-school youth in LICs are more likely to become NEET upon leaving school, and under-employment is more widespread. By age 29, NEET rates are three times higher in India, Indonesia, South Africa and Turkey (30 percent) than in Canada and Germany (10 percent) [@quintini2014].
+
+"In all countries, young people are more likely to be found in poor-quality jobs than their adult counterparts – but while temporary jobs are the main source of precariousness for youth in advanced economies, it is informality that affects youth in emerging economies most." @quintini2014
+
+Our choice to focus on the urban setting is informed by these findings, which point to major qualitative differences between urban and rural labor markets in developing countries.
+-->
+
+
+In this paper, we first use a combination of youth event history and a detailed four-wave panel to estimate the age at transition and duration in an informal, urban, and low-income setting. Second, we use the panel data to map out young people's transition between schooling and training, wage employment, self-employment, and inactivity, as well as their propensity to move between more differentiated employment states, such as casual and formal wage employment. Third, we develop a typology of transitions observable in our data using optimal matching analysis (OMA), a technique used to identify groups of similar states of sequences, to identify clusters of youth that follow similar trajectories over the observed period, and study the correlates of the clusters that emerge from this exercise. Finally, we investigate the characteristics of jobs held by youth, differentiating by gender and age category. 
+
+
+
+A third empirical approach to transition is to study transition intensity matrices. @cunningham2011 do this for panel labor force surveys from Argentina, Brazil, and Mexico and find a common pattern: a short time spent in the informal sector, followed by a move to a formal position for longer spells, and finally entry into self-employment at advanced age. Formal and poor workers less likely to return to school, and females have less turnover. Looking at different income groups, the authors find that the poor experience a higher rate of entry to work upon leaving school, the same duration in jobs, and equal entry rates to formal wage employment, but are more likely to transition between states.
+
+
+<!-- volatility, but do not focus on youth.}, search costs, and search intensity have been emphasized in a mostly experimental literature. A matching process in Jordan in 2015 proved ineffective, transport and job application workshops were more efficient than job fairs in Ethiopia in 2016, and information about job opportunities reduced women’s fertility and marriage rates and increased labor market participation and schooling in India in 2012. While not directly related to transition speed, @bridges2017 use the Tanzania Household Urban Panel Survey to study how first experiences in the labor market effects future earnings, and find that school-leavers who immediately find a wage job, particularly in the formal sector, experience a future wage premium. -->
 
 The effect of education differs from study to study, though it seems that it may speed up transition in MENA and central Asian countries and lengthen it in SSA, especially at higher levels of attainment. The queuing hypothesis explains why this may be the case: an extended job search has more value for the highly productive, who tend to signal productivity with their education. It is important to note that the reduction of public sector employment and increase in access to education are reversing the labor market conditions of the past, in which the educated had a relatively easy path to public employment. Studies generally suggest that high reservation wages are not the cause of high unemployment, however. Education has also been shown to increase search intensity (in Ghana, Turkey, Egypt).
 
 Women generally experience longer transition durations and are more likely to exit the labor market before completing the transition. For instance, @manacorda2017 find that women need twice the time to find a first job. Marriage is often cited as an alternative to labor market participation or ”solution to” failed transition, but in certain countries (such as India) high educational and occupation status may be desirable for the marriage market.
 
-Using survival analysis of retrospective job histories from a custom survey conducted in Oudgadougou, @nordman2015 show network strength and resources, in particularly for family ties, increases labor market stability (staying in self-employment or unemployment state) as well as access to public sector wage employment, but not network size. There is some evidence that jobs found via social networks tend to be lower paid and of lower quality in developing coun- tries. There are also some returns to staying in the same occupation as the parents in West Africa (Pasquier-Doumer, 2013).
+Using survival analysis of retrospective job histories from a custom survey conducted in Oudgadougou, @nordman2015 show network strength and resources, in particularly for family ties, increases labor market stability (staying in self-employment or unemployment state) as well as access to public sector wage employment, but not network size. There is some evidence that jobs found via social networks tend to be lower paid and of lower quality in developing countries. There are also some returns to staying in the same occupation as the parents in West Africa (Pasquier-Doumer, 2013).
 
 @nilsson2019 discusses institutional factors such as the minimum wage, UI and wage subsidies. Studies do not point in a single direction. On the supply side, demographics should suggest that the pressure on youth is easing as population growth slows; elasticity of youth employment to the share of youth in the population has been estimated to be around 0.5 for both European and developing countries [@ohiggins1997]. Local labor market conditions appear to be stronger drivers of duration than GDP, trade openness, or income distribution. Active labor market policies (ALMP)  are  a subject that deserves, and has received in several papers, a literature review all to itself but, overall, skills training and entrepreneurship promotion appear more successful than facilitation programs like job fairs or subsidies. @manacorda2017 find that a one standard deviation increase in the rate of population growth leads to an increase in average transition duration of ∼17 months. One standard deviation increase the poverty rate leads to a reduction in transition duration of ∼17 months and an increase in probability of never attaining employment of 14 percentage points.
 
@@ -132,14 +143,9 @@ A comparison of 8 high-income and 8 emerging countries by @quintini2014 shows th
 Existing work on transitions between employment states has focused on adult workers. @cunningham2011 study panel labor force surveys from Argentina, Brazil, and Mexico and find that short spells in the  are often followed by a move to formal, wage-sector positions for a longer duration, and finally followed by entry into self-employment at a more advanced age.  Looking at different income groups, the authors find that the poor experience a higher rate of entry to work upon leaving school, the same duration in jobs, and equal entry rates to formal wage employment, but are more likely to transition between states. @nordman2014 collect work histories from working-age individuals in Ouagadougou, Burkina Faso to identify a strong effect of family networks on the probability of transition from unemployment to employment and from self-employment to wage employment (but not from wage employment to self-employment). 
 
 <!-- We apply a similar approach focusing on youth only, and emphasizing the determinants of youths' transition from school to first employment and steady employment, rather than adult workers' transitions between different employment states.
+
+We complement a similar analysis of retrospective work history data with a unique year-long panel, and focus only on our sample of urban youth.
 -->
-
-Methodologically, both cross-sectional and longitudinal data have been used to quantify the school-to-work transition. Cross-sectional data can be used to estimate the transition duration by subtracting the age at which 50 percent of  the  population  has  left  school  from  the  age  at  which  50  percent  of  the  population  has  found work.  @quintini2007 and @quintini2014 use this approach to report transition duration in advanced economies, along with mean school-leaving and first employment ages. For longitudinal studies,  the  mean  transition  duration,  reported  for  example  in  @quintini2007,  the  non-inclusion of youth still in transition will bias results.  Survival analysis is often used to account for this right-censored nature of the data [@nordman2015; manacorda2017]. @manacorda2017 apply survival analysis to SWTS data from 23 lower-middle and lower income countries and report similar transition times to first employment as @quintini2014, but considerably longer transitions to permanent employment (11 year average for five countries in SSA, including Benin). 
-
-<!-- We complement a similar analysis of retrospective work history data with a unique year-long panel, and focus only on our sample of urban youth.
--->
-
-The next section describes the data and methodology. Section 3 contains analysis and results. Section 4 concludes.
 
 # Data and Methodology {#datamethods}
 
@@ -172,18 +178,22 @@ Only a quarter of the self-employed report hiring any employees, supporting the 
 
 Three methods are used to analyze the dynamics of youth employment in Cotonou.
 
-First, we follow @manacorda2017 and calculate the duration of transition to first employment. Second, we estimate transition matrices to calculate the rate of turnover, or the share of people that move out of or into a certain state of employment in each period under observation. Using this approach we can, for instance, determine whether youth move from self- to wage employment at a higher rate than from wage to self-employment. Third, we use optimal matching analysis to create a taxonomy of transition sequences, which we compare along individual characteristics. We also identify the most common sequences observable in the data. Finally, we discuss the impact of certain transitions on the life satisfaction of youth, the aspirations expressed by youth at different employment states, and self-reported obstacles on the SWT.
+First, we follow @manacorda2017 and calculate the duration of transition to first employment. Second, we estimate transition intensity matrices to calculate the rate of turnover, or the share of people that move out of or into a certain state of employment in each period under observation. Using this approach we can, for instance, determine whether youth move from self- to wage employment at a higher rate than from wage to self-employment. Third, we use optimal matching analysis to create a taxonomy of transition sequences, which we compare along individual characteristics. We also identify the most common sequences observable in the data. Finally, we discuss the impact of certain transitions on the life satisfaction of youth, the aspirations expressed by youth at different employment states, and self-reported obstacles on the SWT.
 
 # Results and Drivers {#results}
 
 ## Labour Market Entry {#entry}
 
-\singlespacing
-```{r, tbl-entry, echo=FALSE}
-```
-\doublespacing
+Both cross-sectional and longitudinal data have been used to quantify the SWT. Cross-sectional data can be used to estimate the transition duration by subtracting the age at which 50 percent of the population has left school from the age at which 50 percent of the population has found work. @quintini2007 and @quintini2014 use this approach to report transition durations, along with mean school-leaving and first employment ages (see Table 1). For longitudinal studies, the mean transition duration, reported for example in @quintini2007, the non-inclusion of youth still in transition will bias results.  Survival analysis is often used to account for this right-censored nature of the data (@nordman2015; @manacorda2017, and several other studies in developing countries, albeit of lower quality). @manacorda2017 does this with 23 SWTS countries and reports similar transition times to the first job as Quintini, but much longer waits until permanent employment (11 year average for five countries in SSA, including Benin).
+
 
 We start by considering the differences between youth who enter the labour market in three different employment states: wage employed, self-employed, and unemployed - which we will continue to label NEET for consistency. Table \@ref(tab:tbl-entry) compares the baseline characteristics of a total of `r sum(!is.na(ys_baseline$entry))` youth whose transition to the labour market was observed, or `r round(sum(!is.na(ys_baseline$entry))/nrow(ys_baseline),2)*100`% of the sample\footnote{The remainder were either in apprenticeship or schooling in the final observed period (and thus never transitioned to the labour market according to our definition) or were never in schooling or apprenticeship during the entirety of the period under observation (and to whom the school-to-work transition does not apply, as in Manacorda (2017)).}.
+
+The start of the transition is often considered the point at which youth leave school "permanently" [@bowers1998, @nilsson2019]. Other definitions stipulate that only youth looking for work upon graduation are considered, to exlude youth, for instance young women predisposed to domestic work, from skewing the unemployment numbers [@matsumoto2010].
+
+The start can, however, be conditioned by those who are unwilling to seek work while they are in school (Matsumoto & Elder, 2010), which means that it can exclude those who will not seek work after they finish their schooling.
+
+Methodologically, both cross-sectional and longitudinal data have been used to quantify the school-to-work transition. Cross-sectional data can be used to estimate the transition duration by subtracting the age at which 50 percent of  the  population  has  left  school  from  the  age  at  which  50  percent  of  the  population  has  found work.  @quintini2007 and @quintini2014 use this approach to report transition duration in advanced economies, along with mean school-leaving and first employment ages. For longitudinal studies,  the  mean  transition  duration,  reported  for  example  in  @quintini2007,  the  non-inclusion of youth still in transition will bias results.  Survival analysis is often used to account for this right-censored nature of the data [@nordman2015; manacorda2017]. @manacorda2017 apply survival analysis to SWTS data from 23 lower-middle and lower income countries and report similar transition times to first employment as @quintini2014, but considerably longer transitions to permanent employment (11 year average for five countries in SSA, including Benin). 
 
 The majority of youth (over 60%) find wage or self-employment immediately after finishing their schooling or training. Youth who find wage employment immediately after entering the labour market are more likely to be male and less likely to be married with fewer children (though only the difference for sex is significant). Youth who enter the labour market as either wage employed or unemployed have 14.7 years of schooling on average, while those who enter as self-employed have approximately one year less. The NEET and wage employed also appear to have more educated parents, in contrast to the findings of @bridges2017, who find that youth who enter the labor market as self-employed in Tanzania tend to have more educated parents. The self-employed also report the highest rate of completed apprenticeship and are generally less educated - with the exception, interestingly, of 3rd cycle (master's level) university graduates, which are equally represented across the three groups. NEET youth have parents with slightly higher educational attainment, consistent with the hypothesis that wealthy families are better able to support youth through extended periods of unemployment.
 
@@ -191,7 +201,8 @@ The ILO's _Work4Youth_ program takes school-leaving age to be the of the onset o
 
 Next, we examine the first employment age, defined as the age at which youth first report being employed or self-employed, conditional on being in education for at least one year since 2013 and not returning to school in subsequent periods. Again combining employment history data the panel survey, we estimate a first employment age of 23 years and 8 months - almost precisely one year after the mean graduation age. Half of the sample reports having found their first employment experience by the age of `r quantile(ys_baseline$first_employment_age, c(.5), na.rm = T)`, and 90% by the age of `r quantile(ys_baseline$first_employment_age, c(.90), na.rm = T)`. 
 
-Finally, using measures from the combined event history and panel data, we define the transition duration as the difference between the age at graduation and the age of both first employment. The average duration of the transition to first employment is just over one year. Youth who enter as wage employed take about a month and a half longer to find a job. Those who enter the labour market as inactive (NEET), on the other hand, experience a longer transition that those who enter as wage or self-employed; however, the length of this period of inactivity is less than one year, on average. 
+Finally, using measures from the combined event history and panel data, we define the transition duration as the difference between the age at graduation and the age of both first employment. The average duration of the transition to first employment is just over one year. Youth who enter as wage employed take about a month and a half longer to find a job. Those who enter the labour market as inactive (NEET), on the other hand, experience a longer transition that those who enter as wage or self-employed; however, the length of this period of inactivity is less than one year, on average.
+
 **After the age of 28 all those who start off as unemployed become self-employed. This finding provides support for the idea of ‘waiting and searching’, that is, individuals prefer to work in wage employment, but as the probability of getting such employment decreases, they move into self-employment. This evidence is further strengthened by the fact that the majority of the self-employed (87 percent) state their main reason for starting their own business as being because they ‘could not find salaried work’ [@bridges2017]**
 
 As mentioned above, the estimates provided in \@ref(tab:tbl-entry) may be biased, as transition age and duration can only be calculated for youth for whom we recorded a graduation age (at least one year of schooling in the observed period) and at least on subsequent period of employment. Youth who are still in apprenticeship or schooling in the last period in which they are observed are considered to be right censored [@nilsson2019] -- as nearly one sixth of our sample is still in school or training at endline, the data is right-censored and we expect the mean age of school-leaving to be downward biased. To address this issue, we follow and apply survival analysis to the retrospective history data, following @nordman2015 and @manacorda2017. Figure \@ref(fig:fig-survival) in the Appendix plots the estimated survival probability, i.e. the probability that a youth needs an additional year year to transition to the labor market after completing their schooling or training. About 83 percent of youth report at least a year to transition to the labour market, while only about 18 percent require two years or more. Only about one percent of youth who transition report being unemployed for a period of four years or longer. 
@@ -216,9 +227,9 @@ Youth who enter as employed or self-employed are on average almost a year younge
 
 ## Transition Paths {#paths}
 
-### Transition Matrices {- .unlisted}
+### transition intensity matrices {- .unlisted}
 
-Transitions between activity states can be depicted for any pair of survey rounds using transition matrices. Transition matrices can be interpreted as flows of youth between activities from the earlier time period (left-hand column) to the later time period (top row). Shown is the rate of youth at time $t$ flowing into a column activity $j$ from a row activity $i$, as a percentage of all youth in row activity $i$ at time $t-1$. The number in parentheses shows the rate flowing from activity $i$ into $j$ as a percentage of all youth in column activity $j$ at time $t$. For instance, the first row, second column entry of Table \@ref(tab:tbl-historymatrix) shows two flow rates corresponding to transition "from school to NEET": 3.72 percent of youth in school transitioned to NEET the next year, while on average 21.95 percent of NEET youth had been in school the year before over the observed employment histories. Entries on the diagonal indicate that youth stayed in the same activity from one period to the next.
+Transitions between activity states can be depicted for any pair of survey rounds using transition intensity matrices. transition intensity matrices can be interpreted as flows of youth between activities from the earlier time period (left-hand column) to the later time period (top row). Shown is the rate of youth at time $t$ flowing into a column activity $j$ from a row activity $i$, as a percentage of all youth in row activity $i$ at time $t-1$. The number in parentheses shows the rate flowing from activity $i$ into $j$ as a percentage of all youth in column activity $j$ at time $t$. For instance, the first row, second column entry of Table \@ref(tab:tbl-historymatrix) shows two flow rates corresponding to transition "from school to NEET": 3.72 percent of youth in school transitioned to NEET the next year, while on average 21.95 percent of NEET youth had been in school the year before over the observed employment histories. Entries on the diagonal indicate that youth stayed in the same activity from one period to the next.
 
 An examination of the pooled transitions between past activities using the event history data (Table \@ref(tab:tbl-historymatrix) in Appendix B) summarizes a total of six transitions. It shows that schooling was still the predominant activity of youth in the seven years prior to being interviewed, accounting for over half of all observations. The most frequent transitions in relative terms (accounting for the number of youth starting from a given activity) are from NEET status into wage employment (14.97 percent) and into self-employment (10.55 percent) and from apprenticeship into wage employment (10.22 percent of apprentices) and into self-employment (9.32 percent). While we observe similar rates of transition out of school (14.14 percent each year, on average), self-employment (11.19), and wage employment (15.24), the flow of youth out of school naturally increase over time (as youth approach graduation age), while the rates out of self- and wage employment remain relatively constant over time. The activities of youth as they age are shown by gender in Figure \@ref(fig:fig-ageplot) below.
 
@@ -245,12 +256,7 @@ Benin has a highly informal economy, with an estimated 70% of GDP and 95% of emp
 
 Thus, we use an adjusted definition of formal and informal work: formal wage workers have a verbal or written contract under a single regular employer, while self-employed youth are considered formal if they hire at least five employees. We use the underemployment threshold of 35 hours per week to determine which (wage or self-employed) youth are underemployed.  Second, for wage employees, we differentiate between casual work -- defined as wage work with one or more employers on an irregular basis or with a single employer on an irregular/task-based payment basis - or "regular" work, i.e. a single employer with regular wages. Finally, we differentiate between self-employed who also employ others (at least one wage worker) and those who work independently.
 
-\singlespacing
-```{r, tbl-propensities, echo=FALSE}
-```
-\doublespacing
-
-Table \@ref(tab:tbl-propensities) shows the transition rates into these work states. As with the transition matrices above, we consider transition rates from five mutually exclusive activity states; however, we only report column percentages (the percentage of youth in each column category that started from each of the five activity states). We also present these transition rates calculated separately by gender. 
+Table \@ref(tab:tbl-propensities) in the Appendix shows the transition rates into these work states. As with the transition intensity matrices above, we consider transition rates from five mutually exclusive activity states; however, we only report column percentages (the percentage of youth in each column category that started from each of the five activity states). We also present these transition rates calculated separately by gender and age bracket. 
 
 In almost half the observed cases of formal work, the youth had been in wage employment in the previous period. Informal workers, on the other hand, were equally likely to have been employed or self-employed in the previous period. There are very few transitions into regular work from self-employment, school, or apprenticeship: almost three-quarters of youth with this job status were already wage employed in the previous period. This suggests that a period of casual employment is typical before youth settle into regular work; three quarters of youth with regular work were wage employed before, whereas only half of the casually employed were -- with almost a quarter entering casual work from a state inactivity. Youth transitioning from NEET represent a much higher proportion of casual and underpaid workers than regular and formal workers.
 
@@ -262,14 +268,12 @@ Finally, we find some striking differences in transition rates by gender: a high
 
 ### Optimal Matching Analysis {- .unlisted}
 
+```{r, fig-clusters, fig.cap="Occupational status distribution plots by cluster", fig.height = 8, echo=FALSE}
+```
+
 Next, we employ Optimal Matching Analysis (OMA) to identify clusters of youth following similar paths during their school-to-work transition. OMA is a statistical technique that generates a measure of the similarity or difference between individual school-to-work transition sequences by comparing all pairs of sequences and performing insertions, deletions, or substitutions of single sequence elements to transform one sequence into the other [@elzinga2003]. This method has been used to study early career patterns in Italy, Great Britain and West Germany [@scherer2001; @scherer2005], the occupation career paths of Swedish women [@huang2007], and the SWT of German youth [@achatz2022].
 
 In optimal matching analysis, the cost of making a change to a sequence of states is typically measured using three types of costs: insertion, deletion, and substitution. Insertion/deletion cost is the cost of adding a new item to the sequence or removing an existing one, respectively. Substitution cost is the cost of replacing one item in the sequence with another item. Optimal matching algorithms seek to minimize the total cost of making changes to a sequence of items by choosing the combination of insertions, deletions, and substitutions that result in the lowest total cost, which serves as a measure of similarity between sequences. The distance matrix generated from this process is used in a hierarchical cluster analysis to group similar sequences into clusters. This is achieved by minimizing within-group differences and maximizing between-group differences, using Ward's fusion algorithm [@dlouhy2015; @achatz2022]. We use an insertion/deletion cost of 1 and a substitution cost matrix based on observed transition rates, which allows us to control for the likelihood of transitions occurring within the data [cite xx]. The TraMineR package in R [@gabadinho2011] was used to perform the analysis. We then use the R package WeightedCluster [@studer2013] to compute various clustering quality measures to determine the optimal number of clusters.
-
-\singlespacing
-```{r, tbl-clustertbl, results = 'asis', echo = FALSE}
-```
-\doublespacing
 
 Descriptive statistics for each cluster are shown in Table \@ref(tab:tbl-clustertbl) above, and Figure \@ref(fig:fig-clusters) in the Appendix plots the status distribution by year for the five identified clusters. The first cluster, which we label "TRAIN", is primarily comprised of youth who participated in apprenticeship training in the years leading up to the baseline survey. Youth begin to transition into wage employment, self-employment, or inactivity in roughly equal proportions in around 2018, with a considerable proportion shifting to inactivity at endline. As apprenticeship training is generally considered to be a reliable route to (informal sector) employment, this shift to inactivity is concerning and may be of interest to policy makers. The youth in this cluster completed about 9 years of school, with the majority dropping out before completing junior high school. 
 
@@ -305,7 +309,7 @@ Table \@ref(tab:tbl-transreg2)  reports the results of a random effects probit r
 ### Aspirations and Obstacles to Transition {- .unlisted}
 
 \singlespacing
-```{r, tbl-aspirations, echo=FALSE}
+```{r, tbl-employed, echo=FALSE}
 ```
 \doublespacing
 
@@ -315,22 +319,18 @@ When asked where they see themselves in 5 years, NEET youth were decidedly optim
 
 <!-- The sharp increase in education rates among urban African youth has increased the overall pool of human capital and better positioned youth for success on the labor market. However, by driving up reservation wages, increasing educational attainment also has the potential to turn youth from "creators" to "seekers" of jobs [@baah-boateng2013]. We find that reservation wages rise with increasing education. Higher reservation wages can be explained by a combination of sunk costs for education, high potential rewards for "waiting it out" for a public sector job. Moreover, households with the means to put their children through school are also more likely to support them during an extended job search. -->
 
-\singlespacing
-```{r, tbl-employ, echo=FALSE}
-```
-\doublespacing
 
 # Conclusion {#conclusion}
 
 This paper studies the dynamics of the school-to-work transition for 752 youth aged 20-29 from urban Cotonou, Benin. A unique panel is created using mobile phone surveys; in each survey round, youth are classified into one of five groups reflecting their primary activity.
 
-We combine reported activity history data with our panel to approximate the age of graduation and the duration of transition to the first job for each youth. In addition, we estimate transition matrices and sequence analysis to describe common paths along the SWT. Finally, we discuss the impact of specific activity transitions on youth life satisfaction and the reported aspirations of youth, and the obstacles they face on the labor market.
+We combine reported activity history data with our panel to approximate the age of graduation and the duration of transition to the first job for each youth. In addition, we estimate transition intensity matrices and sequence analysis to describe common paths along the SWT. Finally, we discuss the impact of specific activity transitions on youth life satisfaction and the reported aspirations of youth, and the obstacles they face on the labor market.
 
 The SWT is observed for about 68 percent of the sample, with the majority reporting a transition to wage work or self-employment in the period directly following their final year of schooling or training. Youth who enter the labor market as self-employed tend to be less educated and have parents with lower educational attainment than youth who enter the labor market as wage-employed or unemployed. Youth who do not find work in the first period after graduation wait less than a year, on average, before entering either wage or self-employment. Youth who complete university education (master's level or higher) take about six months longer to find their first job, though education up to secondary schooling does not appear to extend the duration.
 
 Using a combination of retrospective employment history and panel data to calculate average ages of transition, we find that youth in Cotonou graduate at the age of 22 years, seven months, and find their first employment exactly a year later, on average. If the transition duration calculated for this sample were representative of the nation, it would rank Benin as a country with one of the shortest transitions to work in the world. However, given the higher availability of non-agricultural informal work in urban areas, one expects the transition speed to be shorter in urban Cotonou than in the rest of the country.
 
-Transition matrices suggest that wage employment and self-employment are stable relative to inactivity, meaning youth in employment are more likely to stay in the same type of employment than NEET youth are likely to stay inactive. However, higher rates of transition are observed for the (approximately quarterly) panel data than in yearly historical data, suggesting that annual data often used for studying the SWT may hide significant turbulence in employment status. There are relatively few transitions into regular work (with a single employer) from self-employment, schooling or inactivity, suggesting that a period of casual employment usually precedes a more stable employment relationship. 
+transition intensity matrices suggest that wage employment and self-employment are stable relative to inactivity, meaning youth in employment are more likely to stay in the same type of employment than NEET youth are likely to stay inactive. However, higher rates of transition are observed for the (approximately quarterly) panel data than in yearly historical data, suggesting that annual data often used for studying the SWT may hide significant turbulence in employment status. There are relatively few transitions into regular work (with a single employer) from self-employment, schooling or inactivity, suggesting that a period of casual employment usually precedes a more stable employment relationship. 
 
 We also use optimal matching analysis to identify clusters of youth following similar transition paths. The five identified clusters reflect the five activity types used, reflecting the relative stability of states. However, youth whose paths are dominated by inactivity are shown to be almost exclusively young women with lower educational attainment and larger families.
 
@@ -367,7 +367,12 @@ We make a unique contribution to the literature by estimating the effects of tra
 \makebox[.8\textwidth][c]{\includegraphics[width=.75\textwidth]{figures/littoral_carte}}
 \end{figure}
 
-\input{tables/census}
+\singlespacing
+
+```{r, tbl-census, echo=FALSE}
+```
+
+\doublespacing
 
 \newpage
 # Weighting {-#weighting .unlisted}
@@ -381,55 +386,116 @@ $$\pi_i = \left(\frac{n^{ZD}_i}{N^{ZD}_i}\right) \left(\frac{n^{act}_i}{N^{act}_
 $$w_i = (n\pi_i)^{-1}.$$
 
 \newpage
+# Studying transitions as a continuous Markov processes {-#transitions .unlisted}
+
+In Appendix B, we depict transitions between $K$ states employment states as transition intensity matrices. Each cell of the transition intensity matrix is given by the probability of transitioning from an initial employment state $i$ to a subsequent employment state $j$, which is simply given by $p_{ij} = n_{ij}/n_i$, such that the matrices in Appendix B can be depicted as
+
+\singlespacing
+$$
+Q= \begin{pmatrix}
+p_{11} & \dots & p_{1k}\\
+\vdots & \ddots & \vdots \\
+p_{k1} &\dots & p_{kk} \\
+\end{pmatrix}
+$$
+\doublespacing
+
+where $n_{ij}$ is the number of youth making the transition from state $i$ to $j$ and $n_i$ is the number of youth in the initial state $i$.
+
+Transition intensity matrices alone do not allow us to make informative comparisons between subgroups, as we do not know if a higher $p_{ij}$ indicates a preference of a subgroup for a certain transition, or simply higher turnover. To mitigate this issue, we follow @bosch2007 and @cunningham2011 in decomposing the transition intensity matrices into two separate elements, which allow us to infer the propensity at which groups make certain transitions independent of that group's likelihood to change states.
+
+"Since we have access to discrete panel data, rather than continuous time data, equation (1) can be interpreted as the transition probability if we assume that the discrete-time mobility process captured by our data is generated by a continuous-time homogenous Markov process. In other words, if we assume that transitions between states occur at random points in time, then a random draw of a transition in one point in time has the same probability (within a confidence interval) of a draw at any other point in time."
+
+This rate of transition, which can be referred to as intensities [@bosch2007], make differences across different groups (age groups or gender) difficult because they do not account for the likelihood of separation (i.e. changing states). For example, younger individuals are much less likely to transition out of school; thus, the rate of transition from school to, say, wage employment will be deflated relative to older youth around graduation age, and will tell us little about the preference of younger school-leavers for wage employment relative to other options.
+
+The method proposed by @bosch2007 and @bosch2010 and applied to youth transitions by @cunningham2011 controls for the likelihood of separation by 
+factoring $Q$ into two elements, the rate of separation and the propensity to move, denoted by $Q = \lambda(M-I)$:
+
+\singlespacing
+$$
+Q= \begin{pmatrix}
+-p_{11} &  &  &  \\
+ & \ddots &  &  \\
+ &   & -p_{kk} & \\
+\end{pmatrix}
+\begin{pmatrix} \begin{bmatrix}
+0 &  r_{ij} & \\
+ & \ddots &  \\
+ &  & 0  \\
+\end{bmatrix} - I
+\end{pmatrix}
+$$
+\doublespacing
+
+where $r_{ij} = -p_{ij}/p_{ii}$ for $i \neq j$ and $i = 1, \dots, K$ and $I$ is the identity matrix.
+
+The first component represents the transition probabilities independent of the rate at which different age groups leave any sector, and is called the propensity matrix. The second is the rate of transition, and is referred to as the rate of separation matrix. By decomposing the transition intensity matrix into the propensity matrix and the rate of separation matrix, we can determine if movements to employment states observed in the transition intensity matrix are reflecting greater entry of certain age groups into certain employment states or if the observed transitions are simply due to greater turnover by certain age groups in general.
+
 \singlespacing
 
 ```{r, tbl-attrition, echo=FALSE}
 ```
-\pagestyle{empty}
+
+\newpage
+
+\renewcommand{\arraystretch}{1.2}
+
 ```{r, tbl-descgender, echo=FALSE}
 ```
 
-\pagestyle{plain}
+\newpage
 
-```{r, fig-clusters, fig.cap="Occupational status distribution plots by cluster", fig.height = 8, echo=FALSE}
+```{r, tbl-propensities, echo=FALSE, ft.arraystretch = 1.15}
 ```
 
+\newpage
+
+```{r, tbl-entry, echo=FALSE}
+```
+```{r, tbl-clustertbl, results = 'asis', echo = FALSE}
+```
+```{r, tbl-wage, echo=FALSE}
+```
+```{r, tbl-self, echo=FALSE}
+```
+```{r, tbl-aspirations, echo=FALSE}
+```
 ```{r, fig-survival, fig.cap="Survival analysis: duration of transition to first employment", echo=FALSE}
 ```
+
+\newpage
 
 # Appendix B {-#appendix-b}
 
 \setcounter{table}{0}
 \renewcommand{\thetable}{B\arabic{table}}
 
-\singlespacing
-
-```{r, tbl-fullmatrix, echo=FALSE}
+```{r, tbl-fullmatrix, echo=FALSE, ft.arraystretch = 1.25}
 ```
 
-```{r, tbl-historymatrix, echo=FALSE}
-```
-
-\newpage
-
-```{r, tbl-pooledmatrix, echo=FALSE}
-```
-
-```{r, tbl-transm01, echo=FALSE}
+```{r, tbl-historymatrix, echo=FALSE, ft.arraystretch = 1.25}
 ```
 
 \newpage
 
-```{r, tbl-transm12, echo=FALSE}
+```{r, tbl-pooledmatrix, echo=FALSE, ft.arraystretch = 1.25}
 ```
 
-```{r, tbl-transm23, echo=FALSE}
+```{r, tbl-transm01, echo=FALSE, ft.arraystretch = 1.25}
 ```
 
 \newpage
 
-```{r, tbl-transm34, echo=FALSE}
+```{r, tbl-transm12, echo=FALSE, ft.arraystretch = 1.25}
 ```
 
-```{r, tbl-transm04, echo=FALSE}
+```{r, tbl-transm23, echo=FALSE, ft.arraystretch = 1.25}
+```
+
+\newpage
+
+```{r, tbl-transm34, echo=FALSE, ft.arraystretch = 1.25}
+```
+
+```{r, tbl-transm04, echo=FALSE, ft.arraystretch = 1.25}
 ```

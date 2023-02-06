@@ -352,7 +352,7 @@ x <- data.matrix(tabyl(ttot, From, to, show_na = FALSE) %>%
                  adorn_percentages("row"))[,-1]
 
 lambda <- -diag(diag(x))
-M <- sweep(-x, MARGIN=1, 1 / diag(x), `*`) + diag(5) # r_ij = -q_ij/q_ii
+M <- sweep(-x, MARGIN=1, 1 / diag(x), `*`) + diag(5) # r_ij = -p_ij/p_ii
 I <- diag(5)
 
 lambda %*% (M-I)
@@ -361,3 +361,144 @@ solve(-lambda) # mean duration in state i
 
 
 
+df <- ys_baseline %>% 
+  mutate(housing = ifelse(YS6_1 %in% c(1,2,6,7), 1, 0),
+         water = case_when(YS6_4_0 == 1 ~ 0,
+                           YS6_4_1 == 1 ~ 0,
+                           YS6_4_2 == 1 ~ 0,
+                           YS6_4_3 == 1 ~ 1,
+                           YS6_4_4 == 1 ~ 0),
+         walls = case_when(YS6_7_1 == 1 ~ 0, # improved wall materials
+                           YS6_7_2 == 1 ~ 0,
+                           YS6_7_3 == 1 ~ 0,
+                           YS6_7_4 == 1 ~ 0,
+                           YS6_7_5 == 1 ~ 1,
+                           YS6_7_6 == 1 ~ 1,
+                           YS6_7_7 == 1 ~ 1),
+         floor = case_when(YS6_8_1 == 1 ~ 0, # improved floor materials
+                           YS6_8_2 == 1 ~ 0,
+                           YS6_8_3 == 1 ~ 0,
+                           YS6_8_4 == 1 ~ 0,
+                           YS6_8_5 == 1 ~ 0,
+                           YS6_8_6 == 1 ~ 1,
+                           YS6_8_7 == 1 ~ 1,
+                           YS6_8_8 == 1 ~ 0,
+                           YS6_8_9 == 1 ~ 1,
+                           YS6_8_11 == 1 ~ 1),
+         roof = case_when(YS6_9_1 == 1 ~ 0, # improved floor materials
+                           YS6_9_2 == 1 ~ 0,
+                           YS6_9_3 == 1 ~ 0,
+                           YS6_9_5 == 1 ~ 0,
+                           YS6_9_6 == 1 ~ 0,
+                           YS6_9_7 == 1 ~ 1,
+                           YS6_9_8 == 1 ~ 1,
+                           YS6_9_9 == 1 ~ 1)
+  ) %>% 
+  select(YS6_2, YS6_3, YS6_5, housing, water, walls, floor, roof, contains("YS6_11"))
+
+prn<-psych::principal(df, rotate="varimax", nfactors=3,covar=T, scores=TRUE)
+index<-prn$scores[,1]
+nlab<-c(1,2,3,4,5)
+ys_baseline <- cbind(ys_baseline, index) %>% 
+  mutate(wealth_quintile = as.factor(cut(index, breaks = 5, labels = nlab)))
+
+ml$prog2 <- relevel(ml$prog, ref = "academic")
+test <- multinom(prog2 ~ ses + write, data = ml)
+
+
+df <- ys_panel %>% filter(wave == 0) 
+df$entry = relevel(factor(df$entry), ref=2)
+
+m1 <- lm(first_employment_age ~ sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus, data = df)
+
+m2 <- lm(first_employment_age ~ entry + sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = df)
+
+ys_panel$first_employment_duration <- ys_panel$first_employment_duration+1
+
+m3 <- lm(first_employment_duration ~ entry + sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus, data = df)
+
+m4 <- lm(first_employment_duration ~ entry + sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = df)
+
+stargazer(m1, m2, m3, m4, df = FALSE, font.size= "scriptsize", column.sep.width = "6pt",
+          no.space = TRUE, single.row = TRUE, digits = 2, header = F, table.placement = "H",
+          notes.align = "r",
+          notes.append = TRUE,
+          covariate.labels = c("Entry: NEET (reference) \\\\ Entry: Employed",
+                               "Entry: Self-Employed",
+                               "Male (=1)",
+                               "Years of Schooling",
+                               "Completed apprenticeship (=1)",
+                               "Primary school diploma: CEP (=1)",
+                               "Junior high diploma: BEPC (=1)",
+                               "Baccalauréat: BAC (=1)",
+                               "Lower vocational certificate: CAP (=1)",
+                               "2nd cycle university: Licence (=1)",
+                               "3rd cycle university: Maîtrise (=1)",
+                               "Father was apprentice (=1)",
+                               "Father completed primary (=1)",
+                               "Father completed secondary (=1)",
+                               "Mother was apprentice (=1)",
+                               "Mother completed primary (=1)",
+                               "Mother completed secondary (=1)",
+                               "Married (=1)",
+                               "Beninese (=1)",
+                               "Ethnicity: Fon (=1)",
+                               "Religion: Christian (=1)",
+                               "Grew up in a city (=1)"),
+          title = "Transition Into First Employment",
+          omit.stat=c("aic", "bic", "adj.rsq", "ser"),
+          dep.var.labels = c("Age", "Duration"),
+          model.names = FALSE,
+          dep.var.caption = "",
+          label = "tab:tbl-firstempreg")
+
+
+m1 <- lm(first_employment_age ~ sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = df)
+m2 <- lm(first_employment_duration ~ sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = df)
+
+
+df <- ys_panel %>% filter(wave == 0, entry %in% c("NEET", "Employed") ) 
+df$entry = relevel(factor(df$entry), ref=1)
+
+m3 <- multinom(entry ~ sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = df)
+
+df <- ys_panel %>% filter(wave == 0, entry %in% c("NEET", "Self-Employed") ) 
+df$entry = relevel(factor(df$entry), ref=1)
+
+m4 <- multinom(entry ~ sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = df)
+
+df <- ys_panel %>% filter(wave == 0, entry %in% c("Employed", "Self-Employed") ) 
+df$entry = relevel(factor(df$entry), ref=2)
+
+m5 <- multinom(entry ~ sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = df)
+
+stargazer(m1, m2, m3, m4, m5, df = FALSE, font.size= "scriptsize", column.sep.width = "6pt",
+          no.space = TRUE, single.row = TRUE, digits = 2, header = F, table.placement = "H",
+          notes.align = "r",
+          notes.append = TRUE,
+          covariate.labels = c("Male (=1)",
+                               "Years of Schooling",
+                               "Completed apprenticeship (=1)",
+                               "Primary school diploma: CEP (=1)",
+                               "Junior high diploma: BEPC (=1)",
+                               "Baccalauréat: BAC (=1)",
+                               "Lower vocational certificate: CAP (=1)",
+                               "2nd cycle university: Licence (=1)",
+                               "3rd cycle university: Maîtrise (=1)",
+                               "Father was apprentice (=1)",
+                               "Father completed primary (=1)",
+                               "Father completed secondary (=1)",
+                               "Mother was apprentice (=1)",
+                               "Mother completed primary (=1)",
+                               "Mother completed secondary (=1)",
+                               "Married (=1)",
+                               "Beninese (=1)",
+                               "Ethnicity: Fon (=1)",
+                               "Religion: Christian (=1)",
+                               "Grew up in a city (=1)"),
+          title = "Transition Into First Employment",
+          omit.stat=c("aic", "bic", "adj.rsq", "ser"),
+          dep.var.labels = c("Age", "Duration"),
+          model.names = FALSE,
+          dep.var.caption = "",
+          label = "tab:tbl-firstempreg")
