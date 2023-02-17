@@ -128,7 +128,7 @@ df %>% tbl_summary(
   type = list(c(YS3_8, YS6_6, first_employment_duration, wealth_quintile) ~ "continuous",
               c(beninese, app, cep, bepc, bac, cap, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary) ~ "dichotomous"),
   statistic = list(all_categorical() ~ "{p}%",
-                   all_continuous() ~ "{mean}",
+                   all_continuous() ~ "{mean} ({median})",
                    total ~ "{N}")
 ) %>% 
   add_p() %>% 
@@ -152,7 +152,7 @@ df %>% tbl_summary(
   kableExtra::group_rows(start_row = 30,
                          end_row = 39,
                          group_label = "Household Characteristics and Assets") %>% 
-  footnote(general = "\\\\scriptsize{Mean; \\\\%. Calculated using responses from baseline survey.}",
+  footnote(general = "\\\\scriptsize{Mean (median); \\\\%. Calculated using responses from baseline survey.}",
            number = c("To first employment."),
            threeparttable = T,
            fixed_small_size = F,
