@@ -323,8 +323,6 @@ We make a unique contribution to the literature by estimating the effects of tra
 
 \newpage
 
-# (APPENDIX) Appendix {-} 
-
 # Appendix A {-#appendix-a}
 
 \setcounter{figure}{0}
