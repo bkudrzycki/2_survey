@@ -312,8 +312,8 @@ flextable(y) %>%
   set_caption("Activity transition matrix: Combined data, 2013-2021") %>% 
   add_footer_lines("Row %. First row for each activity refers to unconditional transition rate; remaining rates are conditional.") %>%
   fontsize(size = 9, part = 'all') %>% 
-  align(align = "center") %>% 
-  align(j=1, align = "left") %>% 
+  flextable::align(align = "center") %>% 
+  flextable::align(j=1, align = "left") %>% 
   bold(i = c(1,8,15,22,29), bold = TRUE) %>% 
   width(width = .8) %>%
   width(j = 1, width = 1.2)

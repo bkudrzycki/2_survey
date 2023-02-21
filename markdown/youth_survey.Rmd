@@ -71,7 +71,7 @@ knitr::opts_chunk$set(message=FALSE,
 
 \doublespacing
 
-# Introduction {#intro}
+# Introduction {#survey-intro}
 
 The youth population in Sub-Saharan Africa (SSA) is rapidly growing, and is expected to continue to do so for the foreseeable future. This presents both challenges and opportunities for the region. Despite recent increases in educational levels in sub-Saharan Africa, which have increased young people's potential to become gainfully employed, youth continue to face many challenges when leaving school and seeking work: they are less likely to find quality jobs and more likely to remain unemployed than adults. Youth in low-income countries (LICs) are more likely to work informally than adults [@quintini2014]. 
 
@@ -87,9 +87,9 @@ In this paper, we use a novel, longitudinal dataset from a survey conducted with
 
 We find that young women face longer transitions to the labor market, and many do not transition at all. Similar to findings from Latin America, we find that youth often enter casual or informal work earlier in their career, following a transitive period in formal employment, and finishing in self-employment. Urban youth transitions can thus be characterized tending towards self-employment in the informal sector, following a period of instability, with the exception of a proportion of young women, who immediately enter domestic work.
 
-The next section describes existing work on youth SWT across the world, including transition age and duration and work on characterizing different SWT typologies. Section \@ref(datamethods) presents the data and methodology. Section 3 contains analysis and results. Section 4 concludes.
+The next section describes existing work on youth SWT across the world, including transition age and duration and work on characterizing different SWT typologies. Section \@ref(survey-datamethods) presents the data and methodology. Section \@ref(survey-results) contains analysis and results. Section \@ref(survey-conclusion) concludes.
 
-# Background {#background}
+# Background {#survey-background}
 
 Both the age of graduation and the speed of transition to the labor market upon graduation are of interest to policy makers. A delayed entry into the labor force can reduce youths' lifetime potential for labor market participation and contribution to the economy, while a slow transition can result in "scarring"; that is, early periods of underemployment and unemployment that lead to wage losses and reduce the likelihood of ever returning to work. Evidence from high-income countries suggests that protracted unemployment spells, including extended school-to-work transitions, negatively affect future earnings and employment prospects [@schmillen2017; @emmenegger2017; @moller2015; @cockx2012; @nordstromskans2011; @mroz2006; @arulampalam2001]. Policy makers aim to optimize factors that foster short and smooth SWTs in order to support a healthy and productive economy and ensure gainful, fulfilling employment for its youth.
 
@@ -111,9 +111,9 @@ In sum, the literature suggests that the school-to-work transition in LICs is no
 
 <!-- Women generally experience longer transition durations and are more likely to exit the labor market before completing the transition, taking twice the time to find a first job in certain LICs [@manacorda2017]. -->
 
-# Data and Methodology {#datamethods}
+# Data and Methodology {#survey-datamethods}
 
-## Data {-#data .unlisted}
+## Data {-#survey-data .unlisted}
 
 In this paper, we use novel longitudinal survey data tracking `r nrow(ys_baseline)` youth from the city of Cotonou, Benin's economic center and de facto administrative capital, over the course of three years. The survey was conducted by the authors with the collaboration of researchers from the University of Abomey-Calavi and the Institut National de la Statistique et de l'Analyse Économique (INSAE). 
 
@@ -121,7 +121,7 @@ Youth were selected for the survey using a two-step sampling process. First, a c
 
 Table \@ref(tab:tbl-attrition) in the Appendix depicts sample attrition over the five survy waves. The panel suffers an attrition rate of between 9% and 19% per survey round, with an overall attrition rate of 34% over the course of the first year of the survey (i.e. through survey four of five). This is high but in line with other remote longitudinal surveys in developing countries [@demombynes2013, ballivian2015]. However, a large proportion of non-respondents were recovered for the face-to-face endline, resulting in a final attrition of just 24%. The largest drop in response rate, between the first and second follow-up surveys, is likely related to the timing of the second phone-based survey, which took place in the early phases of Benin's response to the global Covid-19 pandemic. To test for biased respondent attrition, we test for equality in time-invariant characteristics across survey waves. Table \@ref(tab:tbl-attrition) in the Appendix indicates that attrition is neither associated with respondent activity at baseline, nor with their sex, age, or education. Thus, we proceed with the analysis assuming random dropout.
 
-## Summary Statistics {-#summary .unlisted}
+## Summary Statistics {-#survey-summary .unlisted}
 \singlespacing
 ```{r, tbl-desc, echo=FALSE}
 ```
@@ -133,7 +133,7 @@ In Table \@ref(tab:tbl-descgender) in the Appendix, we compare the baseline char
 
 Many youth in Cotonou are still in school in their 20s --- representing almost a third of 20-29 year-old youth in the census, and 22 percent of our sample. Even youth who have already left the education system (and thus have both less schooling on average and are less likely to continue accruing it) report having completed a mean of 11.2 years of school --- much higher than the 5.7 years for 20- to 24-year-olds and the 4.4 years for 25- to 29-year-olds in Benin estimated for the year 2010 by @barro2013\footnote{This likely reflects both rising education rates across SSA and longer schooling prevalent in urban areas relative to national figures.}. Among students in the sample, about 20 percent attend a private university, and 75 percent have to pay tuition fees. School fees vary: 30 percent of university students pay negligible fees (less than 30 CHF per year), while nearly 20 percent report paying over 300,000 FCFA (490 CHF) annually. The overwhelming majority are supported financially by their parents. Few students supplement their studies with external practical training, with only 13 percent of student having participated in a (generally unpaid) internship at private firm in the year prior to the survey.
 
-## Method {-#method .unlisted}
+## Method {-#survey-method .unlisted}
 
 <!--
 In this paper, we first use a combination of youth event history and a detailed four-wave panel to estimate the age at transition and duration in an informal, urban, and low-income setting. Second, we use the panel data to map out young people's transition between schooling and training, wage employment, self-employment, and inactivity, as well as their propensity to move between more differentiated employment states, such as casual and formal wage employment. Third, we develop a typology of transitions observable in our data using optimal matching analysis (OMA), a technique used to identify groups of similar states of sequences, to identify clusters of youth that follow similar trajectories over the observed period, and study the correlates of the clusters that emerge from this exercise. Finally, we investigate the characteristics of jobs held by youth, differentiating by gender and age category. 
@@ -149,9 +149,9 @@ Three methods are used to analyze the dynamics of youth employment in Cotonou.
 
 First, we follow @manacorda2017 and calculate the duration of transition to first employment. Second, we estimate transition intensity matrices to calculate the rate of turnover, or the share of people that move out of or into a certain state of employment in each period under observation. Using this approach we can, for instance, determine whether youth move from self- to wage employment at a higher rate than from wage to self-employment. Third, we use optimal matching analysis to create a taxonomy of transition sequences, which we compare along individual characteristics. We also identify the most common sequences observable in the data. Finally, we discuss the impact of certain transitions on the life satisfaction of youth, the aspirations expressed by youth at different employment states, and self-reported obstacles on the SWT.
 
-# Results and Drivers {#results}
+# Results and Drivers {#survey-results}
 
-## Labour Market Entry {#entry}
+## Labour Market Entry {#survey-entry}
 
 We begin by quantifying three aspects of the SWT commonly reproduced in the literature: age at graduation or school-leaving, age at first employment, and transition duration to first employment. To do this, we combine retrospective employment history data, which was obtained by asking youth what their main economic activity was over the course of the past seven years, with the observed economic activity from the panel survey. 
 
@@ -214,7 +214,7 @@ Columns (1) and (2) of Table \@ref(tab:tbl-firstempreg) examine potential driver
 
 Youth who enter as employed or self-employed are on average almost a year younger when they enter the labour market, and take between 9 and 10 months less time to transition, than youth whose first labour market experience is inactivity. Men enter the labor market about half a year later than women. Secondary schooling delays the transition to the labor market on average, but does not affect the transition duration. Extended university education (master's level or higher), on the other hand, is associated with a longer transition, by about six months. Youth with more educated fathers have their first employment experience at a younger age: a possible rationale for this result is that better-educated fathers have better business connections and are able to facilitate a more effective job search for their sons and daughters. Finally, we find that marriage (at baseline) is associated with a longer transition duration.
 
-## Transition Paths {#paths}
+## Transition Paths {#survey-paths}
 
 ### transition intensity matrices {- .unlisted}
 
@@ -294,7 +294,7 @@ When asked where they see themselves in 5 years, NEET youth were decidedly optim
 Only a quarter of the self-employed report hiring any employees, supporting the view that self-employed youth support themselves less as established entrepreneurs with growth potential and more as irregular laborers or petty traders. Even firm owners with hired labor operate small, informal businesses: of those who hire at least one worker, only 23% are registered with the Benin Chamber of Commerce and Industry. An even smaller fraction possesses any of the required documentation, including a registration number with the national statistical agency (INSAE) or the professional identification (carte professionelle) required by law. Just 6% are members of a union or trade association; aside from union membership fees, not a single self-employed youth reported making contributions to a social security or employee benefits program. A lack of access to financing and basic infrastructure like electricity and market competition appear to be the primary concerns of the self-employed. Lack of access to finance is reflected in the very low rates of self-employed youth who use credit: only 32 firm owners reported having a bank account, and just five firms out of 143 (3.5%) reported currently possessing any outstanding loans. This corresponds to the norm for Sub-Saharan Africa, where lack of financing constitutes one of the major obstacles to private sector growth (see @aryeetey1998, @abor2006, and @quartey2017).
 -->
 
-# Conclusion {#conclusion}
+# Conclusion {#survey-conclusion}
 
 This paper studies the dynamics of the school-to-work transition for 752 youth aged 20-29 from urban Cotonou, Benin. A unique panel is created using mobile phone surveys; in each survey round, youth are classified into one of five groups reflecting their primary activity.
 
@@ -323,16 +323,14 @@ We make a unique contribution to the literature by estimating the effects of tra
 
 \newpage
 
-# Appendix A {-#appendix-a}
+# Appendix A {-#survey-appendix-a}
 
 \setcounter{figure}{0}
 \renewcommand{\thefigure}{A\arabic{figure}}
 \setcounter{table}{0}
 \renewcommand{\thetable}{A\arabic{table}}
-\setcounter{section}{1}
-\renewcommand{\thesection}{A\arabic{table}}
 
-# Cotonou census {-#census .unlisted}
+# Cotonou census {-#survey-census .unlisted}
 
 \begin{figure}[H] \caption{\label{fig:litt} Geographic Coverage of Survey}
 \centering
@@ -347,7 +345,7 @@ We make a unique contribution to the literature by estimating the effects of tra
 \doublespacing
 
 \newpage
-# Sampling and weighting {-#weighting .unlisted}
+# Sampling and weighting {-#survey-weighting .unlisted}
 
 Cluster sampling was used to select the `r nrow(ys_baseline)` youth interviewed in the face-to-face baseline survey. The twelve _départements_ of Benin are subdivided into 77 _communes_, which are further subdivided into _arrondissements_. To delimit the geographic area for the census, we first manually selected five _arrondissements_ from the three _communes_ which constitute the Cotonou metropolitan area (Figure \@ref(fig:litt)). The five _arrondissements_ were chosen in consultation with survey partners experienced in data collection in the region to be as representative of urban Cotonou as possible.
 
@@ -357,7 +355,7 @@ All 4,905 households living in within the boundaries of these 15 ZDs were interv
 
 \newpage
 
-# Studying transitions as a continuous Markov processes {-#transitions .unlisted}
+# Studying transitions as a continuous Markov processes {-#survey-transitions .unlisted}
 
 In Appendix B, we depict transitions between $K$ states employment states as transition intensity matrices. Each cell of the transition intensity matrix is given by the probability of transitioning from an initial employment state $i$ to a subsequent employment state $j$, which is simply given by $p_{ij} = n_{ij}/n_i$, such that the matrices in Appendix B can be depicted as
 
@@ -436,7 +434,7 @@ The first component represents the transition probabilities independent of the r
 
 \newpage
 
-# Appendix B {-#appendix-b}
+# Appendix B {-#survey-appendix-b}
 
 \setcounter{table}{0}
 \renewcommand{\thetable}{B\arabic{table}}
