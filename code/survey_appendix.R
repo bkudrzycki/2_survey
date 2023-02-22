@@ -46,7 +46,7 @@ df %>%
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  footnote(general = "\\\\tiny{n (\\\\%); \\\\%; Mean (SD). Calculated using responses from baseline survey.}",
+  kableExtra::footnote(general = "\\\\tiny{n (\\\\%); \\\\%; Mean (SD). Calculated using responses from baseline survey.}",
            threeparttable = T,
            fixed_small_size = T,
            escape = F,
@@ -152,7 +152,7 @@ df %>% tbl_summary(
   kableExtra::group_rows(start_row = 30,
                          end_row = 39,
                          group_label = "Household Characteristics and Assets") %>% 
-  footnote(general = "\\\\scriptsize{Mean (median); \\\\%. Calculated using responses from baseline survey.}",
+  kableExtra::footnote(general = "\\\\scriptsize{Mean (median); \\\\%. Calculated using responses from baseline survey.}",
            number = c("To first employment."),
            threeparttable = T,
            fixed_small_size = F,
@@ -258,7 +258,7 @@ sstrat %>%
   kableExtra::group_rows(start_row = 29,
                          end_row = 37,
                          group_label = "Household Characteristics and Assets") %>% 
-  footnote(general = "\\\\scriptsize{Mean; \\\\%. Calculated using responses from baseline survey. Sample weighting applied.}",
+  kableExtra::footnote(general = "\\\\scriptsize{Mean; \\\\%. Calculated using responses from baseline survey. Sample weighting applied.}",
            number = c("To first employment."),
            threeparttable = T,
            fixed_small_size = F,
@@ -267,7 +267,7 @@ sstrat %>%
   kableExtra::kable_styling(full_width = FALSE, font_size = 7) %>%
   column_spec(2:4, width = "7em")
 
-# footnote(general = "Mean; \\\\%. Calculated using responses from baseline survey. Sample weighting applied.",
+# kableExtra::footnote(general = "Mean; \\\\%. Calculated using responses from baseline survey. Sample weighting applied.",
 #          threeparttable = T,
 #          fixed_small_size = F,
 #          escape = F,
@@ -530,7 +530,7 @@ df %>% tbl_summary(
   kableExtra::group_rows(start_row = 16,
                          end_row =21,
                          group_label = "Parents' Education") %>% 
-  footnote(general = "\\\\tiny{Mean; \\\\%. Calculated using responses from baseline survey.}",
+  kableExtra::footnote(general = "\\\\tiny{Mean; \\\\%. Calculated using responses from baseline survey.}",
            threeparttable = T,
            fixed_small_size = T,
            escape = F,
@@ -657,7 +657,7 @@ tbl_merge(list(t1, t2), tab_spanner = FALSE) %>%
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  footnote(general = "Calculated using responses from baseline survey.",
+  kableExtra::footnote(general = "Calculated using responses from baseline survey.",
            number = c("Primary employer. Includes surveyed worker.", "Of past 12 months.", "Likert scale, 1 = Very dissatisfied, 5 = Very satisfied."),
            threeparttable = T,
            escape = F,
@@ -723,7 +723,7 @@ tbl_merge(list(t1, t2), tab_spanner = FALSE) %>%
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  footnote(general = "Calculated using responses from baseline survey.",
+  kableExtra::footnote(general = "Calculated using responses from baseline survey.",
            number = c("Either registered with Benin Chamber of Commerce and Industry (CCIB), Register of Commerce and Personal Property Transaction (RCCM), National Social Security Fund (CNSS) or National Institute of Statistics and Economic Analysis (INSAE) or in possession of a professional card (carte professionnelle de commerçant, CPC) or a Unique Fiscal Identifier (IFU).", "Paying either Synthetic Professional Tax (Taxe Professionnelle Synthètique, TPS), taxes for public space usage (e.g. patente foraine), or any other local taxes.", "Not including the business owner (i.e. the survey respondent))."),
            threeparttable = T,
            escape = F,
@@ -762,7 +762,7 @@ df %>% tbl_summary(by = "status",
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  footnote(general = "Calculated using responses from baseline survey.",
+  kableExtra::footnote(general = "Calculated using responses from baseline survey.",
            threeparttable = T,
            escape = F,
            fixed_small_size = F,
@@ -894,7 +894,7 @@ tbl_summary(df,
   kableExtra::group_rows(start_row = 23,
                          end_row =31,
                          group_label = "Household and Assets") %>% 
-  footnote(general = "\\\\tiny{Mean; \\\\%. Calculated using responses from baseline survey.}",
+  kableExtra::footnote(general = "\\\\tiny{Mean; \\\\%. Calculated using responses from baseline survey.}",
            threeparttable = T,
            fixed_small_size = T,
            escape = F,

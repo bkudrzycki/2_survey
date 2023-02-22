@@ -92,7 +92,7 @@ df %>%
   kableExtra::group_rows(start_row = 25,
                          end_row = 34,
                          group_label = "Household Characteristics and Assets") %>% 
-  footnote(general = "\\\\scriptsize{Mean (median); \\\\%. Calculated using responses from baseline survey.}",
+  kableExtra::footnote(general = "\\\\scriptsize{Mean (median); \\\\%. Calculated using responses from baseline survey.}",
            number = c("To first employment."),
            threeparttable = T,
            escape = F,
@@ -650,7 +650,7 @@ tbl_merge(list(t1, t2), tab_spanner = FALSE) %>%
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  footnote(general = "Calculated using responses from baseline survey.",
+  kableExtra::footnote(general = "Calculated using responses from baseline survey.",
            number = c("Likert scale, 1 = Very dissatisfied, 5 = Very satisfied."),
            threeparttable = T,
            escape = F,

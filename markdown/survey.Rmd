@@ -18,10 +18,11 @@ output:
     latex_engine: xelatex
     template: template.tex
     extra_dependencies: ["flafter", "placeins"]
+    fig_caption: yes
 ---
 
 ```{r setup, include=FALSE}
-packages <- c("haven", "tinytex", "survey", "bookdown", "gtsummary", "janitor", "labelled", "TraMineR", "cluster", "survival", "survminer", "psych", "nnet", "plm", "pglm", "texreg", "flextable", "kableExtra", "stargazer", "ggpubr", "tidyverse")
+packages <- c("labelled", "haven", "tinytex", "survey", "bookdown", "gtsummary", "janitor", "TraMineR", "cluster", "survival", "survminer", "psych", "nnet", "pglm", "plm", "texreg", "flextable", "kableExtra", "stargazer", "ggpubr", "tidyverse")
 
 options(repos = c(CRAN = "http://cran.rstudio.com"))
 
@@ -36,7 +37,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 flextable:::usepackage_latex("hhline")
 
-rm(packages, installed_packages)
+rm(installed_packages)
 
 # load data
 # source("../code/master.R") # to rerun all code periodically
@@ -47,6 +48,7 @@ ys_baseline <- ys_panel %>% filter(wave == 0)
 # load functions
 source("../functions/paste_matrix.R")
 source("../functions/extract_pglm.R")
+source("../functions/detach_packages.R")
 
 # load code chunks
 knitr::read_chunk('../code/survey_body.R')
@@ -468,3 +470,5 @@ The first component represents the transition probabilities independent of the r
 
 ```{r, tbl-transm04, echo=FALSE, ft.arraystretch = 1.25}
 ```
+
+`r detach_packages(packages)`
