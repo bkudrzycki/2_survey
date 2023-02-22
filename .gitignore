@@ -1,5 +1,4 @@
-_cache
-survey_cache/latex
+survey_cache/
 .DS_Store
 .Rhistory
 .RData
