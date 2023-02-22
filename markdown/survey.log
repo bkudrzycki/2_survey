@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.15)  21 FEB 2023 18:38
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.15)  22 FEB 2023 09:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**youth_survey.tex
-(./youth_survey.tex
+**survey.tex
+(./survey.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-02-24> (/usr/local/texlive/2022/texmf-dist/tex/latex
 /base/article.cls
@@ -1077,8 +1077,8 @@ Package: hhline 2020/01/04 v2.04 Table rule package (DPC)
 )
 \cslhangindent=\skip82
 \csllabelwidth=\skip83
-No file youth_survey.aux.
-\openout1 = `youth_survey.aux'.
+(./survey.aux)
+\openout1 = `survey.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 166.
 LaTeX Font Info:    ... okay on input line 166.
@@ -1146,9 +1146,6 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 166.
 LaTeX Info: Redefining \pageref on input line 166.
 LaTeX Info: Redefining \nameref on input line 166.
-
-Package hyperref Warning: Rerun to get /PageLabels entry.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1271,129 +1268,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 175--176
 [1
 
 
-]
+] (./survey.toc
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
+(Font)              scaled to size 10.95116pt on input line 5.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
+(Font)              scaled to size 8.10385pt on input line 5.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
+(Font)              scaled to size 6.02315pt on input line 5.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
+(Font)              scaled to size 10.94882pt on input line 5.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
+(Font)              scaled to size 8.10213pt on input line 5.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
+(Font)              scaled to size 6.02185pt on input line 5.
+)
 \tf@toc=\write3
-\openout3 = `youth_survey.toc'.
+\openout3 = `survey.toc'.
 
+(./survey.lof)
 \tf@lof=\write4
-\openout4 = `youth_survey.lof'.
+\openout4 = `survey.lof'.
 
-\tf@lot=\write5
-\openout5 = `youth_survey.lot'.
-
-[2
-
-] [3]
-
-LaTeX Warning: Reference `survey-datamethods' on page 4 undefined on input line
- 205.
-
-
-LaTeX Warning: Reference `survey-results' on page 4 undefined on input line 205
-.
-
-
-LaTeX Warning: Reference `survey-conclusion' on page 4 undefined on input line 
-205.
-
-[4] [5] [6] [7] [8] [9]
-
-LaTeX Warning: Reference `tab:tbl-attrition' on page 10 undefined on input line
- 238.
-
-
-LaTeX Warning: Reference `tab:tbl-attrition' on page 10 undefined on input line
- 238.
-
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.00075pt on input line 299.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.99925pt on input line 299.
-
-Overfull \hbox (1.1pt too wide) in paragraph at lines 299--299
- []|\TU/texgyrepagella(2)/b/n/10 Apprentice  
- []
-
-
-Overfull \hbox (175.86635pt too wide) in paragraph at lines 249--305
- [] 
- []
-
-[10]
-
-LaTeX Warning: Reference `tab:tbl-desc' on page 11 undefined on input line 308.
-
-
-[11]
-
-LaTeX Warning: Reference `tab:tbl-descgender' on page 12 undefined on input lin
-e 310.
-
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.95116pt on input line 312.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.10385pt on input line 312.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.02315pt on input line 312.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.94882pt on input line 312.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.10213pt on input line 312.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.02185pt on input line 312.
-[12] [13]
-
-LaTeX Warning: Reference `tab:tbl-desc' on page 14 undefined on input line 331.
-
-
-
-LaTeX Warning: Reference `tab:tbl-descgender' on page 14 undefined on input lin
-e 331.
-
-[14] [15]
-
-LaTeX Warning: Reference `tab:tbl-entry' on page 16 undefined on input line 341
-.
-
-[16] [17]
-
-LaTeX Warning: Reference `tab:tbl-entry' on page 18 undefined on input line 353
-.
-
-
-LaTeX Warning: Reference `fig:fig-survival' on page 18 undefined on input line 
-353.
-
-[18] [19]
-
-LaTeX Warning: Reference `tab:tbl-firstempreg' on page 20 undefined on input li
-ne 424.
-
-[20]
-
-LaTeX Warning: Reference `tab:tbl-firstempreg' on page 21 undefined on input li
-ne 429.
-
-
-LaTeX Warning: Reference `tab:tbl-historymatrix' on page 21 undefined on input 
-line 439.
-
-[21]
-
-LaTeX Warning: Reference `tab:tbl-historymatrix' on page 22 undefined on input 
-line 441.
-
-
-LaTeX Warning: Reference `fig:fig-ageplot' on page 22 undefined on input line 4
-41.
-
-File: figures/fig-ageplot-1.pdf Graphic file (type pdf)
-<use figures/fig-ageplot-1.pdf>
-
-LaTeX Warning: Reference `tab:tbl-pooledmatrix' on page 22 undefined on input l
-ine 447.
-
-[22] [23] [24]
+(./survey.lot
 
 Package fontspec Info: Font family 'Palatino(0)' created for font 'Palatino'
 (fontspec)             with options [Ligatures={TeX},Ligatures=TeX].
@@ -1417,72 +1313,50 @@ Package fontspec Info: Font family 'Palatino(0)' created for font 'Palatino'
 (/usr/local/texlive/2022/texmf-dist/tex/latex/microtype/mt-Palatino.cfg
 File: mt-Palatino.cfg 2012/03/10 v1.0 microtype config. file: Palatino and simi
 lar fonts (LBD)
-)
+) [2
 
-Package longtable Warning: Column widths have changed
-(longtable)                in table 3 on input line 692.
+])
+\tf@lot=\write5
+\openout5 = `survey.lot'.
+
+[3] [4] [5] [6] [7] [8] [9] [10]
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
+(Font)              scaled to size 7.00075pt on input line 299.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
+(Font)              scaled to size 6.99925pt on input line 299.
+
+Overfull \hbox (1.1pt too wide) in paragraph at lines 299--299
+ []|\TU/texgyrepagella(2)/b/n/10 Apprentice  
+ []
 
 
-LaTeX Warning: Reference `tab:tbl-fullmatrix' on page 25 undefined on input lin
-e 695.
+Overfull \hbox (175.86635pt too wide) in paragraph at lines 249--305
+ [] 
+ []
 
-[25] [26] [27]
-
-LaTeX Warning: Reference `tab:tbl-propensities' on page 28 undefined on input l
-ine 707.
-
-[28]
+[11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22]
+File: figures/fig-ageplot-1.pdf Graphic file (type pdf)
+<use figures/fig-ageplot-1.pdf>
+[23] [24] [25] [26] [27] [28] [29]
 File: figures/fig-clusters-1.pdf Graphic file (type pdf)
 <use figures/fig-clusters-1.pdf>
-[29]
+[30] [31] [32] [33] [34] [35] [36] [37] [38] [39] [40] [41] [42] [43] [44]
+File: figures/littoral_carte.png Graphic file (type bmp)
+<figures/littoral_carte.png>
+[45] [46] [47] [48] [49]
+Overfull \vbox (21.73657pt too high) has occurred while \output is active []
 
-LaTeX Warning: Reference `tab:tbl-clustertbl' on page 30 undefined on input lin
-e 728.
-
-
-LaTeX Warning: Reference `fig:fig-clusters' on page 30 undefined on input line 
-728.
-
-[30] [31]
-
-LaTeX Warning: Reference `fig:fig-clusters' on page 32 undefined on input line 
-730.
-
-
-LaTeX Warning: Reference `tab:tbl-clustertbl' on page 32 undefined on input lin
-e 732.
-
-
-LaTeX Warning: Reference `fig:fig-clusters' on page 32 undefined on input line 
-734.
-
-[32] [33]
-
-LaTeX Warning: Reference `tab:tbl-aspirations' on page 34 undefined on input li
-ne 794.
-
-[34]
-
-LaTeX Warning: Reference `tab:tbl-aspirations' on page 35 undefined on input li
-ne 796.
-
-[35] [36] [37] [38] [39] [40] [41] [42] [43]
-
-! LaTeX Error: File `path/figures/littoral_carte' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.970 ...\textwidth]{path/figures/littoral_carte}}
-                                                   
+[50] [51] [52] [53] [54]
+File: figures/fig-survival-1.pdf Graphic file (type pdf)
+<use figures/fig-survival-1.pdf>
+[55] [56] [57] [58] [59] [60] (./survey.aux) ) 
 Here is how much of TeX's memory you used:
- 22816 strings out of 476179
- 428642 string characters out of 5809544
- 948366 words of memory out of 5000000
- 43133 multiletter control sequences out of 15000+600000
- 479901 words of font info for 152 fonts, out of 8000000 for 9000
+ 22844 strings out of 476179
+ 428471 string characters out of 5809544
+ 976896 words of memory out of 5000000
+ 43165 multiletter control sequences out of 15000+600000
+ 479933 words of font info for 156 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 74i,15n,123p,1986b,798s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,15n,123p,2750b,658s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on youth_survey.pdf (43 pages).
+Output written on survey.pdf (60 pages).

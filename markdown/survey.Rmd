@@ -11,7 +11,7 @@ thanks: |
   Thanks to Dario for the Markdown template.
 keywords: [Informal labor markets, Dual training, Apprenticeship]
 jel: [I26]
-bibliography: youth_survey.bib
+bibliography: survey.bib
 csl: 'apa-no-ampersand.csl'
 output: 
   bookdown::pdf_document2:
@@ -323,12 +323,12 @@ We make a unique contribution to the literature by estimating the effects of tra
 
 \newpage
 
-# Appendix A {-#survey-appendix-a}
+# Appendix A2 {-#survey-appendix-a}
 
 \setcounter{figure}{0}
-\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\thefigure}{A2.\arabic{figure}}
 \setcounter{table}{0}
-\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\thetable}{A2.\arabic{table}}
 
 # Cotonou census {-#survey-census .unlisted}
 
@@ -434,10 +434,10 @@ The first component represents the transition probabilities independent of the r
 
 \newpage
 
-# Appendix B {-#survey-appendix-b}
+# Appendix B2 {-#survey-appendix-b}
 
 \setcounter{table}{0}
-\renewcommand{\thetable}{B\arabic{table}}
+\renewcommand{\thetable}{B2.\arabic{table}}
 
 ```{r, tbl-fullmatrix, echo=FALSE, ft.arraystretch = 1.25}
 ```
