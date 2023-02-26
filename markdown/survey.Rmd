@@ -72,8 +72,6 @@ knitr::opts_chunk$set(message=FALSE,
 
 ```
 
-\onehalfspacing
-
 # Introduction {#survey-intro}
 
 The youth population in Sub-Saharan Africa (SSA) is rapidly growing, and is expected to continue to do so for the foreseeable future. This presents both challenges and opportunities for the region. Despite recent increases in educational levels in sub-Saharan Africa, which have increased young people's potential to become gainfully employed, youth continue to face many challenges when leaving school and seeking work: they are less likely to find quality jobs and more likely to remain unemployed than adults. Youth in low-income countries (LICs) are more likely to work informally than adults [@quintini2014]. 
