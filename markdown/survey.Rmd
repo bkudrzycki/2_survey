@@ -11,13 +11,15 @@ thanks: |
   Thanks to Dario for the Markdown template.
 keywords: [Informal labor markets, Dual training, Apprenticeship]
 jel: [I26]
+classoption: a4paper, 12pt
+geometry: left=3cm, right=3cm
 bibliography: survey.bib
 csl: 'apa-no-ampersand.csl'
 output: 
   bookdown::pdf_document2:
     latex_engine: xelatex
     template: template.tex
-    extra_dependencies: ["flafter", "placeins"]
+    extra_dependencies: ["flafter", "placeins", "changepage", "multirow", "array", "adjustbox", "longtable", "pifont", "fancyhdr", "pdflscape", "fancyhdr"]
     fig_caption: yes
 ---
 
@@ -48,7 +50,6 @@ ys_baseline <- ys_panel %>% filter(wave == 0)
 # load functions
 source("../functions/paste_matrix.R")
 source("../functions/extract_pglm.R")
-source("../functions/detach_packages.R")
 
 # load code chunks
 knitr::read_chunk('../code/survey_body.R')
@@ -71,7 +72,7 @@ knitr::opts_chunk$set(message=FALSE,
 
 ```
 
-\doublespacing
+\onehalfspacing
 
 # Introduction {#survey-intro}
 
@@ -124,10 +125,10 @@ Youth were selected for the survey using a two-step sampling process. First, a c
 Table \@ref(tab:tbl-attrition) in the Appendix depicts sample attrition over the five survy waves. The panel suffers an attrition rate of between 9% and 19% per survey round, with an overall attrition rate of 34% over the course of the first year of the survey (i.e. through survey four of five). This is high but in line with other remote longitudinal surveys in developing countries [@demombynes2013, ballivian2015]. However, a large proportion of non-respondents were recovered for the face-to-face endline, resulting in a final attrition of just 24%. The largest drop in response rate, between the first and second follow-up surveys, is likely related to the timing of the second phone-based survey, which took place in the early phases of Benin's response to the global Covid-19 pandemic. To test for biased respondent attrition, we test for equality in time-invariant characteristics across survey waves. Table \@ref(tab:tbl-attrition) in the Appendix indicates that attrition is neither associated with respondent activity at baseline, nor with their sex, age, or education. Thus, we proceed with the analysis assuming random dropout.
 
 ## Summary Statistics {-#survey-summary .unlisted}
-\singlespacing
+\begin{singlespacing}
 ```{r, tbl-desc, echo=FALSE}
 ```
-\doublespacing
+\end{singlespacing}
 
 Youth characteristics at baseline are presented for each activity in Table \@ref(tab:tbl-desc) above. The reported p-value reported compare the equality of means under the null hypothesis that means are equal for all activities. The average age of the youth in our sample is 24.15 years at baseline, with apprentices and youth in schooling being on average younger than the rest of the sample. Self-employed youth have less schooling than those who are employed or NEET, and at 39 percent have the highest rate of apprenticeship completion, in line with the notion that apprenticeship is a pathway to self-employment in the crafts sector as opposed to formal wage employment. The wage employed, on the other hand, are more likely than NEET youth to hold a primary and junior high diploma, but hold baccalauréate and university diplomas at essentially the same rate: this suggests that the NEET are comprised of both under qualified youth (lacking the necessary qualifications for the most formal wage jobs) and overqualified youth (who are unable to find employment despite qualifications comparable to the wage employed.) 45 percent of youth report living with their parents, and 20 percent are married. Thus, the sample can be broadly described as urban and well-educated but still transitioning to a state of independence and financial stability.
 
@@ -149,7 +150,7 @@ We complement a similar analysis of retrospective work history data with a uniqu
 
 Three methods are used to analyze the dynamics of youth employment in Cotonou.
 
-First, we follow @manacorda2017 and calculate the duration of transition to first employment. Second, we estimate transition intensity matrices to calculate the rate of turnover, or the share of people that move out of or into a certain state of employment in each period under observation. Using this approach we can, for instance, determine whether youth move from self- to wage employment at a higher rate than from wage to self-employment. Third, we use optimal matching analysis to create a taxonomy of transition sequences, which we compare along individual characteristics. We also identify the most common sequences observable in the data. Finally, we discuss the impact of certain transitions on the life satisfaction of youth, the aspirations expressed by youth at different employment states, and self-reported obstacles on the SWT.
+First, we follow @manacorda2017 and calculate the duration of transition to first employment. Second, we estimate transition intensity matrices to calculate the rate of turnover, or the share of people that move out of or into a certain state of employment in each period under observation. Using this approach we can, for instance, determine whether youth move from self- to wage employment at a higher rate than from wage to self-employment. Third, we use optimal matching analysis to create a taxonomy of transition sequences, which we compare along individual characteristics, also identifying the most common sequences observable in the data.
 
 # Results and Drivers {#survey-results}
 
@@ -161,8 +162,7 @@ The start of the SWT is often considered the point at which youth permanently le
 
 The second panel of Table \@ref(tab:tbl-desc) shows that the mean graduation age of the sample is 22.62 years, the age at first employment 23.65 years, and the resulting duration just over one year. Table \@ref(tab:tbl-descgender) in the Appendix shows that young men leave school about 7.5 months later than women, but are not faster to find their first employment.
 
-School-to-work transitions are longer in LICs. Chile, Turkey and South Africa have the longest time needed for 50 percent of a cohort to find work, at 5.9, 7.6 and 8.3 years, respectively (shortest times are Australia, Canada, and France at 1.0, 1.7, and 1.8). Spain and Italy have worryingly long transitions by this measure - on par with Chile. The average duration of completed transitions is also generally longer in emerging economies, though the contrast is not as stark - 2.7 for South Africa, and around 1 for most LMICs, compared to 0.3-1.0 for HICs (except Spain and Italy). @quintini2014 report that the median school-leaving age in a sample of advanced economies was between 21 and 22 years, compared to 17-18 in LMICs such as Brazil, India, Indonesia, Mexico and Turkey and 19-20 in selected Latin American countries (Argentina, Chile and South Africa). 
-
+School-to-work transitions are longer in LICs. Chile, Turkey and South Africa have the longest time needed for 50 percent of a cohort to find work, at 5.9, 7.6 and 8.3 years, respectively (shortest times are Australia, Canada, and France at 1.0, 1.7, and 1.8). Spain and Italy have worryingly long transitions by this measure - on par with Chile. The average duration of completed transitions is also generally longer in emerging economies, though the contrast is not as stark - 2.7 for South Africa, and around 1 for most LMICs, compared to 0.3-1.0 for HICs (except Spain and Italy). @quintini2014 report that the median school-leaving age in a sample of advanced economies was between 21 and 22 years, compared to 17-18 in LMICs such as Brazil, India, Indonesia, Mexico and Turkey and 19-20 in selected Latin American countries (Argentina, Chile and South Africa).
 
 that when both retroactive job data and panel data is considered, 512 youth (or 68 percent) of youth finish school or training between 2013 and the penultimate survey wave, with a mean graduation age of 22 years and 7 months. Youth who secured wage employment as their first labour market experience entered the labour market at the age of 22.57 on average, compared with age 22.64 for those who entered into self-employment and 22.66 for those whose first recorded status was NEET; however, this difference is not statistically significant.
 
@@ -170,25 +170,11 @@ We find that the majority of youth (over 60%) find wage or self-employment immed
 
 Both cross-sectional and longitudinal data have been used to quantify the SWT in other studies. Cross-sectional data can be used to estimate the transition duration by subtracting the age at which 50 percent of the population has left school from the age at which 50 percent of the population has found work. @quintini2007 and @quintini2014 use this approach to report transition duration, along with mean school-leaving and first employment ages (see Table 1). For longitudinal studies, the mean transition duration, reported for example in @quintini2007, the non-inclusion of youth still in transition will bias results.  Survival analysis is often used to account for this right-censored nature of the data (@nordman2015; @manacorda2017, and several other studies in developing countries, albeit of lower quality). @manacorda2017 does this with 23 SWTS countries and reports similar transition times to the first job as Quintini, but much longer waits until permanent employment (11 year average for five countries in SSA, including Benin).
 
-
-
-
-
 We start by considering the differences between youth who enter the labour market in three different employment states: wage employed, self-employed, and NEET. Table \@ref(tab:tbl-entry) compares the baseline characteristics of a total of `r sum(!is.na(ys_baseline$entry))` youth whose transition to the labour market was observed, or `r round(sum(!is.na(ys_baseline$entry))/nrow(ys_baseline),2)*100`% of the sample\footnote{The remainder were either in apprenticeship or schooling in the final observed period (and thus never transitioned to the labour market according to our definition) or were never in schooling or apprenticeship during the entirety of the period under observation (and to whom the school-to-work transition does not apply, as in Manacorda (2017)).}.
-
-
-
-
-
-
 
 The start can, however, be conditioned by those who are unwilling to seek work while they are in school (Matsumoto & Elder, 2010), which means that it can exclude those who will not seek work after they finish their schooling.
 
 Methodologically, both cross-sectional and longitudinal data have been used to quantify the school-to-work transition. Cross-sectional data can be used to estimate the transition duration by subtracting the age at which 50 percent of  the  population  has  left  school  from  the  age  at  which  50  percent  of  the  population  has  found work.  @quintini2007 and @quintini2014 use this approach to report transition duration in advanced economies, along with mean school-leaving and first employment ages. For longitudinal studies,  the  mean  transition  duration,  reported  for  example  in  @quintini2007,  the  non-inclusion of youth still in transition will bias results.  Survival analysis is often used to account for this right-censored nature of the data [@nordman2015; manacorda2017]. @manacorda2017 apply survival analysis to SWTS data from 23 lower-middle and lower income countries and report similar transition times to first employment as @quintini2014, but considerably longer transitions to permanent employment (11 year average for five countries in SSA, including Benin). 
-
-
-
-
 
 Next, we examine the first employment age, defined as the age at which youth first report being employed or self-employed, conditional on being in education for at least one year since 2013 and not returning to school in subsequent periods. Again combining employment history data the panel survey, we estimate a first employment age of 23 years and 8 months - almost precisely one year after the mean graduation age. Half of the sample reports having found their first employment experience by the age of `r quantile(ys_baseline$first_employment_age, c(.5), na.rm = T)`, and 90% by the age of `r quantile(ys_baseline$first_employment_age, c(.90), na.rm = T)`. 
 
@@ -202,12 +188,12 @@ The adjustment for right-censored data does not significantly alter the estimate
 
 <!-- We further support these estimates with the reported time that youth spend actively looking for work after leaving school. We ask NEET youth, "How long have you been unemployed, available for work and actively looking for a job?". The majority of NEET youth report searching for work for at least seven months, whether for their first job or with past employment experience. In contrast, in 2005, the median duration of unemployment in a selection of OECD countries was less than three months [@quintini2007]. A third of first-job seekers, and 37.7 percent of youth with job experience, have been out of the workforce for at least one year. In the OECD in 2005, this proportion was closer to 1 in 5.  -->
 
-\singlespacing
+\begin{singlespacing}
 ```{r, tbl-firstempreg, results = 'asis'}
 ```
-\doublespacing
+\end{singlespacing}
 
-\noindent In Table \@ref(tab:tbl-firstempreg), we estimate the effect of the educational attainment of youth and their parents on the age at transition to first employment and the duration of the transition using the following specification:
+In Table \@ref(tab:tbl-firstempreg), we estimate the effect of the educational attainment of youth and their parents on the age at transition to first employment and the duration of the transition using the following specification:
 
 $$y_i = \alpha + E_i + X_i + \mu_i,$$
 where $y_i$ is the outcome of interest for youth $i$, $E_i$ is the status at labour market entry, $X_i$ is a vector capturing educational characteristics of youth and parents, including diplomas held, as well as time-invariant youth characteristics, and $\mu_i$ is the error term.
@@ -230,10 +216,10 @@ An examination of the pooled transitions between past activities using the event
 Table \@ref(tab:tbl-pooledmatrix) depicts the rates of transition between activities pooled across the five detailed survey rounds, resulting in average transition rates over four transitions between the years of 2019 and 2021. As expected, the rate of graduation (transition out of school) is even higher than the last period of the event history. On average, 39.7 percent of youth changed activities between each survey round, a significantly higher rate than the 17 percent observed in the event history data, reflecting both the higher instability associated with the transition phase (compared to school-age years) and, potentially, more frequent variation in youth activity, particularly after graduation, than can be captured by annual data. The most stable activity is wage employment, with a 68% retention rate across all survey rounds. The most common transitions are NEET to wage employment (128 transitions), NEET to self-employment (97), wage employed to NEET (93), self-employment to NEET (75) and school to NEET (66). School to wage employment (51) as well as self-employed to employed (48) and employed to self-employed (51) are also common. In terms of rates, the most likely transitions overall are from NEET to wage employment (22.18 percent of NEET youth transition to wage employment in the next period) and self-employment to NEET (20.78 percent). The most common transition for youth in school is NEET in the following period (16.22 percent); for the wage employed it is NEET (16.49 percent) and for apprentices it is NEET (19.44 percent). Other frequent transitions are NEET to self-employment (16.81 percent), self-employment to wage employment (13.3 percent), and employed to NEET (16.49 percent).
 
 \newpage
-\singlespacing
+\begin{singlespacing}
 ```{r, tbl-matrix, echo=FALSE, ft.arraystretch = 1.15}
 ```
-\doublespacing
+\end{singlespacing}
 
 Table \@ref(tab:tbl-fullmatrix) in the Appendix reports the combined event history and panel data, which we will use for subsequent analyses. Over the entire observation period, youth changed activities between periods 18.5 percent of the time. The most frequently-observed transitions overall were from school to wage employment (624), school to NEET (436) and school to apprenticeship (345), followed by inactivity to wage employment (319), school to self-employment, and apprenticeship to employment. In terms of transition rates, on the other hand, the most likely transitions appear to be NEET to employed (17.37 percent), apprentice to wage employed (12.38 percent), NEET to self-employed (10.24 percent), and apprentice to self-employed (9.8 percent). Thus, while we observe the most transitions from school in absolute terms, these are still represent only a small percentage of all youth in the school; in other words, schooling is a period relative stability for youth, whose status becomes more variable as once they enter the labour market. This variability can be interpreted as precariousness, especially for youth in self-employment and wage employment.
 
@@ -280,10 +266,10 @@ The final and smallest cluster, NEET, comprises youth who were inactive at the b
 
 ### Labor Market Participants {- .unlisted}
 
-\singlespacing
+\begin{singlespacing}
 ```{r, tbl-employed, echo=FALSE}
 ```
-\doublespacing
+\end{singlespacing}
 
 Table \@ref(tab:tbl-aspirations) tabulates the responses of self-employed, wage employed, and NEET youth to the question, "What do you see yourself doing in five years?" More employed youth envision themselves starting their own business than working for their current or a different employer. Moreover, wage workers reported the lowest levels of satisfaction with their current activity. Thus, despite its common characterization as the "ideal" employment situation, wage employment appears to be neither inherently stable nor particularly satisfactory --- at least in the early stages of a career. On the other hand, over a quarter of the self-employed expect to be working for an employer in five years, suggesting that many youth do not see self-employment as an absorbing state, either, but rather an intermediate step on the way to wage employment. In sum, youth expect to be in substantial flux between self- and wage employment, though a higher fraction of youth expect to be in self-employment in five years than to be employed for a wage.
 
@@ -319,35 +305,36 @@ We make a unique contribution to the literature by estimating the effects of tra
 \newpage
 
 # References {.unnumbered}
-\noindent
+\markboth{References}{References}
 
 <div id="refs"></div>
 
 \newpage
 
 # Appendix A2 {-#survey-appendix-a}
+\markboth{Appendix A2}{Appendix A2}
 
 \setcounter{figure}{0}
 \renewcommand{\thefigure}{A2.\arabic{figure}}
 \setcounter{table}{0}
 \renewcommand{\thetable}{A2.\arabic{table}}
 
-# Cotonou census {-#survey-census .unlisted}
+## Cotonou census {-#survey-census .unlisted}
+\markboth{Cotonou census}{Appendix A2}
 
 \begin{figure}[H] \caption{\label{fig:litt} Geographic Coverage of Survey}
 \centering
 \makebox[.8\textwidth][c]{\includegraphics[width=.75\textwidth]{figures/littoral_carte}}
 \end{figure}
 
-\singlespacing
-
+\begin{singlespacing}
 ```{r, tbl-census, echo=FALSE}
 ```
-
-\doublespacing
+\end{singlespacing}
 
 \newpage
-# Sampling and weighting {-#survey-weighting .unlisted}
+## Sampling {-#sampling .unlisted}
+\markboth{Sampling}{Appendix A2}
 
 Cluster sampling was used to select the `r nrow(ys_baseline)` youth interviewed in the face-to-face baseline survey. The twelve _départements_ of Benin are subdivided into 77 _communes_, which are further subdivided into _arrondissements_. To delimit the geographic area for the census, we first manually selected five _arrondissements_ from the three _communes_ which constitute the Cotonou metropolitan area (Figure \@ref(fig:litt)). The five _arrondissements_ were chosen in consultation with survey partners experienced in data collection in the region to be as representative of urban Cotonou as possible.
 
@@ -357,11 +344,12 @@ All 4,905 households living in within the boundaries of these 15 ZDs were interv
 
 \newpage
 
-# Studying transitions as a continuous Markov processes {-#survey-transitions .unlisted}
+## Studying transitions as a continuous Markov processes {-#survey-transitions .unlisted}
+\markboth{Studying transitions as a continuous Markov processes}{Appendix A2}
 
 In Appendix B, we depict transitions between $K$ states employment states as transition intensity matrices. Each cell of the transition intensity matrix is given by the probability of transitioning from an initial employment state $i$ to a subsequent employment state $j$, which is simply given by $p_{ij} = n_{ij}/n_i$, such that the matrices in Appendix B can be depicted as
 
-\singlespacing
+\begin{singlespacing}
 $$
 Q= \begin{pmatrix}
 p_{11} & \dots & p_{1k}\\
@@ -369,7 +357,7 @@ p_{11} & \dots & p_{1k}\\
 p_{k1} &\dots & p_{kk} \\
 \end{pmatrix}
 $$
-\doublespacing
+\end{singlespacing}
 
 where $n_{ij}$ is the number of youth making the transition from state $i$ to $j$ and $n_i$ is the number of youth in the initial state $i$.
 
@@ -382,7 +370,7 @@ This rate of transition, which can be referred to as intensities [@bosch2007], m
 The method proposed by @bosch2007 and @bosch2010 and applied to youth transitions by @cunningham2011 controls for the likelihood of separation by 
 factoring $Q$ into two elements, the rate of separation and the propensity to move, denoted by $Q = \lambda(M-I)$:
 
-\singlespacing
+\begin{singlespacing}
 $$
 Q= \begin{pmatrix}
 -p_{11} &  &  &  \\
@@ -396,13 +384,15 @@ Q= \begin{pmatrix}
 \end{bmatrix} - I
 \end{pmatrix}
 $$
-\doublespacing
+\end{singlespacing}
 
 where $r_{ij} = -p_{ij}/p_{ii}$ for $i \neq j$ and $i = 1, \dots, K$ and $I$ is the identity matrix.
 
 The first component represents the transition probabilities independent of the rate at which different age groups leave any sector, and is called the propensity matrix. The second is the rate of transition, and is referred to as the rate of separation matrix. By decomposing the transition intensity matrix into the propensity matrix and the rate of separation matrix, we can determine if movements to employment states observed in the transition intensity matrix are reflecting greater entry of certain age groups into certain employment states or if the observed transitions are simply due to greater turnover by certain age groups in general.
 
-\singlespacing
+\markboth{Appendix A2}{Appendix A2}
+
+\begin{singlespacing}
 
 ```{r, tbl-attrition, echo=FALSE}
 ```
@@ -433,14 +423,17 @@ The first component represents the transition probabilities independent of the r
 ```
 ```{r, fig-survival, fig.cap="Survival analysis: duration of transition to first employment", echo=FALSE}
 ```
+\end{singlespacing}
 
 \newpage
 
 # Appendix B2 {-#survey-appendix-b}
+\markboth{Appendix B2}{Appendix B2}
 
 \setcounter{table}{0}
 \renewcommand{\thetable}{B2.\arabic{table}}
 
+\begin{singlespacing}
 ```{r, tbl-fullmatrix, echo=FALSE, ft.arraystretch = 1.25}
 ```
 
@@ -471,4 +464,4 @@ The first component represents the transition probabilities independent of the r
 ```{r, tbl-transm04, echo=FALSE, ft.arraystretch = 1.25}
 ```
 
-`r detach_packages(packages)`
+\end{singlespacing}
