@@ -92,7 +92,7 @@ df %>%
   kableExtra::group_rows(start_row = 25,
                          end_row = 34,
                          group_label = "Household Characteristics and Assets") %>% 
-  kableExtra::footnote(general = "\\\\scriptsize{Mean (median); \\\\%. Calculated using responses from baseline survey.}",
+  kableExtra::footnote(general = "\\\\scriptsize{\\\\textit{Notes:} Mean (median); \\\\%. Calculated using responses from baseline survey.}",
            number = c("To first employment."),
            threeparttable = T,
            escape = F,
@@ -129,8 +129,6 @@ m5 <- multinom(entry ~ sex + yos + app + cep + bepc + bac + cap + licence + mast
 
 stargazer(m1, m2, m3, m4, m5, df = FALSE, font.size= "scriptsize", column.sep.width = "3pt",
           no.space = TRUE, single.row = FALSE, digits = 2, header = FALSE, table.placement = "H",
-          notes.align = "r",
-          notes.append = TRUE,
           covariate.labels = c("Male (=1)",
                                "Years of Schooling",
                                "Completed apprenticeship (=1)",
@@ -159,7 +157,11 @@ stargazer(m1, m2, m3, m4, m5, df = FALSE, font.size= "scriptsize", column.sep.wi
           model.numbers = TRUE,
           dep.var.caption = "",
           add.lines = list(c("Observations", 417, 417, nrow(residuals(m3)), nrow(residuals(m5)), nrow(residuals(m5)))),
-          label = "tab:tbl-firstempreg")
+          label = "tab:tbl-firstempreg",
+          notes = "$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01",
+          notes.label = "", 
+          notes.align = "l", 
+          notes.append = F)
 
 ## ---- fig-ageplot ----
 
@@ -305,25 +307,19 @@ y <- rbind(x, M, M1, M2, M3, M4, M5)
 y <- y[c(seq(1, 35, 5), seq(2, 35, 5),  seq(3, 35, 5),  seq(4, 35, 5),  seq(5, 35, 5)),] %>% adorn_pct_formatting(digits = 2) %>% mutate(across(everything(), ~replace(., . ==  "100.00%" , "-")))
 
 flextable(y) %>%
-  theme_booktabs() %>%
-  hline_top(border = fp_border_default(width = 0), part = "header") %>% 
   add_header_row(values = c('','To'),
                  colwidths = c(3,3)) %>%
   set_caption("Activity transition matrix: Combined data, 2013-2021") %>% 
-  add_footer_lines("Row %. First row for each activity refers to unconditional transition rate; remaining rates are conditional.") %>%
+  add_footer_lines("") %>%
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %. First row for each activity refers to unconditional transition rate; remaining rates are conditional."), part = "footer") %>% 
   fontsize(size = 9, part = 'all') %>% 
   flextable::align(align = "center") %>% 
   flextable::align(j=1, align = "left") %>% 
   bold(i = c(1,8,15,22,29), bold = TRUE) %>% 
   width(width = .8) %>%
-  width(j = 1, width = 1.2)
+  width(j = 1, width = 1.2) %>% 
+  padding(padding = 0, part = "all")
 
-# 
-# fontsize(size = 8, part = 'all') %>% 
-#   width(width = .7) %>%
-#   width(j = 6, width = .4) %>% 
-#   autofit(part = "all") %>%
-  
 
 ## ---- fig-clusters --------
 
@@ -650,13 +646,13 @@ tbl_merge(list(t1, t2), tab_spanner = FALSE) %>%
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  kableExtra::footnote(general = "Calculated using responses from baseline survey.",
+  kableExtra::footnote(general = "\\\\textit{Calculated using responses from baseline survey.}",
            number = c("Likert scale, 1 = Very dissatisfied, 5 = Very satisfied."),
            threeparttable = T,
            escape = F,
            fixed_small_size = F,
            general_title = "") %>% 
-  kableExtra::kable_styling(full_width = FALSE, font_size = 8) %>%
-  column_spec(2:8, width = "4em") %>% 
+  kableExtra::kable_styling(full_width = FALSE, font_size = 7) %>%
+  column_spec(2:8, width = "3em") %>% 
   row_spec(4:5,background = "#EEEEEEEE") %>% 
   row_spec(8:9,background = "#EEEEEEEE")

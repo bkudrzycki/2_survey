@@ -1,13 +1,13 @@
 ## ---- tbl-census ----
 
-df <- data.frame(" " = c("", "In School", "Other", "Self-Employed", "Employed", "Apprentice"), "Aged 15-19" = c("1417 (71.64)", "125 (6.32)", "95 (4.80)", "35 (1.77)", "306 (15.47)", "1978 (100.00)"), "Aged 20-29" = c("1144 (31.07)", "635 (17.25) ", "1183 (32.13) ", "33 (11.76)", " 287 (7.79)", "3682 (100.00)"), "Aged 30 and above" = c("87 (1.35)", "574 (24.35)", "664 (56.68)", "117 (17.28)", "22 (0.34)", "6464 (100.00)"), check.names = FALSE)
+df <- data.frame(" " = c("In School", "Other", "Self-Employed", "Employed", "Apprentice", "Total"), "Aged 15-19" = c("1417 (71.64)", "125 (6.32)", "95 (4.80)", "35 (1.77)", "306 (15.47)", "1978 (100.00)"), "Aged 20-29" = c("1144 (31.07)", "635 (17.25) ", "1183 (32.13) ", "33 (11.76)", " 287 (7.79)", "3682 (100.00)"), "Aged 30 and above" = c("87 (1.35)", "574 (24.35)", "664 (56.68)", "117 (17.28)", "22 (0.34)", "6464 (100.00)"), check.names = FALSE)
 
 flextable(df) %>% 
-  theme_booktabs() %>%
   autofit(part = "all") %>%
   hline_top(border = fp_border_default(width = 0), part = "header") %>% 
   set_caption("Census of 13 zones de dénombrement") %>% 
-  add_footer_lines("n, %.") %>% 
+  add_footer_lines("") %>%
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "n, %."), part = "footer") %>% 
   fontsize(size = 9, part = 'all') %>% 
   width(width = .8) %>%
   width(j = 1, width = 1)
@@ -46,13 +46,14 @@ df %>%
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  kableExtra::footnote(general = "\\\\tiny{n (\\\\%); \\\\%; Mean (SD). Calculated using responses from baseline survey.}",
+  kableExtra::footnote(general = "\\\\textit{Notes:} n (\\\\%); \\\\%; Mean (SD). Calculated using responses from baseline survey. ",
            threeparttable = T,
-           fixed_small_size = T,
+           fixed_small_size = F,
            escape = F,
            general_title = "") %>% 
   kableExtra::kable_styling(full_width = FALSE, font_size = 8) %>% 
-  column_spec(2:7, width = "7em")
+  column_spec(2:6, width = "6em") %>% 
+  column_spec(7, width = "4em")
 
 
 
@@ -152,7 +153,7 @@ df %>% tbl_summary(
   kableExtra::group_rows(start_row = 30,
                          end_row = 39,
                          group_label = "Household Characteristics and Assets") %>% 
-  kableExtra::footnote(general = "\\\\scriptsize{Mean (median); \\\\%. Calculated using responses from baseline survey.}",
+  kableExtra::footnote(general = "\\\\scriptsize{\\\\textit{Notes:} Mean (median); \\\\%. Calculated using responses from baseline survey.}",
            number = c("To first employment."),
            threeparttable = T,
            fixed_small_size = F,
@@ -435,13 +436,13 @@ tab1 <- tab1[c(1,7,13,19,25,31,37,2,8,14,20,26,32,38,3,9,15,21,27,33,39,4,10,16,
 tab1[15,1] <- "Self-Emp."
 
 flextable(tab1) %>%
-  theme_booktabs() %>%
   autofit(part = "all") %>%
   hline_top(border = fp_border_default(width = 0), part = "header") %>% 
   add_header_row(values = c('','To'),
                  colwidths = c(4,4)) %>% 
   set_caption("Transition Rates into Different Types of Work") %>% 
-  add_footer_lines("Row % reported, but do not add up to 100% as activities are not exclusive.") %>% 
+  add_footer_lines("") %>%
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %s reported, but do not add up to 100% as activities are not exclusive."), part = "footer") %>% 
   fontsize(size = 9, part = 'all') %>% 
   width(width = .7) %>%
   width(j = 8, width = .4) %>% 
@@ -530,9 +531,9 @@ df %>% tbl_summary(
   kableExtra::group_rows(start_row = 16,
                          end_row =21,
                          group_label = "Parents' Education") %>% 
-  kableExtra::footnote(general = "\\\\tiny{Mean; \\\\%. Calculated using responses from baseline survey.}",
+  kableExtra::footnote(general = "\\\\textit{Notes:} Mean; \\\\%. Calculated using responses from baseline survey.",
            threeparttable = T,
-           fixed_small_size = T,
+           fixed_small_size = F,
            escape = F,
            general_title = "") %>% 
   kableExtra::kable_styling(full_width = FALSE, font_size = 9) %>%
@@ -657,7 +658,7 @@ tbl_merge(list(t1, t2), tab_spanner = FALSE) %>%
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  kableExtra::footnote(general = "Calculated using responses from baseline survey.",
+  kableExtra::footnote(general = "\\\\textit{Notes:} Calculated using responses from baseline survey.",
            number = c("Primary employer. Includes surveyed worker.", "Of past 12 months.", "Likert scale, 1 = Very dissatisfied, 5 = Very satisfied."),
            threeparttable = T,
            escape = F,
@@ -723,7 +724,7 @@ tbl_merge(list(t1, t2), tab_spanner = FALSE) %>%
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  kableExtra::footnote(general = "Calculated using responses from baseline survey.",
+  kableExtra::footnote(general = "\\\\textit{Notes:} Calculated using responses from baseline survey.",
            number = c("Either registered with Benin Chamber of Commerce and Industry (CCIB), Register of Commerce and Personal Property Transaction (RCCM), National Social Security Fund (CNSS) or National Institute of Statistics and Economic Analysis (INSAE) or in possession of a professional card (carte professionnelle de commerçant, CPC) or a Unique Fiscal Identifier (IFU).", "Paying either Synthetic Professional Tax (Taxe Professionnelle Synthètique, TPS), taxes for public space usage (e.g. patente foraine), or any other local taxes.", "Not including the business owner (i.e. the survey respondent))."),
            threeparttable = T,
            escape = F,
@@ -762,7 +763,7 @@ df %>% tbl_summary(by = "status",
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  kableExtra::footnote(general = "Calculated using responses from baseline survey.",
+  kableExtra::footnote(general = "\\\\textit{Notes:} Calculated using responses from baseline survey.",
            threeparttable = T,
            escape = F,
            fixed_small_size = F,
@@ -894,9 +895,9 @@ tbl_summary(df,
   kableExtra::group_rows(start_row = 23,
                          end_row =31,
                          group_label = "Household and Assets") %>% 
-  kableExtra::footnote(general = "\\\\tiny{Mean; \\\\%. Calculated using responses from baseline survey.}",
+  kableExtra::footnote(general = "\\\\textit{Notes:} Mean; \\\\%. Calculated using responses from baseline survey.",
            threeparttable = T,
-           fixed_small_size = T,
+           fixed_small_size = F,
            escape = F,
            general_title = "") %>% 
   kableExtra::kable_styling(full_width = FALSE, font_size = 8) %>%
@@ -967,8 +968,10 @@ flextable(x) %>% add_header_row(values = c('','To'),
                                 colwidths = c(3,4)) %>%
   hline_top(border = fp_border_default(width = 0), part = "header") %>% 
   set_caption("Activity transition matrix: Combined data, 2013-2021") %>% 
-  add_footer_lines("Row %\n(Column %)") %>% 
-  fontsize(size = 7.5, part = 'all')
+  add_footer_lines("") %>%
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %, (Column %)"), part = "footer") %>% 
+  fontsize(size = 8.5, part = 'all')
+
 ## ---- tbl-historymatrix --------
 
 t1 <- ys_baseline %>% select(act13, act14) %>% rename("From" = act13, "to" = act14)
@@ -1005,9 +1008,10 @@ x[6,7] <- ''
 flextable(x) %>% add_header_row(values = c('','To'),
                                 colwidths = c(3,4)) %>%
   hline_top(border = fp_border_default(width = 0), part = "header") %>% 
-  set_caption("Activity transition matrix: Event History, 2013-2019") %>% 
-  add_footer_lines("Row %\n(Column %)") %>% 
-  fontsize(size = 9, part = 'all')
+  set_caption("Activity transition matrix: Event History, 2013-2019")  %>% 
+  add_footer_lines("") %>%
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %, (Column %)"), part = "footer") %>% 
+  fontsize(size = 8.5, part = 'all')
 
 ## ---- tbl-pooledmatrix --------
 
@@ -1035,9 +1039,10 @@ x[6,7] <- ''
 flextable(x) %>% add_header_row(values = c('','To'),
                                 colwidths = c(3,4)) %>%
   hline_top(border = fp_border_default(width = 0), part = "header") %>% 
-  set_caption("Activity transition matrix: Panel data, pooled, 2019-2021") %>% 
-  add_footer_lines("Row %\n(Column %)") %>% 
-  fontsize(size = 9, part = 'all')
+  set_caption("Activity transition matrix: Panel data, pooled, 2019-2021")  %>% 
+  add_footer_lines("") %>%
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %, (Column %)"), part = "footer") %>% 
+  fontsize(size = 8.5, part = 'all')
 
 ## ---- tbl-transm01 --------
 
@@ -1055,9 +1060,10 @@ x[6,7] <- ''
 flextable(x) %>% add_header_row(values = c('','Follow-up 1'),
                                 colwidths = c(6,1)) %>%
   hline_top(border = fp_border_default(width = 0), part = "header") %>% 
-  set_caption("Activity transition matrix: Baseline and follow-up wave 1") %>% 
-  add_footer_lines("Row %\n(Column %)") %>% 
-  fontsize(size = 9, part = 'all')
+  set_caption("Activity transition matrix: Baseline and follow-up wave 1")  %>% 
+  add_footer_lines("") %>%
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %, (Column %)"), part = "footer") %>% 
+  fontsize(size = 8.5, part = 'all')
 
 ## ---- tbl-transm12 --------
 
@@ -1073,9 +1079,10 @@ x[6,7] <- ''
 flextable(x) %>% add_header_row(values = c('','Follow-up 2'),
                                 colwidths = c(6,1)) %>%
   hline_top(border = fp_border_default(width = 0), part = "header") %>% 
-  set_caption("Activity transition matrix: Follow-up wave 1 and follow-up wave 2") %>% 
-  add_footer_lines("Row %\n(Column %)") %>% 
-  fontsize(size = 9, part = 'all')
+  set_caption("Activity transition matrix: Follow-up wave 1 and follow-up wave 2")  %>% 
+  add_footer_lines("") %>%
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %, (Column %)"), part = "footer") %>% 
+  fontsize(size = 8.5, part = 'all')
 
 ## ---- tbl-transm23 --------
 
@@ -1091,9 +1098,10 @@ x[6,7] <- ''
 flextable(x) %>% add_header_row(values = c('','Follow-up 3'),
                                 colwidths = c(6,1)) %>%
   hline_top(border = fp_border_default(width = 0), part = "header") %>% 
-  set_caption("Activity transition matrix: Follow-up wave 2 and follow-up wave 3") %>% 
-  add_footer_lines("Row %\n(Column %)") %>% 
-  fontsize(size = 9, part = 'all')
+  set_caption("Activity transition matrix: Follow-up wave 2 and follow-up wave 3")  %>% 
+  add_footer_lines("") %>%
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %, (Column %)"), part = "footer") %>% 
+  fontsize(size = 8.5, part = 'all')
 
 ## ---- tbl-transm34 --------
 
@@ -1110,8 +1118,9 @@ flextable(x) %>% add_header_row(values = c('','Endline'),
                                 colwidths = c(6,1)) %>%
   hline_top(border = fp_border_default(width = 0), part = "header") %>% 
   set_caption("Activity transition matrix: Follow-up wave 3 and endline") %>% 
-  add_footer_lines("Row %\n(Column %)") %>% 
-  fontsize(size = 9, part = 'all')
+  add_footer_lines("") %>%
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %, (Column %)"), part = "footer") %>% 
+  fontsize(size = 8.5, part = 'all')
 
 ## ---- tbl-transm04 --------
 
@@ -1127,9 +1136,10 @@ x[6,7] <- ''
 flextable(x) %>% add_header_row(values = c('','Endline'),
                                 colwidths = c(6,1)) %>%
   hline_top(border = fp_border_default(width = 0), part = "header") %>% 
-  set_caption("Activity transition matrix: Baseline and endline") %>% 
-  add_footer_lines("Row %\n(Column %)") %>% 
-  fontsize(size = 9, part = 'all')
+  set_caption("Activity transition matrix: Baseline and endline")  %>% 
+  add_footer_lines("") %>%
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %, (Column %)"), part = "footer") %>% 
+  fontsize(size = 8.5, part = 'all')
 
 
 

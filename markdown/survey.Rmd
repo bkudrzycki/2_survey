@@ -60,13 +60,15 @@ ggplot2::theme_set(ggplot2::theme_bw())
 options(scipen=2, digits=2)
 
 # set knitr and flextable options
-set_flextable_defaults(font.family = 'Palatino')
+set_flextable_defaults(font.family = 'Palatino',
+                       theme_fun = "theme_apa")
 
 knitr::opts_chunk$set(message=FALSE,
                       warning=FALSE,
                       echo = FALSE,
                       cache = TRUE,
                       fig.path='figures/',
+                      fig.pos = 'H',
                       out.extra = "",
                       floatfoot.envs = c("figure", "table", "longtabu"))
 
@@ -208,14 +210,14 @@ Transitions between activity states can be depicted for any pair of survey round
 
 An examination of the pooled transitions between past activities using the event history data (Table \@ref(tab:tbl-historymatrix) in Appendix B) summarizes a total of six transitions. It shows that schooling was still the predominant activity of youth in the seven years prior to being interviewed, accounting for over half of all observations. The most frequent transitions in relative terms (accounting for the number of youth starting from a given activity) are from NEET status into wage employment (14.97 percent) and into self-employment (10.55 percent) and from apprenticeship into wage employment (10.22 percent of apprentices) and into self-employment (9.32 percent). While we observe similar rates of transition out of school (14.14 percent each year, on average), self-employment (11.19), and wage employment (15.24), the flow of youth out of school naturally increase over time (as youth approach graduation age), while the rates out of self- and wage employment remain relatively constant over time. The activities of youth as they age are shown by gender in Figure \@ref(fig:fig-ageplot) below.
 
-```{r, fig-ageplot, fig.cap="Occupation by age (recall data)", fig.height = 4, echo=FALSE}
+```{r, fig-ageplot, fig.cap="Occupation by age (recall data)", fig.height = 3, echo=FALSE}
 ```
 
 Table \@ref(tab:tbl-pooledmatrix) depicts the rates of transition between activities pooled across the five detailed survey rounds, resulting in average transition rates over four transitions between the years of 2019 and 2021. As expected, the rate of graduation (transition out of school) is even higher than the last period of the event history. On average, 39.7 percent of youth changed activities between each survey round, a significantly higher rate than the 17 percent observed in the event history data, reflecting both the higher instability associated with the transition phase (compared to school-age years) and, potentially, more frequent variation in youth activity, particularly after graduation, than can be captured by annual data. The most stable activity is wage employment, with a 68% retention rate across all survey rounds. The most common transitions are NEET to wage employment (128 transitions), NEET to self-employment (97), wage employed to NEET (93), self-employment to NEET (75) and school to NEET (66). School to wage employment (51) as well as self-employed to employed (48) and employed to self-employed (51) are also common. In terms of rates, the most likely transitions overall are from NEET to wage employment (22.18 percent of NEET youth transition to wage employment in the next period) and self-employment to NEET (20.78 percent). The most common transition for youth in school is NEET in the following period (16.22 percent); for the wage employed it is NEET (16.49 percent) and for apprentices it is NEET (19.44 percent). Other frequent transitions are NEET to self-employment (16.81 percent), self-employment to wage employment (13.3 percent), and employed to NEET (16.49 percent).
 
 \newpage
 \begin{singlespacing}
-```{r, tbl-matrix, echo=FALSE, ft.arraystretch = 1.15}
+```{r, tbl-matrix, echo=FALSE, ft.arraystretch = 0.9}
 ```
 \end{singlespacing}
 
@@ -390,13 +392,14 @@ The first component represents the transition probabilities independent of the r
 
 \markboth{Appendix A2}{Appendix A2}
 
-\begin{singlespacing}
+\newpage
 
 ```{r, tbl-attrition, echo=FALSE}
 ```
 
 \newpage
 
+\begin{singlespacing}
 \renewcommand{\arraystretch}{1.2}
 
 ```{r, tbl-descgender, echo=FALSE}
@@ -404,7 +407,7 @@ The first component represents the transition probabilities independent of the r
 
 \newpage
 
-```{r, tbl-propensities, echo=FALSE, ft.arraystretch = 1.15}
+```{r, tbl-propensities, echo=FALSE, ft.arraystretch = 1}
 ```
 
 \newpage
@@ -413,13 +416,13 @@ The first component represents the transition probabilities independent of the r
 ```
 ```{r, tbl-clustertbl, results = 'asis', echo = FALSE}
 ```
+```{r, fig-survival, fig.cap="Survival analysis: duration of transition to first employment", echo=FALSE, fig.height=4}
+```
 ```{r, tbl-wage, echo=FALSE}
 ```
 ```{r, tbl-self, echo=FALSE}
 ```
 ```{r, tbl-aspirations, echo=FALSE}
-```
-```{r, fig-survival, fig.cap="Survival analysis: duration of transition to first employment", echo=FALSE}
 ```
 \end{singlespacing}
 
@@ -434,6 +437,8 @@ The first component represents the transition probabilities independent of the r
 \begin{singlespacing}
 ```{r, tbl-fullmatrix, echo=FALSE, ft.arraystretch = 1.25}
 ```
+
+\newpage
 
 ```{r, tbl-historymatrix, echo=FALSE, ft.arraystretch = 1.25}
 ```
