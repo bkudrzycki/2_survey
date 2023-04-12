@@ -55,8 +55,6 @@ df %>%
   column_spec(2:6, width = "6em") %>% 
   column_spec(7, width = "4em")
 
-
-
 ## ---- tbl-descgender --------
 
 df <- ys_panel_labels %>% filter(wave == "YS") %>% zap_labels() %>% 
@@ -84,19 +82,25 @@ df <- ys_panel_labels %>% filter(wave == "YS") %>% zap_labels() %>%
          city = ifelse(as.numeric(YS3_3) == 4, 1, 0),
          total = 1,
          YS3_8 = as.numeric(YS3_8),
-         YS6_6 = as.numeric(YS6_6))
+         YS6_6 = as.numeric(YS6_6),
+         first_job_dummy = ifelse(!is.na(first_job_age), 1, 0),
+         completed_transition = ifelse(!is.na(first_employment_age), 1, 0))
 
 df %>% tbl_summary(
   by=sex, 
   # summarize a subset of the columns
-  include = c(total, sex,  baseline_age, beninese, fon, christian, city, status, graduation_age, first_employment_age, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, withparents, YS3_8, YS6_6, wealth_quintile, YS6_2,  YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8),
+  include = c(total, sex, baseline_age, beninese, fon, christian, city, graduation_age, first_job_dummy, first_job_age, first_job_status, completed_transition, first_employment_age, first_employment_status, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, withparents, YS3_8, YS6_6, wealth_quintile, YS6_2,  YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8),
   missing = "no",
   # adding labels to table
   label = list(total = "N",
-               status = "Activity at baseline",
-               graduation_age = "Graduation age",
-               first_employment_age = "Age at first employment",
-               first_employment_duration = "Duration of transition in years",
+               graduation_age = "School-leaving age",
+               first_job_dummy = "Had first work experience",
+               first_job_age = "Age at first work experience",
+               first_job_status = "Status at first work exp.",
+               completed_transition = "Completed SWT",
+               first_employment_age = "Age at labor market entry",
+               first_employment_status = "Status at labour market entry",
+               first_employment_duration = "Duration of transition in years¹",
                yos = "Years of schooling",
                app = "Completed apprenticeship (=1)",
                cap = "Vocational certificate: CAP (=1)",
@@ -137,24 +141,24 @@ df %>% tbl_summary(
   modify_spanning_header(c("stat_1", "stat_2") ~ "**Gender**") %>% 
   add_overall(col_label = "**Overall**") %>% 
   modify_footnote(update = everything() ~ NA) %>% 
-  as_kable_extra(caption = "Summary Statistics - By Gender",
+  as_kable_extra(caption = "Summary Statistics By Gender",
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
   kableExtra::group_rows(start_row = 7,
-                         end_row = 15,
-                         group_label = "Employment Status") %>% 
-  kableExtra::group_rows(start_row =16,
-                         end_row = 23,
+                         end_row = 18,
+                         group_label = "School-to-Work Transition") %>% 
+  kableExtra::group_rows(start_row =19,
+                         end_row = 26,
                          group_label = "Education") %>%
-  kableExtra::group_rows(start_row = 24,
-                         end_row =29,
+  kableExtra::group_rows(start_row = 27,
+                         end_row = 32,
                          group_label = "Parents' Education") %>% 
-  kableExtra::group_rows(start_row = 30,
-                         end_row = 39,
+  kableExtra::group_rows(start_row = 33,
+                         end_row = 42,
                          group_label = "Household Characteristics and Assets") %>% 
   kableExtra::footnote(general = "\\\\scriptsize{\\\\textit{Notes:} Mean (median); \\\\%. Calculated using responses from baseline survey.}",
-           number = c("To first employment."),
+           number = c("To labor market entry, defined as first work experience with no subsequent return to schooling or training."),
            threeparttable = T,
            fixed_small_size = F,
            escape = F,
@@ -162,12 +166,12 @@ df %>% tbl_summary(
   kableExtra::kable_styling(full_width = FALSE, font_size = 8) %>%
   column_spec(2:5, width = "7em")
 
-## ---- tbl-surveydesc_strat --------
+## ---- tbl-entry-full --------
 
 df <- ys_panel_labels %>% filter(wave == "YS") %>% zap_labels() %>% 
   mutate(sex = recode(sex, `0` = "Female",
                       `1` = "Male"),
-         yos = ifelse(as.numeric(YS3_15) != 99, YS3_15, 0),
+         yos = ifelse(as.numeric(YS3_15) != 99, as.numeric(YS3_15), 0),
          app = YS3_13,
          cep = YS3_17_2,
          bepc = YS3_17_4,
@@ -182,97 +186,90 @@ df <- ys_panel_labels %>% filter(wave == "YS") %>% zap_labels() %>%
          moth_primary = ifelse(as.numeric(YS3_12) > 2, 1, 0),
          msecplus = ifelse(as.numeric(YS3_12) > 4 & as.numeric(YS3_12) != 10, 1, 0),
          married = ifelse(as.numeric(YS3_6) == 1, 1, 0),
+         withparents = ifelse(as.numeric(YS6_1) == 3, 1, 0),
          beninese = YS3_1,
          fon = ifelse(!is.na(as.numeric(YS3_4_4)), 1, 0),
          christian = ifelse(!is.na(as.numeric(YS3_5_1)) | !is.na(as.numeric(YS3_5_2)) | !is.na(as.numeric(YS3_5_3)) | !is.na(as.numeric(YS3_5_4)), 1, 0),
          city = ifelse(as.numeric(YS3_3) == 4, 1, 0),
          total = 1,
          YS3_8 = as.numeric(YS3_8),
-         YS6_6 = as.numeric(YS6_6))
+         YS6_6 = as.numeric(YS6_6),
+         withparents = ifelse(as.numeric(YS6_1) == 3, 1, 0),
+         first_job_dummy = ifelse(!is.na(first_job_age), 1, 0),
+         completed_transition = ifelse(!is.na(first_employment_age), 1, 0)) %>% 
+  mutate(entry = recode(entry, "Self-Employed" = "Self-**\n**Employed"))
 
-sstrat <- survey::svydesign(id = ~reg_id + act_id, strata = ~region + activite, prob = ~prob, data = df, fpc = ~reg_Nh + act_Nh, nest= TRUE)
-
-options(survey.lonely.psu="adjust")
-
-sstrat %>% 
-  tbl_svysummary(
-    by=sex, 
-    # summarize a subset of the columns
-    include = c(total, sex,  baseline_age, beninese, fon, christian, city, status, graduation_age, first_employment_age, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married,  YS3_8, YS6_6, YS6_2,  YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8),
-    missing = "no",
-    # adding labels to table
-    label = list(total = "N",
-                 status = "Activity at baseline",
-                 graduation_age = "Graduation age",
-                 first_employment_age = "Age at first employment",
-                 first_employment_duration = "Duration of transition in years",
-                 yos = "Years of schooling",
-                 app = "Completed apprenticeship (=1)",
-                 cap = "Vocational certificate: CAP (=1)",
-                 cep = "Primary diploma: CEP (=1)",
-                 bepc = "Junior high diploma: BEPC (=1)",
-                 bac = "Baccalauréat: BAC (=1)",
-                 licence = "2nd cycle university: Licence (=1)",
-                 master = "3rd cycle university: Maîtrise (=1)",
-                 fathapp = "Father was an apprentice (=1)",
-                 fath_primary = "Father completed primary (=1)",
-                 fsecplus = "Father completed secondary (=1)",
-                 mothapp = "Mother was an apprentice (=1)",
-                 moth_primary = "Mother completed primary (=1)",
-                 msecplus = "Mother completed secondary (=1)",
-                 married = "Married (=1)",
-                 YS3_8 = "No. of children",
-                 YS6_6  = "People in household",
-                 beninese = "Nationality: Beninese (=1)",
-                 fon = "Ethnicity: Fon (=1)",
-                 christian = "Religion: Christian (=1)",
-                 city = "Grew up in a city (=1)",
-                 YS6_2 = "Home electrified (=1)",
-                 YS6_11_1 = "Cell Phone (=1)",
-                 YS6_11_2 = "Smartphone (=1)",
-                 YS6_11_5 = "Motorcycle (=1)",
-                 YS6_11_8 = "Television (=1)"),
-    value = list(beninese = "Béninois"),
-    type = list(c(YS3_8, YS6_6, first_employment_duration) ~ "continuous",
-                c(beninese, app, cep, bepc, bac, cap, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary) ~ "dichotomous"),
-    statistic = list(all_categorical() ~ "{p}%",
-                     all_continuous() ~ "{mean}",
-                     total ~ "{N_unweighted}")
-  ) %>% 
-  modify_header(update = all_stat_cols() ~  "**{level}** ({round(p_unweighted, 2)*100}%)") %>% 
-  modify_spanning_header(c("stat_1", "stat_2") ~ "**Gender**") %>% 
+df %>% tbl_summary(
+  by=entry, 
+  # summarize a subset of the columns
+  include = c(total, sex, graduation_age, first_job_dummy, first_job_age, first_job_status, completed_transition, first_employment_age, first_employment_status, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, withparents, YS3_8, YS6_6, wealth_quintile),
+  missing = "no",
+  label = list(total = "N",
+               sex = "Male",
+               graduation_age = "School-leaving age",
+               first_job_dummy = "Had first work experience (=1)",
+               first_job_age = "Age at first work experience",
+               first_job_status = "First work experience",
+               completed_transition = "Completed SWT (=1)",
+               first_employment_age = "Age at labor market entry",
+               first_employment_status = "Status at labor market entry",
+               first_employment_duration = "Duration of transition in years¹",
+               yos = "Years of schooling",
+               app = "Completed apprenticeship (=1)",
+               cap = "Vocational certificate: CAP (=1)",
+               cep = "Primary diploma: CEP (=1)",
+               bepc = "Junior high diploma: BEPC (=1)",
+               bac = "Baccalauréat: BAC (=1)",
+               licence = "2nd cycle university: Licence (=1)",
+               master = "3rd cycle university: Maîtrise (=1)",
+               fathapp = "Father was an apprentice (=1)",
+               fath_primary = "Father completed primary (=1)",
+               fsecplus = "Father completed secondary (=1)",
+               mothapp = "Mother was an apprentice (=1)",
+               moth_primary = "Mother completed primary (=1)",
+               msecplus = "Mother completed secondary (=1)",
+               married = "Married (=1)",
+               withparents = "Living with parents (=1)",
+               YS3_8 = "No. of children",
+               YS6_6  = "People in household",
+               wealth_quintile = "Wealth index quintile"),
+  value = list(beninese = "Béninois",
+               sex = "Male"),
+  type = list(c(first_employment_duration, YS3_8, yos, wealth_quintile) ~ "continuous",
+              c(sex, app, cep, bepc, bac, cap, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary) ~ "dichotomous"),
+  statistic = list(all_categorical() ~ "{p}%",
+                   all_continuous() ~ "{mean}",
+                   total ~ "{N}")) %>% 
+  add_p() %>% 
+  modify_header(update = all_stat_cols() ~  "**{level}** ({round(p, 2)*100}%)") %>% 
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Status in first \n period after school-leaving**") %>% 
   add_overall(col_label = "**Overall**") %>% 
   modify_footnote(update = everything() ~ NA) %>% 
-  as_kable_extra(caption = "Descriptive Statistics, Weighted",
+  as_kable_extra(caption = "Labour Market Entry - Detailed Summary Statistics",
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  kableExtra::group_rows(start_row = 7,
-                         end_row = 15,
-                         group_label = "Employment Status") %>% 
-  kableExtra::group_rows(start_row =16,
+  kableExtra::group_rows(start_row = 3,
+                         end_row = 14,
+                         group_label = "School-to-Work Transition") %>% 
+  kableExtra::group_rows(start_row =15,
                          end_row = 23,
                          group_label = "Education") %>%
-  kableExtra::group_rows(start_row = 24,
-                         end_row =28,
+  kableExtra::group_rows(start_row = 23,
+                         end_row =29,
                          group_label = "Parents' Education") %>% 
-  kableExtra::group_rows(start_row = 29,
-                         end_row = 37,
+  kableExtra::group_rows(start_row = 30,
+                         end_row = 33,
                          group_label = "Household Characteristics and Assets") %>% 
-  kableExtra::footnote(general = "\\\\scriptsize{Mean; \\\\%. Calculated using responses from baseline survey. Sample weighting applied.}",
-           number = c("To first employment."),
-           threeparttable = T,
-           fixed_small_size = F,
-           escape = F,
-           general_title = "") %>% 
-  kableExtra::kable_styling(full_width = FALSE, font_size = 7) %>%
-  column_spec(2:4, width = "7em")
+  kableExtra::footnote(general = "\\\\textit{Notes:} Mean; \\\\%. Calculated using responses from baseline survey.",
+                       number = c("To labor market entry, defined as first work experience with no subsequent return to school or training."),
+                       threeparttable = T,
+                       fixed_small_size = F,
+                       escape = F,
+                       general_title = "") %>% 
+  kableExtra::kable_styling(full_width = FALSE, font_size = 9) %>%
+  column_spec(2:6, width = "5em")
 
-# kableExtra::footnote(general = "Mean; \\\\%. Calculated using responses from baseline survey. Sample weighting applied.",
-#          threeparttable = T,
-#          fixed_small_size = F,
-#          escape = F,
-#          general_title = "") %>% 
 
 ## ---- tbl-propensities ----
 
@@ -440,104 +437,13 @@ flextable(tab1) %>%
   hline_top(border = fp_border_default(width = 0), part = "header") %>% 
   add_header_row(values = c('','To'),
                  colwidths = c(4,4)) %>% 
-  set_caption("Transition Rates into Different Types of Work") %>% 
+  set_caption("Transition Rates into Various Types of Work") %>% 
   add_footer_lines("") %>%
   flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %s reported, but do not add up to 100% as activities are not exclusive."), part = "footer") %>% 
   fontsize(size = 9, part = 'all') %>% 
   width(width = .7) %>%
   width(j = 8, width = .4) %>% 
   bold(i = c(1,8,15,22,29), bold = TRUE)
-
-## ---- tbl-entry --------
-
-df <- ys_panel_labels %>% filter(wave == "YS") %>% zap_labels() %>% 
-  mutate(sex = recode(sex, `0` = "Female",
-                      `1` = "Male"),
-         yos = ifelse(as.numeric(YS3_15) != 99, as.numeric(YS3_15), 0),
-         app = YS3_13,
-         cep = YS3_17_2,
-         bepc = YS3_17_4,
-         bac = YS3_17_6,
-         cap = YS3_17_8,
-         licence = YS3_17_11,
-         master = YS3_17_12,
-         fathapp = YS3_9,
-         fath_primary = ifelse(as.numeric(YS3_10) > 2, 1, 0),
-         fsecplus = ifelse(as.numeric(YS3_10) > 4 & as.numeric(YS3_10) != 10, 1, 0),
-         mothapp = YS3_11,
-         moth_primary = ifelse(as.numeric(YS3_12) > 2, 1, 0),
-         msecplus = ifelse(as.numeric(YS3_12) > 4 & as.numeric(YS3_12) != 10, 1, 0),
-         married = ifelse(as.numeric(YS3_6) == 1, 1, 0),
-         withparents = ifelse(as.numeric(YS6_1) == 3, 1, 0),
-         beninese = YS3_1,
-         fon = ifelse(!is.na(as.numeric(YS3_4_4)), 1, 0),
-         christian = ifelse(!is.na(as.numeric(YS3_5_1)) | !is.na(as.numeric(YS3_5_2)) | !is.na(as.numeric(YS3_5_3)) | !is.na(as.numeric(YS3_5_4)), 1, 0),
-         city = ifelse(as.numeric(YS3_3) == 4, 1, 0),
-         total = 1,
-         YS3_8 = as.numeric(YS3_8),
-         YS6_6 = as.numeric(YS6_6)) %>% 
-  mutate(entry = recode(entry, "Self-Employed" = "Self-**\n**Employed"))
-
-df %>% tbl_summary(
-  by=entry, 
-  # summarize a subset of the columns
-  include = c(total, sex, married, YS3_8, graduation_age, first_employment_age, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus),
-  missing = "no",
-  # adding labels to table
-  label = list(total = "N",
-               sex = "Male",
-               status = "Activity at baseline",
-               graduation_age = "Graduation age",
-               first_employment_age = "Age at first employment",
-               first_employment_duration = "Duration of transition in years",
-               yos = "Years of schooling",
-               app = "Completed apprenticeship (=1)",
-               cap = "Vocational certificate: CAP (=1)",
-               cep = "Primary diploma: CEP (=1)",
-               bepc = "Junior high diploma: BEPC (=1)",
-               bac = "Baccalauréat: BAC (=1)",
-               licence = "2nd cycle university: Licence (=1)",
-               master = "3rd cycle university: Maîtrise (=1)",
-               fathapp = "Father was an apprentice (=1)",
-               fath_primary = "Father completed primary (=1)",
-               fsecplus = "Father completed secondary (=1)",
-               mothapp = "Mother was an apprentice (=1)",
-               moth_primary = "Mother completed primary (=1)",
-               msecplus = "Mother completed secondary (=1)",
-               married = "Married (=1)",
-               YS3_8 = "No. of children"),
-  value = list(beninese = "Béninois",
-               sex = "Male"),
-  type = list(c(first_employment_duration, YS3_8, yos) ~ "continuous",
-              c(sex, app, cep, bepc, bac, cap, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary) ~ "dichotomous"),
-  statistic = list(all_categorical() ~ "{p}%",
-                   all_continuous() ~ "{mean}",
-                   total ~ "{N}")) %>% 
-  add_p() %>% 
-  modify_header(update = all_stat_cols() ~  "**{level}** ({round(p, 2)*100}%)") %>% 
-  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Status at Labour Market Entry**") %>% 
-  add_overall(col_label = "**Overall**") %>% 
-  modify_footnote(update = everything() ~ NA) %>% 
-  as_kable_extra(caption = "Summary Statistics - Labour Market Entry",
-                 booktabs = T,
-                 linesep = "",
-                 position = "H") %>%
-  kableExtra::group_rows(start_row = 5,
-                         end_row = 7,
-                         group_label = "Transition") %>% 
-  kableExtra::group_rows(start_row =8,
-                         end_row = 15,
-                         group_label = "Education") %>%
-  kableExtra::group_rows(start_row = 16,
-                         end_row =21,
-                         group_label = "Parents' Education") %>% 
-  kableExtra::footnote(general = "\\\\textit{Notes:} Mean; \\\\%. Calculated using responses from baseline survey.",
-           threeparttable = T,
-           fixed_small_size = F,
-           escape = F,
-           general_title = "") %>% 
-  kableExtra::kable_styling(full_width = FALSE, font_size = 9) %>%
-  column_spec(2:6, width = "5em")
 
 ## ---- tbl-wage ----
 
@@ -772,7 +678,8 @@ df %>% tbl_summary(by = "status",
   column_spec(2:4, width = "8em")
 
 ## ---- tbl-clustertbl ----
-df <- ys_baseline %>% zap_labels() %>% filter(!is.na(act13)) %>% select(IDYouth, "act13", "act14", "act15", "act16", "act17", "act18", "act19", "act19.2", "act19.3", contains("act2"), sex, baseline_age, beninese, fon, christian, city, status, graduation_age, first_employment_age, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, YS3_8, YS6_6, wealth_quintile, YS6_2,  YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8) %>% mutate(across(c("act13":"act19"), ~ case_when(. == 1 | . == 2 | . == 3 ~ "In School", . == 0 | . == 8 | . == 99 ~ "NEET", . == 7 ~ "Self-Employed", . == 4 | . == 5 ~ "Apprentice", . == 6 ~ "Employed"))) %>% 
+
+df <- ys_baseline %>% zap_labels() %>% filter(!is.na(act13)) %>% select(IDYouth, "act13", "act14", "act15", "act16", "act17", "act18", "act19", "act19.2", "act19.3", contains("act2"), sex, baseline_age, beninese, fon, christian, city, status, graduation_age, first_job_age, first_job_status, first_employment_age, first_employment_status, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, YS3_8, YS6_6, wealth_quintile, YS6_1, YS6_2) %>% mutate(across(c("act13":"act19"), ~ case_when(. == 1 | . == 2 | . == 3 ~ "In School", . == 0 | . == 8 | . == 99 ~ "NEET", . == 7 ~ "Self-Employed", . == 4 | . == 5 ~ "Apprentice", . == 6 ~ "Employed"))) %>% mutate(withparents = ifelse(as.numeric(YS6_1) == 3, 1, 0), first_job_dummy = ifelse(!is.na(first_job_age), 1, 0), completed_transition = ifelse(!is.na(first_employment_age), 1, 0)) %>% 
   rename(`2013` = act13,
          `2014` = act14,
          `2015` = act15,
@@ -805,7 +712,7 @@ cols <- c("2013", "2013_2", "2013_3", "2014", "2014_2", "2014_3", "2015", "2015_
 
 labs <- c("2013", "2013", "2013", "2014", "2014", "201_3", "2015", "2015", "2015", "2016", "2016", "2016", "2017", "2017", "2017", "2018", "2018", "2018", "2019", "2019", "2019", "2020", "2020", "2020", "2021", "2021", "2021")
 
-col_order <- c("IDYouth", cols, "sex", "baseline_age", "beninese", "fon", "christian", "city", "status", "graduation_age", "first_employment_age", "first_employment_duration", "yos", "app", "cap", "cep", "bepc", "bac", "licence", "master", "fathapp", "fath_primary", "fsecplus", "mothapp", "moth_primary", "msecplus", "married", "YS3_8", "YS6_6", "wealth_quintile", "YS6_2",  "YS6_11_1", "YS6_11_2", "YS6_11_5", "YS6_11_8")
+col_order <- c("IDYouth", cols, "sex", "baseline_age", "beninese", "fon", "christian", "city", "status", "graduation_age", "first_job_age", "first_job_dummy", "first_job_status", "completed_transition", "first_employment_status", "first_employment_age", "first_employment_duration", "yos", "app", "cap", "cep", "bepc", "bac", "licence", "master", "fathapp", "fath_primary", "fsecplus", "mothapp", "moth_primary", "msecplus", "married", "YS3_8", "YS6_6", "wealth_quintile", "YS6_2", "withparents")
 
 df <- df[, col_order]
 
@@ -832,16 +739,20 @@ df <- df %>% mutate(cluster = recode(cluster, `1` = "TRAIN",
 
 
 tbl_summary(df,
-            include = c(cluster, total, sex, baseline_age, beninese, city, graduation_age, first_employment_age, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, YS3_8, YS6_6, wealth_quintile, YS6_2,  YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8), 
+            include = c(cluster, total, sex, graduation_age, first_job_dummy, first_job_age, first_job_status, completed_transition, first_employment_age, first_employment_status, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, withparents, YS3_8, YS6_6, wealth_quintile), 
             by = cluster,
             missing = "no",
             # adding labels to table
             label = list(total = "N",
                          sex = "Male",
-                         status = "Activity at baseline",
-                         graduation_age = "Graduation age",
-                         first_employment_age = "Age at first employment",
-                         first_employment_duration = "Duration of transition in years",
+                         graduation_age = "School-leaving age",
+                         first_job_dummy = "Had first work experience (=1)",
+                         first_job_age = "Age at first work experience",
+                         first_job_status = "First work experience",
+                         completed_transition = "Completed SWT (=1)",
+                         first_employment_age = "Age at labor market entry",
+                         first_employment_status = "Status at labor market entry",
+                         first_employment_duration = "Duration of transition in years¹",
                          yos = "Years of schooling",
                          app = "Completed apprenticeship (=1)",
                          cap = "Vocational certificate: CAP (=1)",
@@ -857,20 +768,14 @@ tbl_summary(df,
                          moth_primary = "Mother completed primary (=1)",
                          msecplus = "Mother completed secondary (=1)",
                          married = "Married (=1)",
+                         withparents = "Living with parents (=1)",
                          YS3_8 = "No. of children",
                          YS6_6  = "People in household",
-                         beninese = "Nationality: Beninese (=1)",
-                         city = "Grew up in a city (=1)",
-                         wealth_quintile = "Wealth index quintile",
-                         YS6_2 = "Home electrified (=1)",
-                         YS6_11_1 = "Cell Phone (=1)",
-                         YS6_11_2 = "Smartphone (=1)",
-                         YS6_11_5 = "Motorcycle (=1)",
-                         YS6_11_8 = "Television (=1)"),
+                         wealth_quintile = "Wealth index quintile"),
             value = list(beninese = 1,
                          sex = 1),
             type = list(c(first_employment_duration, YS3_8, yos, wealth_quintile) ~ "continuous",
-                        c(sex, app, cep, bepc, bac, cap, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, YS6_2, YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8) ~ "dichotomous"),
+                        c(sex, app, cep, bepc, bac, cap, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary) ~ "dichotomous"),
             statistic = list(all_categorical() ~ "{p}%",
                              all_continuous() ~ "{mean}",
                              total ~ "{N}")) %>% 
@@ -883,23 +788,24 @@ tbl_summary(df,
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  kableExtra::group_rows(start_row = 6,
-                         end_row = 8,
-                         group_label = "Transition") %>% 
-  kableExtra::group_rows(start_row =9,
-                         end_row = 16,
+  kableExtra::group_rows(start_row = 3,
+                         end_row = 14,
+                         group_label = "School-to-Work Transition") %>% 
+  kableExtra::group_rows(start_row =15,
+                         end_row = 23,
                          group_label = "Education") %>%
-  kableExtra::group_rows(start_row = 17,
-                         end_row =22,
+  kableExtra::group_rows(start_row = 24,
+                         end_row =27,
                          group_label = "Parents' Education") %>% 
-  kableExtra::group_rows(start_row = 23,
-                         end_row =31,
-                         group_label = "Household and Assets") %>% 
+  kableExtra::group_rows(start_row = 28,
+                         end_row =33,
+                         group_label = "Household Characteristics and Assets") %>% 
   kableExtra::footnote(general = "\\\\textit{Notes:} Mean; \\\\%. Calculated using responses from baseline survey.",
-           threeparttable = T,
-           fixed_small_size = F,
-           escape = F,
-           general_title = "") %>% 
+                       number = c("To labor market entry, defined as first work experience with no subsequent return to school or training."),
+                       threeparttable = T,
+                       fixed_small_size = F,
+                       escape = F,
+                       general_title = "") %>% 
   kableExtra::kable_styling(full_width = FALSE, font_size = 8) %>%
   column_spec(2:8, width = "5em")
 
@@ -924,6 +830,69 @@ fit1 <- survfit(surv_object ~ sex, data = df)
 
 ggsurvplot(fit1, data = df, pval = FALSE, risk.table ="percentage", palette = "aaas", fontsize = 4, conf.int = TRUE, risk.table.height = .3, risk.table.title = "Percentage at risk", ggtheme = theme_survminer(base_size = 10, base_family = "Palatino"), tables.theme = theme_survminer(base_size = 10, base_family = "Palatino", font.main = 14), legend.labs=c("Female" ,"Male")) + guides(colour = "none", fill = "none") + labs(x = "Duration in Years")
 
+## ---- tbl-clusterreg -----
+
+cov1 <- c("sex", "fathapp", "fath_primary", "fsecplus", "mothapp", "moth_primary", "msecplus", "married", "beninese", "fon", "christian", "city")
+cov2 <- c("sex", "fathapp", "fath_primary", "fsecplus", "mothapp", "moth_primary", "msecplus", "married", "beninese", "fon", "christian", "city", "yos", "app", "cep", "bepc", "bac", "cap", "licence", "master")
+
+models <- list(
+  glm((cl5.lab == "TRAIN") ~ ., data = df[cov1], family = "binomial"),
+  glm((cl5.lab == "SCHOOL") ~ ., data = df[cov1], family = "binomial"),
+  glm((cl5.lab == "WAGE") ~ ., data = df[cov1], family = "binomial"),
+  glm((cl5.lab == "SELF") ~ ., data = df[cov1], family = "binomial"),
+  glm((cl5.lab == "NEET") ~ ., data = df[cov1], family = "binomial"),
+  glm((cl5.lab == "WAGE") ~ ., data = df[cov2], family = "binomial"),
+  glm((cl5.lab == "SELF") ~ ., data = df[cov2], family = "binomial"),
+  glm((cl5.lab == "NEET") ~ ., data = df[cov2], family = "binomial")
+)
+
+# Define function to extract exponentiated coefficients
+extract_coefs <- function(model) {
+  coefs <- coef(summary(model))
+  exp_coefs <- exp(coefs[, 1])
+  se_coefs <- coefs[, 2]
+  t_coefs <- coefs[, 3]
+  p_coefs <- coefs[, 4]
+  coef_table <- cbind(exp_coefs, se_coefs, t_coefs, p_coefs)
+  colnames(coef_table) <- c("Coefficients", "Std. Error", "t value", "Pr(>|t|)")
+  rownames(coef_table) <- rownames(coefs)
+  return(coef_table)
+}
+
+coef_tables <- lapply(models, extract_coefs)
+
+stargazer(models, df = FALSE, coef = coef_tables, font.size= "scriptsize", column.sep.width = "-6pt",
+          no.space = TRUE, single.row = FALSE, digits = 2, table.placement = "H",
+          covariate.labels = c("Male (=1)",
+                               "Father was apprentice (=1)",
+                               "Father completed primary (=1)",
+                               "Father completed secondary (=1)",
+                               "Mother was apprentice (=1)",
+                               "Mother completed primary (=1)",
+                               "Mother completed secondary (=1)",
+                               "Married (=1)",
+                               "Beninese (=1)",
+                               "Ethnicity: Fon (=1)",
+                               "Religion: Christian (=1)",
+                               "Grew up in a city (=1)",
+                               "Years of Schooling",
+                               "Completed apprenticeship (=1)",
+                               "Primary school diploma: CEP (=1)",
+                               "Junior high diploma: BEPC (=1)",
+                               "Baccalauréat: BAC (=1)",
+                               "Lower vocational: CAP (=1)",
+                               "2nd cycle university: Licence (=1)",
+                               "3rd cycle university: Maîtrise (=1)"),
+          title = "Odds Ratios for cluster membership (Logistic Regression)",
+          dep.var.labels = c("TRAIN", "SCHOOL", "WAGE", "SELF", "NEET", "WAGE", "SELF", "NEET"),
+          dep.var.caption = "Cluster",
+          model.numbers = T,
+          label = "tab:tbl-clusterreg",
+          notes = c("$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01",
+                    "\\textit{Notes:} Odds ratios reported."),
+          notes.label = "", 
+          notes.align = "l", 
+          notes.append = F)
 ## ---- tbl-fullmatrix --------
 
 t1 <- ys_baseline %>% select(act13, act14) %>% rename("From" = act13, "to" = act14)
@@ -932,15 +901,14 @@ t3 <- ys_baseline %>% select(act15, act16) %>% rename("From" = act15, "to" = act
 t4 <- ys_baseline %>% select(act16, act17) %>% rename("From" = act16, "to" = act17)
 t5 <- ys_baseline %>% select(act17, act18) %>% rename("From" = act17, "to" = act18)
 t6 <- ys_baseline %>% select(act18, act19) %>% rename("From" = act18, "to" = act19)
-t7 <- ys_baseline %>% select(act18, act19) %>% rename("From" = act18, "to" = act19)
-t8 <- ys_baseline %>% select(act19, act19.2) %>% rename("From" = act19, "to" = act19.2)
-t9 <- ys_baseline %>% select(act19.2, act19.3) %>% rename("From" = act19.2, "to" = act19.3)
-t10 <- ys_baseline %>% select(act19.3, act20.1) %>% rename("From" = act19.3, "to" = act20.1)
-t11 <- ys_baseline %>% select(act20.1, act20.2) %>% rename("From" = act20.1, "to" = act20.2)
-t12 <- ys_baseline %>% select(act20.2, act21) %>% rename("From" = act20.2, "to" = act21)
+t7 <- ys_baseline %>% select(act19, act19.2) %>% rename("From" = act19, "to" = act19.2)
+t8 <- ys_baseline %>% select(act19.2, act19.3) %>% rename("From" = act19.2, "to" = act19.3)
+t9 <- ys_baseline %>% select(act19.3, act20.1) %>% rename("From" = act19.3, "to" = act20.1)
+t10 <- ys_baseline %>% select(act20.1, act20.2) %>% rename("From" = act20.1, "to" = act20.2)
+t11 <- ys_baseline %>% select(act20.2, act21) %>% rename("From" = act20.2, "to" = act21)
 
 
-ttot <- rbind(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12) %>% 
+ttot <- rbind(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11) %>% 
   mutate(to = case_when(to == 1 | to == 2 | to == 3 ~ "In School",
                         to == 0 | to == 8 | to == 99 ~ "NEET",
                         to == 7 ~ "Self-Employed",

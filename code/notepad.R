@@ -359,6 +359,8 @@ lambda %*% (M-I)
 
 solve(-lambda) # mean duration in state i
 
+lam <- diag(1-x)
+
 
 
 df <- ys_baseline %>% 
@@ -502,3 +504,128 @@ stargazer(m1, m2, m3, m4, m5, df = FALSE, font.size= "scriptsize", column.sep.wi
           model.names = FALSE,
           dep.var.caption = "",
           label = "tab:tbl-firstempreg")
+
+
+df <- ys_baseline %>% zap_labels() %>% filter(!is.na(act13)) %>% select(IDYouth, "act13", "act14", "act15", "act16", "act17", "act18", "act19", "act19.2", "act19.3", contains("act2"), sex, baseline_age, beninese, fon, christian, city, status, graduation_age, first_employment_age, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, YS3_8, YS6_6, YS6_2,  YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8) %>% mutate(across(c("act13":"act19"), ~ case_when(. == 1 | . == 2 | . == 3 ~ "In School", 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               . == 0 | . == 8 | . == 99 ~ "NEET",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               . == 7 ~ "Self-Employed",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               . == 4 | . == 5 ~ "Apprentice",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               . == 6 ~ "Employed"))) %>% 
+  rename(`2013` = act13,
+         `2014` = act14,
+         `2015` = act15,
+         `2016` = act16,
+         `2017` = act17,
+         `2018` = act18,
+         `2019` = act19,
+         `2019_2` = act19.2,
+         `2019_3` = act19.3,
+         `2020` = act20.1,
+         `2020_2` = act20.2,
+         `2021` = act21) %>% 
+  mutate(`2013_2` = `2013`,
+         `2013_3` = `2013`,
+         `2014_2` = `2014`,
+         `2014_3` = `2014`,
+         `2015_2` = `2015`,
+         `2015_3` = `2015`,
+         `2016_2` = `2016`,
+         `2016_3` = `2016`,
+         `2017_2` = `2017`,
+         `2017_3` = `2017`,
+         `2018_2` = `2018`,
+         `2018_3` = `2018`,
+         `2020_3` = `2020_2`,
+         `2021_2` = `2021`,
+         `2021_3` = `2021`)
+
+cols <- c("2013", "2013_2", "2013_3", "2014", "2014_2", "2014_3", "2015", "2015_2", "2015_3", "2016", "2016_2", "2016_3", "2017", "2017_2", "2017_3", "2018", "2018_2", "2018_3", "2019", "2019_2", "2019_3", "2020", "2020_2", "2020_3", "2021", "2021_2", "2021_3")
+
+labs <- c("2013", "2013", "2013", "2014", "2014", "201_3", "2015", "2015", "2015", "2016", "2016", "2016", "2017", "2017", "2017", "2018", "2018", "2018", "2019", "2019", "2019", "2020", "2020", "2020", "2021", "2021", "2021")
+
+col_order <- c("IDYouth", cols, "sex", "baseline_age", "beninese", "fon", "christian", "city", "status", "graduation_age", "first_employment_age", "first_employment_duration", "yos", "app", "cap", "cep", "bepc", "bac", "licence", "master", "fathapp", "fath_primary", "fsecplus", "mothapp", "moth_primary", "msecplus", "married", "YS3_8", "YS6_6", "YS6_2",  "YS6_11_1", "YS6_11_2", "YS6_11_5", "YS6_11_8")
+
+df <- df[, col_order]
+
+df.alphab <- c("Employed", "Self-Employed", "In School", "Apprentice", "NEET")
+
+df.seq <- seqdef(df, 2:28, xtstep = 1, alphabet = df.alphab)
+
+df.om <- seqdist(df.seq, method = "OM", indel = 1, sm = "TRATE", with.missing = TRUE)
+
+clusterward <- agnes(df.om, diss = TRUE, method = "ward")
+
+df.cl5 <- cutree(clusterward, k = 5)
+
+cl5.lab <- factor(df.cl5, labels = c("TRAIN", "SCHOOL", "WAGE", "SELF", "NEET"))
+
+seqdplot(df.seq, group = cl5.lab, border = NA, xtlab = labs)
+
+mb5 <- (cl5.lab == "NEET")
+
+covariates <- c("sex", "yos", "app", "cep", "bepc", "bac", "cap", "licence", "master", "fathapp", "fath_primary", "fsecplus", "mothapp", "moth_primary", "msecplus", "married", "beninese", "fon", "christian", "city")
+
+models <- list(
+  glm((cl5.lab == "TRAIN") ~ ., data = df[covariates], family = "binomial"),
+  glm((cl5.lab == "SCHOOL") ~ ., data = df[covariates], family = "binomial"),
+  glm((cl5.lab == "WAGE") ~ ., data = df[covariates], family = "binomial"),
+  glm((cl5.lab == "SELF") ~ ., data = df[covariates], family = "binomial"),
+  glm((cl5.lab == "NEET") ~ ., data = df[covariates], family = "binomial"),
+)
+
+# Define function to extract exponentiated coefficients
+extract_coefs <- function(model) {
+  coefs <- coef(summary(model))
+  exp_coefs <- exp(coefs[, 1])
+  se_coefs <- coefs[, 2]
+  t_coefs <- coefs[, 3]
+  p_coefs <- coefs[, 4]
+  coef_table <- cbind(exp_coefs, se_coefs, t_coefs, p_coefs)
+  colnames(coef_table) <- c("Coefficients", "Std. Error", "t value", "Pr(>|t|)")
+  rownames(coef_table) <- rownames(coefs)
+  return(coef_table)
+}
+
+coef_tables <- lapply(models, extract_coefs)
+
+stargazer(models, type = "latex", title = "GLM Results",
+          dep.var.labels = c("mpg", "mpg", "mpg", "mpg", "vs"),
+          covariate.labels = c(covariate.labels = c("Male (=1)",
+                                                    "Years of Schooling",
+                                                    "Completed apprenticeship (=1)",
+                                                    "Primary school diploma: CEP (=1)",
+                                                    "Junior high diploma: BEPC (=1)",
+                                                    "Baccalauréat: BAC (=1)",
+                                                    "Lower vocational: CAP (=1)",
+                                                    "2nd cycle university: Licence (=1)",
+                                                    "3rd cycle university: Maîtrise (=1)",
+                                                    "Father was apprentice (=1)",
+                                                    "Father completed primary (=1)",
+                                                    "Father completed secondary (=1)",
+                                                    "Mother was apprentice (=1)",
+                                                    "Mother completed primary (=1)",
+                                                    "Mother completed secondary (=1)",
+                                                    "Married (=1)",
+                                                    "Beninese (=1)",
+                                                    "Ethnicity: Fon (=1)",
+                                                    "Religion: Christian (=1)",
+                                                    "Grew up in a city (=1)"),
+          coef = coef_tables,
+          column.labels = c("Model 1", "Model 2", "Model 3", "Model 4", "Model 5"))
+
+# Rename columns
+colnames(coef_table) <- c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
+
+# Extract exponentials of the coefficient estimates
+coef_table[,1] <- exp(coef_table[,1])
+
+stargazer(m1, m2, m3, m4, m5, df = FALSE)
+
+# seqiplot(df.seq, border = NA, with.legend = "right", xtlab = labs)
+# 
+# seqplot(df.seq, type="f", idxs = 1:50)
+
+# df.seqe <- seqecreate(df.seq)
+# fsubseq <- seqefsub(df.seqe, pMinSupport=0.05)
+# plot(fsubseq[2:11], col="cyan")
+

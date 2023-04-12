@@ -28,13 +28,14 @@ df %>%
   tbl_summary(
     by=status, 
     # summarize a subset of the columns
-    include = c(total, sex, baseline_age, beninese, fon, christian, city, graduation_age, first_employment_age, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, withparents, YS3_8, YS6_6, wealth_quintile, YS6_2,  YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8, status),
+    include = c(total, sex, baseline_age, beninese, fon, christian, city, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, withparents, YS3_8, YS6_6, wealth_quintile, YS6_2,  YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8, status),
     missing = "no",
     # adding labels to table
     label = list(total = "N",
                  sex = "Male (=1)",
-                 graduation_age = "Graduation age",
-                 first_employment_age = "Age at first employment",
+                 graduation_age = "School-leaving age",
+                 first_job_age = "Age at first work experience",
+                 first_employment_age = "Age at labor market entry",
                  first_employment_duration = "Duration of transition in years¹",
                  yos = "Years of schooling",
                  app = "Completed apprenticeship (=1)",
@@ -64,7 +65,7 @@ df %>%
                  YS6_11_2 = "Smartphone (=1)",
                  YS6_11_5 = "Motorcycle (=1)",
                  YS6_11_8 = "Television (=1)"),
-    type = list(c(YS3_8, YS6_6, first_employment_duration, wealth_quintile) ~ "continuous",
+    type = list(c(YS3_8, YS6_6, wealth_quintile) ~ "continuous",
                 c(app, cep, bepc, bac, cap, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary) ~ "dichotomous"),
     statistic = list(all_categorical() ~ "{p}%",
                      all_continuous() ~ "{mean} ({median})",
@@ -81,27 +82,94 @@ df %>%
                  linesep = "",
                  position = "H") %>%
   kableExtra::group_rows(start_row = 8,
-                         end_row = 10,
-                         group_label = "Employment Status") %>% 
-  kableExtra::group_rows(start_row = 11,
-                         end_row = 18,
+                         end_row = 15,
                          group_label = "Education") %>% 
-  kableExtra::group_rows(start_row = 19,
-                         end_row = 24,
+  kableExtra::group_rows(start_row = 16,
+                         end_row = 21,
                          group_label = "Parents' Education") %>% 
-  kableExtra::group_rows(start_row = 25,
-                         end_row = 34,
+  kableExtra::group_rows(start_row = 22,
+                         end_row = 31,
                          group_label = "Household Characteristics and Assets") %>% 
   kableExtra::footnote(general = "\\\\scriptsize{\\\\textit{Notes:} Mean (median); \\\\%. Calculated using responses from baseline survey.}",
-           number = c("To first employment."),
+           number = c("To labor market entry, defined as first work experience with no subsequent return to school or training."),
            threeparttable = T,
            escape = F,
            general_title = "") %>% 
   kableExtra::kable_styling(latex_options="scale_down", full_width = FALSE) %>%
   column_spec(2:7, width = "5em")
 
+## ---- tbl-entry --------
 
-## ---- tbl-firstempreg ----
+df <- ys_panel_labels %>% filter(wave == "YS", !is.na(entry)) %>% zap_labels() %>% 
+  mutate(completed_transition = ifelse(!is.na(first_employment_age), 1, 0),
+         sex = recode(sex, `0` = "Female",
+                      `1` = "Male"),
+         yos = ifelse(as.numeric(YS3_15) != 99, as.numeric(YS3_15), 0),
+         total = 1) %>% 
+  mutate(entry = recode(entry, "Self-Employed" = "Self-**\n**Employed"))
+
+t1 <- df %>% tbl_summary(
+  by=sex, 
+  # summarize a subset of the columns
+  include = c(total, yos, graduation_age, completed_transition, first_employment_age, first_employment_status, first_employment_duration),
+  missing = "no",
+  # adding labels to table
+  label = list(total = "N (observed school-leavers)",
+               graduation_age = "School-leaving age",
+               completed_transition = "Completed SWT (=1)",
+               first_employment_age = "Age at labor market entry",
+               first_employment_status = "Status at labor market entry",
+               first_employment_duration = "Duration of transition in years¹",
+               yos = "Years of schooling"),
+  value = list(sex = "Male"),
+  type = list(c(first_employment_duration, yos) ~ "continuous"),
+  statistic = list(all_categorical() ~ "{p}%",
+                   all_continuous() ~ "{mean} ({median})",
+                   total ~ "{N}"),
+  digits = list(all_continuous() ~ c(2,0))) %>% 
+  modify_header(update = all_stat_cols() ~  "**{level}** ({round(p, 2)*100}%)") %>% 
+  add_overall(col_label = "**Overall**") %>% 
+  modify_footnote(update = everything() ~ NA) 
+
+t2 <- df %>% tbl_summary(
+  by=entry, 
+  # summarize a subset of the columns
+  include = c(total, yos, graduation_age, completed_transition, first_employment_age, first_employment_status, first_employment_duration),
+  missing = "no",
+  # adding labels to table
+  label = list(total = "N (observed school-leavers)",
+               graduation_age = "School-leaving age",
+               completed_transition = "Completed SWT (=1)",
+               first_employment_age = "Age at labor market entry",
+               first_employment_status = "Status at labor market entry",
+               first_employment_duration = "Duration of transition in years¹",
+               yos = "Years of schooling"),
+  type = list(c(first_employment_duration, yos) ~ "continuous"),
+  statistic = list(all_categorical() ~ "{p}%",
+                   all_continuous() ~ "{mean} ({median})",
+                   total ~ "{N}"),
+  digits = list(all_continuous() ~ c(2,0))) %>% 
+  modify_header(update = all_stat_cols() ~  "**{level}** ({round(p, 2)*100}%)") %>% 
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Status at Labour Market Entry**") %>% 
+  modify_footnote(update = everything() ~ NA)
+
+
+tbl_merge(list(t1, t2)) %>% modify_spanning_header(everything() ~ NA_character_, c("stat_1_2", "stat_2_2", "stat_3_2") ~ "**Status in first \n period after school-leaving**") %>% 
+  as_kable_extra(caption = "Labour Market Entry",
+                 booktabs = T,
+                 linesep = "",
+                 position = "H") %>%
+  kableExtra::footnote(general = "\\\\textit{Notes:} Mean (median); \\\\%.",
+                       number = c("To labor market entry, defined as first work experience with no subsequent return to school or training."),
+                       threeparttable = T,
+                       fixed_small_size = F,
+                       escape = F,
+                       general_title = "") %>% 
+  kableExtra::kable_styling(full_width = FALSE, font_size = 8) %>%
+  column_spec(2:7, width = "4.5em")
+
+
+## ---- firstempreg ----
 
 df <- ys_baseline %>% mutate(first_emp = first_employment_age)
 
@@ -111,23 +179,9 @@ df <- ys_baseline %>% mutate(first_emp = first_employment_duration)
 
 m2 <- lm(first_emp ~ sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = df)
 
+m3 <- multinom(entry ~ sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = ys_baseline, trace = FALSE)
 
-df3 <- ys_panel %>% filter(wave == 0, entry %in% c("NEET", "Employed")) 
-df3$entry = relevel(factor(df3$entry), ref=1)
-
-m3 <- multinom(entry ~ sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = df3, trace = F) # trace = F to suppress output message
-
-df4 <- ys_panel %>% filter(wave == 0, entry %in% c("NEET", "Self-Employed"))
-df4$entry = relevel(factor(df4$entry), ref=1)
-
-m4 <- multinom(entry ~ sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = df4, trace = F)
-
-df5 <- ys_panel %>% filter(wave == 0, entry %in% c("Employed", "Self-Employed")) 
-df5$entry = relevel(factor(df5$entry), ref=2)
-
-m5 <- multinom(entry ~ sex + yos + app + cep + bepc + bac + cap + licence + master + fathapp + fath_primary + fsecplus + mothapp + moth_primary + msecplus + married + beninese + fon + christian + city, data = df5, trace = F)
-
-stargazer(m1, m2, m3, m4, m5, df = FALSE, font.size= "scriptsize", column.sep.width = "3pt",
+star <- stargazer(m1, m2, m3, df = FALSE, font.size= "scriptsize", column.sep.width = "3pt",
           no.space = TRUE, single.row = FALSE, digits = 2, header = FALSE, table.placement = "H",
           covariate.labels = c("Male (=1)",
                                "Years of Schooling",
@@ -151,17 +205,25 @@ stargazer(m1, m2, m3, m4, m5, df = FALSE, font.size= "scriptsize", column.sep.wi
                                "Grew up in a city (=1)"),
           title = "Transition Into First Employment",
           omit.stat=c("n", "bic", "adj.rsq", "ser"),
-          column.labels = c("\\shortstack{Transition  \\\\ Age}", "\\shortstack{Transition \\\\ Duration}", "\\shortstack{Wage vs \\\\ NEET}", "\\shortstack{Self vs \\\\ NEET}", "\\shortstack{Wage vs \\\\ Self}"), 
+          column.labels = c("\\shortstack{Transition  \\\\ Age}", "\\shortstack{Transition \\\\ Duration}", "\\shortstack{NEET vs. \\\\ Wage}", "\\shortstack{Self vs. \\\\ Wage}"), 
           model.names = FALSE,
-          dep.var.labels = c("", "\\underline{Labor market status at entry}"),
+          dep.var.labels.include = FALSE,
           model.numbers = TRUE,
           dep.var.caption = "",
-          add.lines = list(c("Observations", 417, 417, nrow(residuals(m3)), nrow(residuals(m5)), nrow(residuals(m5)))),
+          add.lines = list(c("Observations", sum(!is.na(residuals(m1))), sum(!is.na(residuals(m2))), nrow(residuals(m3)), nrow(residuals(m3)))),
           label = "tab:tbl-firstempreg",
           notes = "$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01",
           notes.label = "", 
           notes.align = "l", 
           notes.append = F)
+
+star2 <- c(star[1:8],
+           "& & & \\multicolumn{2}{c}{\\underline{\\shortstack{Status in first \\\\ period after school-leaving}}} \\\\ ",
+           star[9:length(star)]) 
+
+## ---- tbl-firstempreg ----
+
+cat(as.character(star2))
 
 ## ---- fig-ageplot ----
 
@@ -311,7 +373,7 @@ flextable(y) %>%
                  colwidths = c(3,3)) %>%
   set_caption("Activity transition matrix: Combined data, 2013-2021") %>% 
   add_footer_lines("") %>%
-  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %. First row for each activity refers to unconditional transition rate; remaining rates are conditional."), part = "footer") %>% 
+  flextable::compose(i = 1, j = 1, value = as_paragraph(as_i("Notes: "), "Row %. First row for each activity refers to unconditional transition rate; remaining rates are conditional on the rate of separation."), part = "footer") %>% 
   fontsize(size = 9, part = 'all') %>% 
   flextable::align(align = "center") %>% 
   flextable::align(j=1, align = "left") %>% 
@@ -323,11 +385,7 @@ flextable(y) %>%
 
 ## ---- fig-clusters --------
 
-df <- ys_baseline %>% zap_labels() %>% filter(!is.na(act13)) %>% select(IDYouth, "act13", "act14", "act15", "act16", "act17", "act18", "act19", "act19.2", "act19.3", contains("act2"), sex, baseline_age, beninese, fon, christian, city, status, graduation_age, first_employment_age, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, YS3_8, YS6_6, YS6_2,  YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8) %>% mutate(across(c("act13":"act19"), ~ case_when(. == 1 | . == 2 | . == 3 ~ "In School", 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               . == 0 | . == 8 | . == 99 ~ "NEET",
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               . == 7 ~ "Self-Employed",
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               . == 4 | . == 5 ~ "Apprentice",
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               . == 6 ~ "Employed"))) %>% 
+df <- ys_baseline %>% zap_labels() %>% filter(!is.na(act13)) %>% select(IDYouth, "act13", "act14", "act15", "act16", "act17", "act18", "act19", "act19.2", "act19.3", contains("act2"), sex, baseline_age, beninese, fon, christian, city, status, graduation_age, first_employment_age, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, YS3_8, YS6_6, YS6_2,  YS6_11_1, YS6_11_2, YS6_11_5, YS6_11_8) %>% mutate(across(c("act13":"act19"), ~ case_when(. == 1 | . == 2 | . == 3 ~ "In School", . == 0 | . == 8 | . == 99 ~ "NEET",. == 7 ~ "Self-Employed", . == 4 | . == 5 ~ "Apprentice", . == 6 ~ "Employed"))) %>% 
   rename(`2013` = act13,
          `2014` = act14,
          `2015` = act15,
@@ -358,7 +416,7 @@ df <- ys_baseline %>% zap_labels() %>% filter(!is.na(act13)) %>% select(IDYouth,
 
 cols <- c("2013", "2013_2", "2013_3", "2014", "2014_2", "2014_3", "2015", "2015_2", "2015_3", "2016", "2016_2", "2016_3", "2017", "2017_2", "2017_3", "2018", "2018_2", "2018_3", "2019", "2019_2", "2019_3", "2020", "2020_2", "2020_3", "2021", "2021_2", "2021_3")
 
-labs <- c("2013", "2013", "2013", "2014", "2014", "201_3", "2015", "2015", "2015", "2016", "2016", "2016", "2017", "2017", "2017", "2018", "2018", "2018", "2019", "2019", "2019", "2020", "2020", "2020", "2021", "2021", "2021")
+labs <- c("2013", "2013", "2013", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "2021", "2021", "2021")
 
 col_order <- c("IDYouth", cols, "sex", "baseline_age", "beninese", "fon", "christian", "city", "status", "graduation_age", "first_employment_age", "first_employment_duration", "yos", "app", "cap", "cep", "bepc", "bac", "licence", "master", "fathapp", "fath_primary", "fsecplus", "mothapp", "moth_primary", "msecplus", "married", "YS3_8", "YS6_6", "YS6_2",  "YS6_11_1", "YS6_11_2", "YS6_11_5", "YS6_11_8")
 
@@ -378,13 +436,7 @@ cl5.lab <- factor(df.cl5, labels = c("TRAIN", "SCHOOL", "WAGE", "SELF", "NEET"))
 
 seqdplot(df.seq, group = cl5.lab, border = NA, xtlab = labs)
 
-# seqiplot(df.seq, border = NA, with.legend = "right", xtlab = labs)
-# 
-# seqplot(df.seq, type="f", idxs = 1:50)
 
-# df.seqe <- seqecreate(df.seq)
-# fsubseq <- seqefsub(df.seqe, pMinSupport=0.05)
-# plot(fsubseq[2:11], col="cyan")
 
 ## ---- tbl-transreg ----
 
@@ -595,8 +647,8 @@ t1 <- df %>% filter(wave == 0 & (status %in% c("Self-Employed", "Employed") | YS
                            employer = "Employer",
                            independent = "Independent",
                            neet = "Unemployed, looking for work",
-                           wage = "Wage (of wage employed)",
-                           profits = "Profits (of self-employed)",
+                           wage = "Monthly wage (% of wage employed)",
+                           profits = "Monthly profits (% of self-employed)",
                            wealth_quintile = "Wealth index quintile",
                            satisfaction = "Job Satisfaction (of wage and self-employed)¹",
                            YS6_21 = "Life satisfaction¹",
@@ -609,6 +661,7 @@ t1 <- df %>% filter(wave == 0 & (status %in% c("Self-Employed", "Employed") | YS
                                total ~ "{N}")) %>% 
   modify_header(update = all_stat_cols() ~  "**{level}**") %>% 
   add_overall(col_label = "**Overall**") %>% 
+  add_p() %>% 
   modify_footnote(update = everything() ~ NA)
   
 
@@ -627,8 +680,8 @@ t2 <- df %>% filter(wave == 0 & (status %in% c("Self-Employed", "Employed") | YS
                            employer = "Employer",
                            independent = "Independent",
                            neet = "Unemployed, looking for work",
-                           wage = "Wage (of wage employed)",
-                           profits = "Profits (of self-employed)",
+                           wage = "Monthly wage (% of wage employed)",
+                           profits = "Monthly profits (% of self-employed)",
                            satisfaction = "Job Satisfaction (of wage and self-employed)¹",
                            YS6_21 = "Life satisfaction¹",
                            fiveyrs = "Where do you see yourself in five years?"),
@@ -646,7 +699,7 @@ tbl_merge(list(t1, t2), tab_spanner = FALSE) %>%
                  booktabs = T,
                  linesep = "",
                  position = "H") %>%
-  kableExtra::footnote(general = "\\\\textit{Calculated using responses from baseline survey.}",
+  kableExtra::footnote(general = "\\\\textit{Notes:} Calculated using responses from youth in wage employment, self-employment, or looking for work at baseline survey. The following pairs of employment types are mutually exclusive: formal and informal employment; full-time work and underemployment; regular and casual employment; employer and independent self-employed.",
            number = c("Likert scale, 1 = Very dissatisfied, 5 = Very satisfied."),
            threeparttable = T,
            escape = F,

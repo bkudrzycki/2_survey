@@ -296,6 +296,9 @@ df <- df[ , order(names(df))]
 
 df$graduation_age <- NA
 df$first_employment_age <- NA
+df$first_employment_status <- NA
+df$first_job_age <- NA
+df$first_job_status <- NA
 df$first_wage_age <- NA
 df$first_self_age <- NA
 df$right_censored <- 0
@@ -323,14 +326,17 @@ for (k in 1:752){
     z <- agelist[i]
     w <- agelist[i+1]
     if (df[[x]][[k]] %in% c("In School", "Apprentice")) { # reset if return to schooling
-      df[["first_employment_age"]][[k]] <- NA
       df[["graduation_age"]][[k]] <- NA
+      df[["entry"]][[k]] <- NA
+      df[["first_employment_age"]][[k]] <- NA
+      df[["first_employment_status"]][[k]] <- NA
     }
     if (df[[x]][[k]] %in% c("In School", "Apprentice") && df[[y]][[k]] %in% c("NEET", "Self-Employed", "Employed")) {
       df[["graduation_age"]][[k]] <- df[[z]][[k]]
     }
     if (df[[y]][[k]] %in% c("Self-Employed", "Employed") && is.na(df[["first_employment_age"]][[k]]) && !(is.na(df[["graduation_age"]][[k]]))) {
       df[["first_employment_age"]][[k]] <- df[[w]][[k]]
+      df[["first_employment_status"]][[k]] <- as.character(df[[y]][[k]])
     }
     if (df[[y]][[k]] %in% c("Self-Employed", "Employed", "NEET") && is.na(df[["entry"]][[k]]) && !(is.na(df[["graduation_age"]][[k]]))) {
       df[["entry"]][[k]] <- as.character(df[[y]][[k]])
@@ -340,6 +346,10 @@ for (k in 1:752){
     }
     if (df[[x]][[k]] %in% "Self-Employed" && is.na(df[["first_self_age"]][[k]]) && !(is.na(df[["graduation_age"]][[k]]))) {
       df[["first_self_age"]][[k]] <- df[[z]][[k]]
+    }
+    if (df[[y]][[k]] %in% c("Self-Employed", "Employed") && is.na(df[["first_job_age"]][[k]]) && !(is.na(df[["graduation_age"]][[k]]))) {
+      df[["first_job_age"]][[k]] <- df[[w]][[k]]
+      df[["first_job_status"]][[k]] <- as.character(df[[y]][[k]])
     }
     if (df[[y]][[k]] %in% c("In School", "Apprentice")) {
       df[["right_censored"]][[k]] <- 1
@@ -352,7 +362,7 @@ for (k in 1:752){
 
 df$first_employment_duration <- df$first_employment_age - df$graduation_age
 
-ys_panel <- left_join(ys_panel, (df %>% select(IDYouth, first_employment_duration, first_employment_age, graduation_age, right_censored, entry, act19.2, act19.3, contains(c("act2", "age1", "age2")))), by = "IDYouth")
+ys_panel <- left_join(ys_panel, (df %>% select(IDYouth, first_employment_duration, first_job_age, first_job_status, first_employment_age, first_employment_status, graduation_age, right_censored, entry, act19.2, act19.3, contains(c("act2", "age1", "age2")))), by = "IDYouth")
 
 # Transitioned/graduated in past seven years: for transition regression
 
