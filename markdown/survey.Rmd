@@ -17,8 +17,10 @@ csl: 'apa-no-ampersand.csl'
 output: 
   bookdown::pdf_document2:
     latex_engine: xelatex
+    citation_package: biblatex
+    style: authoryear
     template: template.tex
-    extra_dependencies: ["flafter", "placeins", "changepage", "multirow", "array", "adjustbox", "longtable", "pifont", "fancyhdr", "pdflscape", "fancyhdr"]
+    extra_dependencies: ["flafter", "placeins", "changepage", "multirow", "array", "adjustbox", "longtable", "pifont", "fancyhdr", "pdflscape"]
     fig_caption: yes
 ---
 
@@ -92,7 +94,7 @@ The next section describes existing work on youth SWT across the world, includin
 
 Both the age of school-leaving and the speed of transition to the labour market are of interest to policy makers. A delayed entry into the labour force can reduce youths' lifetime labour market participation and contribution to the economy, while a slow transition can result in "scarring": early periods of underemployment and unemployment that lead to wage losses and reduce the likelihood of returning to the labour force. Evidence from high-income countries suggests that protracted unemployment spells, including extended school-to-work transitions, negatively affect future earnings and employment prospects [@schmillen2017; @emmenegger2017; @moller2015; @cockx2012]. <!-- Also: @nordstromskans2011; @mroz2006; @arulampalam2001 -->
 
-The age of school-leaving and SWT duration is of particular interest to policy makers in SSA, where high rates of informal work and underemployment are the norm among its growing youth population. Young people aged 15-24 in SSA suffer over twice the unemployment rate of adults, albeit with high variation across countries [@africandevelopmentbank2016]. Those youth who are employed tend to be underemployed and in informal work, leading to youth poverty, exacerbating inequality, and fostering unrest and conflict, raising the possibility of youth unrest observed elsewhere in the world [@urdal2006; @mains2011]. Though there is much heterogeneity in the data, youth from the highest-income and lowest-income countries are observed to have relatively short school-to-work transitions, though youth in HICs stay in school longer and have lower rates of inactivity after school-leaving [@manacorda2017, @quintini2014]. The longest observed SWT duration is observed in middle-income countries in LAC, MENA, and southern Europe. Compared to HICs, out-of-school youth in LICs are more likely to become NEET upon leaving school, and under-employment is more widespread [@quintini2014]. Moreover, competition for limited formal jobs is intensified in the presence of rapid population growth: @manacorda2017 find that a one standard deviation increase in the rate of population growth increases the time it takes youth to find work after leaving school by as much as 17 months\footnote{The authors also find that a one standard deviation increase the poverty rate leads to a reduction in transition duration of about 17 months and an increase in probability of never attaining employment of 14 percentage points.}.
+The age of school-leaving and SWT duration is of particular interest to policy makers in SSA, where high rates of informal work and underemployment are the norm among its growing youth population. Young people aged 15-24 in SSA suffer over twice the unemployment rate of adults, albeit with high variation across countries [@africandevelopmentbank2016]. Those youth who are employed tend to be underemployed and in informal work, leading to youth poverty, exacerbating inequality, and fostering unrest and conflict, raising the possibility of youth unrest observed elsewhere in the world [@urdal2006; @mains2011]. Though there is much heterogeneity in the data, youth from the highest-income and lowest-income countries are observed to have relatively short school-to-work transitions, though youth in HICs stay in school longer and have lower rates of inactivity after school-leaving [@manacorda2017; @quintini2014]. The longest observed SWT duration is observed in middle-income countries in LAC, MENA, and southern Europe. Compared to HICs, out-of-school youth in LICs are more likely to become NEET upon leaving school, and under-employment is more widespread [@quintini2014]. Moreover, competition for limited formal jobs is intensified in the presence of rapid population growth: @manacorda2017 find that a one standard deviation increase in the rate of population growth increases the time it takes youth to find work after leaving school by as much as 17 months\footnote{The authors also find that a one standard deviation increase the poverty rate leads to a reduction in transition duration of about 17 months and an increase in probability of never attaining employment of 14 percentage points.}.
 
 Two counteracting factors are generally understood to affect the SWT duration in SSA. Poverty and lack of unemployment insurance forces youth into working sooner, while increasing education and decreasing number of public sector jobs drives up employment expectations without matching wage job growth [@manacorda2017]. Many youth are left with little choice but to create their own employment in the face of underdeveloped private sectors. The need for savings to start a business, whether from family networks or personal saving, often lead to youth taking short stints in transitory employment in order to save up for their own business [@bridges2017; @frazer2006]. Meanwhile, rising education rates in SSA mechanically delay the transition: as increasing numbers of youth stay in school for longer, they enter the labour market at a more advanced age [calves2013]. More educated youth in SSA, especially university graduates, have been shown to be reluctant to work in the informal sector, preferring to wait for formal or public sector employment [@serneels2007]. Education mismatch may also prolong the SWT: if education systems are not aligned with the demands of the labour market, students may graduate with skills that are not in high demand, slowing the transition to wage work and increasing unemployment and underemployment for the most educated youth. @bandara2019, using eight SWTS surveys from SSA (including Bénin), report that about 47 and 28 percent of employed youth in their sample are overqualified and under-qualified for their jobs, respectively. Finally, @manacorda2017 reports that women generally experience longer transition duration and are more likely to exit the labour market before completing the transition, taking twice as long as men to become employed after leaving school in certain LICs. 
 
@@ -114,7 +116,7 @@ In this paper, we map out the school-to-work trajectoroes of youth in an urban, 
 
 Youth were selected for the survey using a two-step sampling process. First, a census of quasi-representative administrative zones covering 4,905 households in the metropolitan area of Cotonou was conducted and served as a sample frame. Second, a sample of youth aged 20 to 29 was selected randomly from the sample frame to take part in the panel survey\footnote{The sampling process is described in more detail in Appendix A2.1.}. Because school attendance rates among younger respondents were found to be very high --- more than 70 percent of the 15- to 19-year-olds covered by the census --- the 20-29 age range was chosen in place of the standard 15-29 definition employed by the International Labour Organization (ILO) in order to shift the focus from schooling to labour market outcomes. Following the baseline survey in August 2019, three follow-up surveys were conducted by mobile phone in November 2019, April 2020, and September 2020 respectively. An in-person endline was conducted in the summer of 2021 for a total of five survey waves.
 
-Table \@ref(tab:tbl-attrition) in Appendix A2 shows sample attrition over the five waves. The panel suffers an attrition rate of between 9 percent and 19 percent per survey round, with an overall attrition rate of 34 percent over the course of the first year of the survey (i.e. between waves one and four). This is high but in line with other remote longitudinal surveys in developing countries [@demombynes2013, ballivian2015]. However, a large proportion of non-respondents were recovered for the face-to-face endline, resulting in a final attrition rate of just 24 percent. The largest drop in response rate, between the first and second follow-up surveys, is likely related to the timing of the second phone-based survey, which took place in the early phases of Bénin's response to the global Covid-19 pandemic. To test for biased respondent attrition, we test for equality in time-invariant characteristics across survey waves. Table \@ref(tab:tbl-attrition) in Appendix A2 indicates that attrition is neither associated with respondent activity at baseline, nor with their sex, age, or education. Thus, we proceed with the analysis assuming random dropout.
+Table \@ref(tab:tbl-attrition) in Appendix A2 shows sample attrition over the five waves. The panel suffers an attrition rate of between 9 percent and 19 percent per survey round, with an overall attrition rate of 34 percent over the course of the first year of the survey (i.e. between waves one and four). This is high but in line with other remote longitudinal surveys in developing countries [@demombynes2013; @ballivian2015]. However, a large proportion of non-respondents were recovered for the face-to-face endline, resulting in a final attrition rate of just 24 percent. The largest drop in response rate, between the first and second follow-up surveys, is likely related to the timing of the second phone-based survey, which took place in the early phases of Bénin's response to the global Covid-19 pandemic. To test for biased respondent attrition, we test for equality in time-invariant characteristics across survey waves. Table \@ref(tab:tbl-attrition) in Appendix A2 indicates that attrition is neither associated with respondent activity at baseline, nor with their sex, age, or education. Thus, we proceed with the analysis assuming random dropout.
 
 ## Summary Statistics {-#survey-summary .unlisted}
 \begin{singlespacing}
@@ -294,11 +296,8 @@ Finally, we show that mobile phone data collection are a promising tool for trac
 In sum, our study provides several insights into the school-to-work transition in urban Bénin. The SWT appears to take place relatively late and to be relatively short compared to other Sub-Saharan African countries. However, the stability of most youth trajectories belies the underlying weaknesses in the labor market, such as high rates of informality and short working hours. Education delays the transition but does not necessarily prolong it, a positive message to policy makers wary of over-education and educational mismatch. Finally, we observe trajectories that involve labor market exit for an alarmingly high percentage of women, calling for immediate action to facilitate first labor market experiences or enable re-integration for young women in the region.
 
 \newpage
-
-# References {.unnumbered}
 \markboth{References}{References}
-
-<div id="refs"></div>
+\printbibliography[segment=\therefsegment,heading=subbibintoc,title={References}]
 
 \newpage
 
@@ -327,7 +326,7 @@ In sum, our study provides several insights into the school-to-work transition i
 \end{singlespacing}
 
 \newpage
-## Sampling {#sampling .unlisted}
+## Sampling {-#sampling .unlisted}
 \markboth{Sampling}{Appendix A2}
 
 Cluster sampling was used to select the `r nrow(ys_baseline)` youth interviewed in the face-to-face baseline survey. The twelve _départements_ of Bénin are subdivided into 77 _communes_, which are further subdivided into _arrondissements_. To delimit the geographic area for the census, we first manually selected five _arrondissements_ from the three _communes_ which constitute the Cotonou metropolitan area (Figure \@ref(fig:litt)). The five _arrondissements_ were chosen in consultation with survey partners experienced in data collection in the region to be as representative of urban Cotonou as possible.
@@ -342,7 +341,7 @@ All 4,905 households living in within the boundaries of these 15 ZDs were interv
 ```
 \newpage
 
-## Transitions as Markov processes {#markovapp .unlisted}
+## Transitions as Markov processes {-#markovapp .unlisted}
 \markboth{Studying transitions as continuous Markov processes}{Appendix A2}
 
 In Appendix B, we depict transitions between $K$ states employment states as transition intensity matrices. Each cell of the transition intensity matrix is given by the probability of transitioning from an initial employment state $i$ to a subsequent employment state $j$, which is simply given by $p_{ij} = n_{ij}/n_i$, such that the matrices in Appendix B can be depicted as
@@ -410,7 +409,7 @@ The first component represents the transition probabilities independent of the r
 
 ```{r, tbl-clustertbl, results = 'asis', echo = FALSE}
 ```
-```{r, fig-survival, fig.cap="Survival analysis: duration of transition to first employment", echo=FALSE, fig.height = 3, out.width="75%"}
+```{r, fig-survival, fig.cap="Survival analysis: duration of transition to first employment", echo=FALSE, fig.height = 4, out.width="75%"}
 ```
 ```{r, tbl-clusterreg, echo=FALSE, results = 'asis'}
 ```
@@ -464,3 +463,7 @@ The first component represents the transition probabilities independent of the r
 ```
 
 \end{singlespacing}
+\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
+\setcounter{section}{0}
+\renewcommand{\thesubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}}
+\setcounter{subsection}{0}

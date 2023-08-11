@@ -832,8 +832,67 @@ ggsurvplot(fit1, data = df, pval = FALSE, risk.table ="percentage", palette = "a
 
 ## ---- tbl-clusterreg -----
 
+df <- ys_baseline %>% zap_labels() %>% filter(!is.na(act13)) %>% select(IDYouth, "act13", "act14", "act15", "act16", "act17", "act18", "act19", "act19.2", "act19.3", contains("act2"), sex, baseline_age, beninese, fon, christian, city, status, graduation_age, first_job_age, first_job_status, first_employment_age, first_employment_status, first_employment_duration, yos, app, cap, cep, bepc, bac, licence, master, fathapp, fath_primary, fsecplus, mothapp, moth_primary, msecplus, married, YS3_8, YS6_6, wealth_quintile, YS6_1, YS6_2) %>% mutate(across(c("act13":"act19"), ~ case_when(. == 1 | . == 2 | . == 3 ~ "In School", . == 0 | . == 8 | . == 99 ~ "NEET", . == 7 ~ "Self-Employed", . == 4 | . == 5 ~ "Apprentice", . == 6 ~ "Employed"))) %>% mutate(withparents = ifelse(as.numeric(YS6_1) == 3, 1, 0), first_job_dummy = ifelse(!is.na(first_job_age), 1, 0), completed_transition = ifelse(!is.na(first_employment_age), 1, 0)) %>% 
+  rename(`2013` = act13,
+         `2014` = act14,
+         `2015` = act15,
+         `2016` = act16,
+         `2017` = act17,
+         `2018` = act18,
+         `2019` = act19,
+         `2019_2` = act19.2,
+         `2019_3` = act19.3,
+         `2020` = act20.1,
+         `2020_2` = act20.2,
+         `2021` = act21) %>% 
+  mutate(`2013_2` = `2013`,
+         `2013_3` = `2013`,
+         `2014_2` = `2014`,
+         `2014_3` = `2014`,
+         `2015_2` = `2015`,
+         `2015_3` = `2015`,
+         `2016_2` = `2016`,
+         `2016_3` = `2016`,
+         `2017_2` = `2017`,
+         `2017_3` = `2017`,
+         `2018_2` = `2018`,
+         `2018_3` = `2018`,
+         `2020_3` = `2020_2`,
+         `2021_2` = `2021`,
+         `2021_3` = `2021`)
+
+cols <- c("2013", "2013_2", "2013_3", "2014", "2014_2", "2014_3", "2015", "2015_2", "2015_3", "2016", "2016_2", "2016_3", "2017", "2017_2", "2017_3", "2018", "2018_2", "2018_3", "2019", "2019_2", "2019_3", "2020", "2020_2", "2020_3", "2021", "2021_2", "2021_3")
+
+labs <- c("2013", "2013", "2013", "2014", "2014", "201_3", "2015", "2015", "2015", "2016", "2016", "2016", "2017", "2017", "2017", "2018", "2018", "2018", "2019", "2019", "2019", "2020", "2020", "2020", "2021", "2021", "2021")
+
+col_order <- c("IDYouth", cols, "sex", "baseline_age", "beninese", "fon", "christian", "city", "status", "graduation_age", "first_job_age", "first_job_dummy", "first_job_status", "completed_transition", "first_employment_status", "first_employment_age", "first_employment_duration", "yos", "app", "cap", "cep", "bepc", "bac", "licence", "master", "fathapp", "fath_primary", "fsecplus", "mothapp", "moth_primary", "msecplus", "married", "YS3_8", "YS6_6", "wealth_quintile", "YS6_2", "withparents")
+
+df <- df[, col_order]
+
+df.alphab <- c("Employed", "Self-Employed", "In School", "Apprentice", "NEET")
+
+df.seq <- seqdef(df, 2:28, xtstep = 1, alphabet = df.alphab)
+
+df.om <- seqdist(df.seq, method = "OM", indel = 1, sm = "TRATE", with.missing = TRUE)
+
+clusterward <- agnes(df.om, diss = TRUE, method = "ward")
+
+df.cl5 <- cutree(clusterward, k = 5)
+
+cl5.lab <- factor(df.cl5, labels = c("Apprenticeship", "Schooling", "Employed", "Self-Employed", "NEET"))
+
+df$cluster <- df.cl5
+
+df <- df %>% mutate(cluster = recode(cluster, `1` = "TRAIN",
+                                     `2` = "SCHOOL",
+                                     `3` = "WAGE",
+                                     `4` = "SELF",
+                                     `5` = "NEET"),
+                    total = 1)
 cov1 <- c("sex", "fathapp", "fath_primary", "fsecplus", "mothapp", "moth_primary", "msecplus", "married", "beninese", "fon", "christian", "city")
 cov2 <- c("sex", "fathapp", "fath_primary", "fsecplus", "mothapp", "moth_primary", "msecplus", "married", "beninese", "fon", "christian", "city", "yos", "app", "cep", "bepc", "bac", "cap", "licence", "master")
+
+cov3 <- c("sex", "fathapp", "fath_primary", "fsecplus", "mothapp", "moth_primary", "msecplus", "married", "beninese", "fon", "christian", "city")
 
 models <- list(
   glm((cl5.lab == "TRAIN") ~ ., data = df[cov1], family = "binomial"),
@@ -893,6 +952,7 @@ stargazer(models, df = FALSE, coef = coef_tables, font.size= "scriptsize", colum
           notes.label = "", 
           notes.align = "l", 
           notes.append = F)
+
 ## ---- tbl-fullmatrix --------
 
 t1 <- ys_baseline %>% select(act13, act14) %>% rename("From" = act13, "to" = act14)
