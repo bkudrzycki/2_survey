@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.15)  17 SEP 2023 23:52
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.9.15)  10 MAR 2024 22:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1344,9 +1344,311 @@ Package biblatex Info: ... and expl3
 (biblatex)             setting 'casechanger=expl3'.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
 Package: blx-case-expl3 2022/02/02 v3.17 expl3 case changing code for biblatex
+)) (/usr/local/texlive/2022/texmf-dist/tex/generic/soul/soul.sty
+Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+\SOUL@word=\toks39
+\SOUL@lasttoken=\toks40
+\SOUL@cmds=\toks41
+\SOUL@buffer=\toks42
+\SOUL@token=\toks43
+\SOUL@spaceskip=\skip129
+\SOUL@ttwidth=\dimen292
+\SOUL@uldp=\dimen293
+\SOUL@ulht=\dimen294
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/todonotes/todonotes.sty
+Package: todonotes 2021/06/04 v1.1.5 Todonotes source and documentation.
+Package: todonotes 2021/06/04
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/usr/
+local/texlive/2022/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/usr/local/texl
+ive/2022/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x
+\pgfutil@everybye=\toks44
+\pgfutil@tempdima=\dimen295
+\pgfutil@tempdimb=\dimen296
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-li
+sts.tex))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box122
+) (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
 ))
-\@quotelevel=\count481
-\@quotereset=\count482
+Package: pgf 2021/05/15 v3.1.9a (3.1.9a)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/usr/
+local/texlive/2022/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks45
+\pgfkeys@temptoks=\toks46
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.c
+ode.tex
+\pgfkeys@tmptoks=\toks47
+))
+\pgf@x=\dimen297
+\pgf@y=\dimen298
+\pgf@xa=\dimen299
+\pgf@ya=\dimen300
+\pgf@xb=\dimen301
+\pgf@yb=\dimen302
+\pgf@xc=\dimen303
+\pgf@yc=\dimen304
+\pgf@xd=\dimen305
+\pgf@yd=\dimen306
+\w@pgf@writea=\write4
+\r@pgf@reada=\read3
+\c@pgf@counta=\count481
+\c@pgf@countb=\count482
+\c@pgf@countc=\count483
+\c@pgf@countd=\count484
+\t@pgf@toka=\toks48
+\t@pgf@tokb=\toks49
+\t@pgf@tokc=\toks50
+\pgf@sys@id@count=\count485
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
+)
+Driver file for pgf: pgfsys-xetex.def
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-xetex.de
+f
+File: pgfsys-xetex.def 2021/05/15 v3.1.9a (3.1.9a)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-dvipdfmx
+.def
+File: pgfsys-dvipdfmx.def 2021/05/15 v3.1.9a (3.1.9a)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def
+File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
+)
+\pgfsys@objnum=\count486
+)))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex
+File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfsyssoftpath@smallbuffer@items=\count487
+\pgfsyssoftpath@bigbuffer@items=\count488
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex
+File: pgfsysprotocol.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/usr
+/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex (/usr/
+local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen307
+\pgfmath@count=\count489
+\pgfmath@box=\box123
+\pgfmath@toks=\toks51
+\pgfmath@stack@operand=\toks52
+\pgfmath@stack@operation=\toks53
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex))) (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/m
+ath/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count490
+)) (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex
+File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@picminx=\dimen308
+\pgf@picmaxx=\dimen309
+\pgf@picminy=\dimen310
+\pgf@picmaxy=\dimen311
+\pgf@pathminx=\dimen312
+\pgf@pathmaxx=\dimen313
+\pgf@pathminy=\dimen314
+\pgf@pathmaxy=\dimen315
+\pgf@xx=\dimen316
+\pgf@xy=\dimen317
+\pgf@yx=\dimen318
+\pgf@yy=\dimen319
+\pgf@zx=\dimen320
+\pgf@zy=\dimen321
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex
+File: pgfcorepathconstruct.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@path@lastx=\dimen322
+\pgf@path@lasty=\dimen323
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex
+File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@shorten@end@additional=\dimen324
+\pgf@shorten@start@additional=\dimen325
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex
+File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfpic=\box124
+\pgf@hbox=\box125
+\pgf@layerbox@main=\box126
+\pgf@picture@serial@count=\count491
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex
+File: pgfcoregraphicstate.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgflinewidth=\dimen326
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex
+File: pgfcoretransformations.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@pt@x=\dimen327
+\pgf@pt@y=\dimen328
+\pgf@pt@temp=\dimen329
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex
+File: pgfcorequick.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex
+File: pgfcoreobjects.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex
+File: pgfcorepathprocessing.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex
+File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfarrowsep=\dimen330
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex
+File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@max=\dimen331
+\pgf@sys@shading@range@num=\count492
+\pgf@shadingcount=\count493
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex
+File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex
+File: pgfcoreexternal.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfexternal@startupbox=\box127
+))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex
+File: pgfcorelayers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex
+File: pgfcoretransparency.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex
+File: pgfcorepatterns.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
+tex
+File: pgfcorerdf.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex
+File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfnodeparttextbox=\box128
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex
+File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty
+Package: pgfcomp-version-0-65 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@nodesepstart=\dimen332
+\pgf@nodesepend=\dimen333
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty
+Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
+)) (/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (/usr
+/local/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (/usr/local/
+texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/usr/loca
+l/texlive/2022/texmf-dist/tex/latex/pgf/math/pgfmath.sty (/usr/local/texlive/20
+22/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)) (/usr/local/texlive/2022/
+texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2021/05/15 v3.1.9a (3.1.9a)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
+\pgffor@iter=\dimen334
+\pgffor@skip=\dimen335
+\pgffor@stack=\toks54
+\pgffor@toks=\toks55
+))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
+e.tex
+Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
+dlers.code.tex
+File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@plot@mark@count=\count494
+\pgfplotmarksize=\dimen336
+)
+\tikz@lastx=\dimen337
+\tikz@lasty=\dimen338
+\tikz@lastxsaved=\dimen339
+\tikz@lastysaved=\dimen340
+\tikz@lastmovetox=\dimen341
+\tikz@lastmovetoy=\dimen342
+\tikzleveldistance=\dimen343
+\tikzsiblingdistance=\dimen344
+\tikz@figbox=\box129
+\tikz@figbox@bg=\box130
+\tikz@tempbox=\box131
+\tikz@tempbox@bg=\box132
+\tikztreelevel=\count495
+\tikznumberofchildren=\count496
+\tikznumberofcurrentchild=\count497
+\tikz@fig@count=\count498
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
+e.tex
+File: pgfmodulematrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfmatrixcurrentrow=\count499
+\pgfmatrixcurrentcolumn=\count500
+\pgf@matrix@numberofcolumns=\count501
+)
+\tikz@expandcount=\count502
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+\c@@todonotes@numberoftodonotes=\count503
+)
+\@quotelevel=\count504
+\@quotereset=\count505
 (./survey.aux
 
 LaTeX Warning: Label `tab:tbl-matrix' multiply defined.
@@ -1354,34 +1656,34 @@ LaTeX Warning: Label `tab:tbl-matrix' multiply defined.
 )
 \openout1 = `survey.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 177.
-LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 193.
+LaTeX Font Info:    ... okay on input line 193.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 177.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 193.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 177.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 193.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: changepage package is loaded.
-\caption@adjustwidth@hsize=\dimen292
-\caption@adjustwidth@linewidth=\dimen293
+\caption@adjustwidth@hsize=\dimen345
+\caption@adjustwidth@linewidth=\dimen346
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/caption/ltcaption.sty
@@ -1394,15 +1696,15 @@ Package caption Info: End \AtBeginDocument code.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/floatrow/fr-longtable.sty
 Package: fr-longtable 2007/11/28 v0.1b (beta) floatrow: additions for longtable
 
-\flrow@LT@lasthead=\box122
-\flrow@LT@prelastfoot=\box123
-\c@FBLTpage=\count483
+\flrow@LT@lasthead=\box133
+\flrow@LT@prelastfoot=\box134
+\c@FBLTpage=\count506
 )
-LaTeX Info: Redefining \microtypecontext on input line 177.
-Package microtype Info: Applying patch `item' on input line 177.
-Package microtype Info: Applying patch `toc' on input line 177.
-Package microtype Info: Applying patch `eqnum' on input line 177.
-Package microtype Info: Applying patch `footnote' on input line 177.
+LaTeX Info: Redefining \microtypecontext on input line 193.
+Package microtype Info: Applying patch `item' on input line 193.
+Package microtype Info: Applying patch `toc' on input line 193.
+Package microtype Info: Applying patch `eqnum' on input line 193.
+Package microtype Info: Applying patch `footnote' on input line 193.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: No adjustment of tracking.
@@ -1412,7 +1714,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `texgyrepagella' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-Package hyperref Info: Link coloring ON on input line 177.
+Package hyperref Info: Link coloring ON on input line 193.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (/usr/local/texlive/2022/texmf-dist/tex/latex/refcount/refcount.sty
@@ -1422,11 +1724,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count484
+\c@section@level=\count507
 )
-LaTeX Info: Redefining \ref on input line 177.
-LaTeX Info: Redefining \pageref on input line 177.
-LaTeX Info: Redefining \nameref on input line 177.
+LaTeX Info: Redefining \ref on input line 193.
+LaTeX Info: Redefining \pageref on input line 193.
+LaTeX Info: Redefining \nameref on input line 193.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1475,8 +1777,14 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'survey.bbl' found.
 (./survey.bbl)
-Package biblatex Info: Reference section=0 on input line 177.
-Package biblatex Info: Reference segment=0 on input line 177.
+Package biblatex Info: Reference section=0 on input line 193.
+Package biblatex Info: Reference segment=0 on input line 193.
+
+Package todonotes Warning: The length marginparwidth is less than 2cm and will 
+most likely cause issues with the appearance of inserted todonotes. The issue c
+an be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to 
+loading the todonotes package. on input line 193.
+
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: xetex
 * paper: a4paper
@@ -1510,25 +1818,25 @@ Package biblatex Info: Reference segment=0 on input line 177.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 20.74222pt on input line 184.
+(Font)              scaled to size 20.74222pt on input line 200.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 14.40152pt on input line 184.
+(Font)              scaled to size 14.40152pt on input line 200.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.00128pt on input line 184.
+(Font)              scaled to size 12.00128pt on input line 200.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 20.73778pt on input line 184.
+(Font)              scaled to size 20.73778pt on input line 200.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 14.39845pt on input line 184.
+(Font)              scaled to size 14.39845pt on input line 200.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 184.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 184
+(Font)              scaled to size 11.99872pt on input line 200.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 200
 .
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 184
+LaTeX Font Info:    Trying to load font information for U+msb on input line 200
 .
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1536,17 +1844,17 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.00107pt on input line 184.
+(Font)              scaled to size 10.00107pt on input line 200.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.00075pt on input line 184.
+(Font)              scaled to size 7.00075pt on input line 200.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 9.99893pt on input line 184.
+(Font)              scaled to size 9.99893pt on input line 200.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.99925pt on input line 184.
+(Font)              scaled to size 6.99925pt on input line 200.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00053pt on input line 184.
+(Font)              scaled to size 5.00053pt on input line 200.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 184.
+(Font)              scaled to size 4.99947pt on input line 200.
 (./survey.toc
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
 (Font)              scaled to size 8.88095pt on input line 5.
@@ -1557,12 +1865,12 @@ LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
 (Font)              scaled to size 6.59929pt on input line 5.
 )
-\tf@toc=\write4
-\openout4 = `survey.toc'.
+\tf@toc=\write5
+\openout5 = `survey.toc'.
 
 (./survey.lof)
-\tf@lof=\write5
-\openout5 = `survey.lof'.
+\tf@lof=\write6
+\openout6 = `survey.lof'.
 
 (./survey.lot [1
 
@@ -1592,53 +1900,112 @@ Package fontspec Info: Font family 'Palatino(0)' created for font 'Palatino'
 File: mt-Palatino.cfg 2012/03/10 v1.0 microtype config. file: Palatino and simi
 lar fonts (LBD)
 ))
-\tf@lot=\write6
-\openout6 = `survey.lot'.
+\tf@lot=\write7
+\openout7 = `survey.lot'.
 
 LaTeX Font Info:    Font shape `TU/texgyrepagella(0)/m/sl' in size <12> not ava
 ilable
 (Font)              Font shape `TU/texgyrepagella(0)/m/it' tried instead on inp
-ut line 189.
-[2] [3] [4] [5] [6] [7]
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.95116pt on input line 291.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00085pt on input line 291.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00064pt on input line 291.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.94882pt on input line 291.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 291.
-LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 291.
+ut line 205.
+[2]
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
+ine 213.
 
-Overfull \hbox (1.2045pt too wide) in paragraph at lines 291--291
+Package fancyhdr Warning: \headheight is too small (14.49998pt): 
+(fancyhdr)                Make it at least 15.84pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.84pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.34001pt}.
+
+[3]
+
+Package fancyhdr Warning: \headheight is too small (14.49998pt): 
+(fancyhdr)                Make it at least 15.84pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.84pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.34001pt}.
+
+[4]
+
+Package fancyhdr Warning: \headheight is too small (14.49998pt): 
+(fancyhdr)                Make it at least 15.84pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.84pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.34001pt}.
+
+[5]
+
+Package fancyhdr Warning: \headheight is too small (14.49998pt): 
+(fancyhdr)                Make it at least 15.84pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.84pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.34001pt}.
+
+[6]
+
+LaTeX Warning: Marginpar on page 7 moved.
+
+
+Package fancyhdr Warning: \headheight is too small (14.49998pt): 
+(fancyhdr)                Make it at least 15.84pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.84pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.34001pt}.
+
+[7]
+
+Package fancyhdr Warning: \headheight is too small (14.49998pt): 
+(fancyhdr)                Make it at least 15.84pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.84pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.34001pt}.
+
+[8] [9]
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
+(Font)              scaled to size 10.95116pt on input line 355.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
+(Font)              scaled to size 8.00085pt on input line 355.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
+(Font)              scaled to size 6.00064pt on input line 355.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
+(Font)              scaled to size 10.94882pt on input line 355.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
+(Font)              scaled to size 7.99915pt on input line 355.
+LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
+(Font)              scaled to size 5.99936pt on input line 355.
+
+Overfull \hbox (1.2045pt too wide) in paragraph at lines 355--355
  []|\TU/texgyrepagella(2)/b/n/10.95 Apprentice  
  []
 
 
-Overfull \hbox (223.18759pt too wide) in paragraph at lines 246--297
+Overfull \hbox (223.18759pt too wide) in paragraph at lines 310--361
  [] 
  []
 
-[8] [9] [10]
+[10] [11] [12]
 File: figures/timeline.png Graphic file (type bmp)
 <figures/timeline.png>
-[11] [12] [13] [14]
-Overfull \hbox (0.696pt too wide) in paragraph at lines 369--369
+[13] [14] [15] [16]
+Overfull \hbox (0.696pt too wide) in paragraph at lines 435--435
  []|\TU/texgyrepagella(2)/b/n/8 Employed 
  []
 
 
-Overfull \hbox (0.696pt too wide) in paragraph at lines 369--370
+Overfull \hbox (0.696pt too wide) in paragraph at lines 435--436
  \TU/texgyrepagella(2)/b/n/8 Employed 
  []
 
-[15] [16] [17] [18]
+[17] [18] [19] [20] [21]
 File: figures/fig-ageplot-1.pdf Graphic file (type pdf)
 <use figures/fig-ageplot-1.pdf>
-[19]
+[22]
 
 Package fontspec Info: Font family 'TimesNewRoman(0)' created for font 'Times
 (fontspec)             New Roman' with options
@@ -1661,64 +2028,76 @@ Package fontspec Info: Font family 'TimesNewRoman(0)' created for font 'Times
 
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
-[20] [21]
+[23] [24]
 File: figures/fig-clusters-1.pdf Graphic file (type pdf)
 <use figures/fig-clusters-1.pdf>
-[22] [23] [24] [25] [26]
-Overfull \hbox (2.933pt too wide) in paragraph at lines 713--713
+[25]
+Underfull \hbox (badness 1168) in paragraph at lines 747--748
+\TU/texgyrepagella(0)/m/n/12 correspond closely to the five base activity state
+s; we label them TRAIN,
+ []
+
+
+Underfull \hbox (badness 1308) in paragraph at lines 747--748
+\TU/texgyrepagella(0)/m/n/12 membership with the usual socio-economic character
+istics as covariates is
+ []
+
+[26] [27] [28] [29]
+Overfull \hbox (2.933pt too wide) in paragraph at lines 779--779
  []|\TU/texgyrepagella(2)/b/n/7 Overall| 
  []
 
 
-Overfull \hbox (1.806pt too wide) in paragraph at lines 713--713
+Overfull \hbox (1.806pt too wide) in paragraph at lines 779--779
  []|\TU/texgyrepagella(2)/b/n/7 Female| 
  []
 
 
-Overfull \hbox (17.95532pt too wide) in paragraph at lines 710--752
+Overfull \hbox (17.95532pt too wide) in paragraph at lines 776--818
  [] 
  []
 
-[27] [28] [29] [30] [31]
-Underfull \hbox (badness 1286) in paragraph at lines 784--785
+[30] [31] [32] [33]
+Underfull \hbox (badness 1286) in paragraph at lines 848--849
 \TU/texgyrepagella(0)/m/n/12 into wage employment, self-employment and inactivi
 ty at the tail end of
  []
 
-[32] [33]
-Underfull \hbox (badness 5681) in paragraph at lines 794--794
+[34] [35] [36]
+Underfull \hbox (badness 5681) in paragraph at lines 860--860
 \TU/texgyrepagella(0)/m/it/12 Methods: Opportunities and Challenges of Mobile R
 esearch Methodologies\TU/texgyrepagella(0)/m/n/12 .
  []
 
-[34] [35]
-Underfull \hbox (badness 1259) in paragraph at lines 794--794
+[37] [38]
+Underfull \hbox (badness 1259) in paragraph at lines 860--860
 [][]\TU/texgyrepagella(0)/m/n/12 Furnas, Hannah E. (Sept. 2016). “Capturing Com
 plexities of Relationship-
  []
 
-[36] [37] [38]
+[39] [40] [41]
 File: figures/littoral_carte.png Graphic file (type bmp)
 <figures/littoral_carte.png>
-[39] [40]
-Overfull \hbox (2.65033pt too wide) in paragraph at lines 907--933
+[42] [43]
+Overfull \hbox (2.65033pt too wide) in paragraph at lines 973--999
  [] 
  []
 
-[41] [42] [43] [44]
+[44] [45] [46] [47]
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(2)/m/n' will be
-(Font)              scaled to size 9.00096pt on input line 1068.
+(Font)              scaled to size 9.00096pt on input line 1134.
 LaTeX Font Info:    Font shape `TU/texgyrepagella-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.99904pt on input line 1068.
+(Font)              scaled to size 8.99904pt on input line 1134.
 
-Overfull \hbox (26.23833pt too wide) in paragraph at lines 1067--1122
+Overfull \hbox (26.23833pt too wide) in paragraph at lines 1133--1188
  [] 
  []
 
-[45] [46]
+[48] [49]
 File: figures/fig-survival-1.pdf Graphic file (type pdf)
 <use figures/fig-survival-1.pdf>
-[47] [48] [49] [50] [51] [52] [53] [54] [55] [56] (./survey.aux)
+[50] [51] [52] [53] [54] [55] [56] [57] [58] [59] (./survey.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -1727,12 +2106,12 @@ Package logreq Info: Writing requests to 'survey.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 31975 strings out of 476179
- 612861 string characters out of 5809544
- 1550490 words of memory out of 5000000
- 52163 multiletter control sequences out of 15000+600000
- 481696 words of font info for 178 fonts, out of 8000000 for 9000
+ 42672 strings out of 476179
+ 849373 string characters out of 5809544
+ 1786919 words of memory out of 5000000
+ 62637 multiletter control sequences out of 15000+600000
+ 482009 words of font info for 179 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 74i,19n,123p,3234b,5620s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 103i,19n,123p,3234b,5620s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on survey.pdf (56 pages).
+Output written on survey.pdf (59 pages).
